@@ -6,4 +6,8 @@ This GitHub repo contains the materials for the training session titled "Explori
 
 * **PDF**: <https://okanbulut.github.io/bigdata/big-data-in-r.pdf>
 
+* **Datasets**: <https://github.com/okanbulut/bigdata/tree/master/dataset>
+
+* **Cheat Sheets**: <https://github.com/okanbulut/bigdata/tree/master/Cheat_sheets>
+
 
