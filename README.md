@@ -1,6 +1,6 @@
 ## Exploring, Visualizing, and Modeling Big Data with R
 
-This GitHub repo contains the materials for the training session titled "Exploring, Visualizing, and Modeling Big Data with R" that we will present on Friday, April 5, 2019 at the annual meeting of [National Council on Measurement in Education](https://www.ncme.org/home). 
+This GitHub repo contains the materials for the training session titled "Exploring, Visualizing, and Modeling Big Data with R" that we will present on Friday, April 5, 2019 at the annual meeting of the [National Council on Measurement in Education](https://www.ncme.org/home). 
 
 * **Online version**: <https://okanbulut.github.io/bigdata/>
 
