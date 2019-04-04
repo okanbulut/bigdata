@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>4 Wrangling big data | Exploring, Visualizing, and Modeling Big Data with R</title>
+  <meta name="description" content="This book presents the materials for our NCME workshop on big data analysis in R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="4 Wrangling big data | Exploring, Visualizing, and Modeling Big Data with R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  <meta name="github-repo" content="okanbulut/bigdata" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Wrangling big data | Exploring, Visualizing, and Modeling Big Data with R />
+  
+  <meta name="twitter:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  
+
+<meta name="author" content="Okan Bulut">
+<meta name="author" content="Christopher Desjardins">
+
+
+<meta name="date" content="2019-04-04">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="eda.html">
+<link rel="next" href="visualizing-big-data.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Exploring, Visualizing, and Modeling Big Data in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#summary"><i class="fa fa-check"></i><b>1.1</b> Summary</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#who-we-are"><i class="fa fa-check"></i><b>1.2</b> Who we are</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-big-data"><i class="fa fa-check"></i><b>2.1</b> What is big data?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#why-is-big-data-important"><i class="fa fa-check"></i><b>2.2</b> Why is big data important?</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#how-do-we-analyze-big-data"><i class="fa fa-check"></i><b>2.3</b> How do we analyze big data?</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#additional-resources"><i class="fa fa-check"></i><b>2.4</b> Additional resources</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#pisa-dataset"><i class="fa fa-check"></i><b>2.5</b> PISA dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#what-is-exploratory-data-analysis"><i class="fa fa-check"></i><b>3.1</b> What is exploratory data analysis?</a></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#confirmatory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Confirmatory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#a-framework-for-eda"><i class="fa fa-check"></i><b>3.3</b> A framework for EDA</a></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#eda-tools"><i class="fa fa-check"></i><b>3.4</b> EDA tools</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling big data</a><ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#what-is-data.table"><i class="fa fa-check"></i><b>4.1</b> What is <code>data.table</code>?</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#why-use-data.table-over-tidyverse"><i class="fa fa-check"></i><b>4.1.1</b> Why use <code>data.table</code> over <code>tidyverse</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#readingwriting-data-with-data.table"><i class="fa fa-check"></i><b>4.2</b> Reading/writing data with <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-i-in-data.table"><i class="fa fa-check"></i><b>4.3</b> Using the i in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-1"><i class="fa fa-check"></i><b>4.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-j-in-data.table"><i class="fa fa-check"></i><b>4.4</b> Using the j in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-2"><i class="fa fa-check"></i><b>4.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#summarizing-using-the-by-in-data.table"><i class="fa fa-check"></i><b>4.5</b> Summarizing using the by in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.5.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-3"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#reshaping-data"><i class="fa fa-check"></i><b>4.6</b> Reshaping data</a></li>
+<li class="chapter" data-level="4.7" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#the-sparklyr-package"><i class="fa fa-check"></i><b>4.7</b> The <code>sparklyr</code> package</a></li>
+<li class="chapter" data-level="4.8" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#lab"><i class="fa fa-check"></i><b>4.8</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html"><i class="fa fa-check"></i><b>5</b> Visualizing big data</a><ul>
+<li class="chapter" data-level="5.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#introduction-to-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Introduction to <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#marginal-plots"><i class="fa fa-check"></i><b>5.2</b> Marginal plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise"><i class="fa fa-check"></i><b>5.2.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#conditional-plots"><i class="fa fa-check"></i><b>5.3</b> Conditional plots</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-1"><i class="fa fa-check"></i><b>5.3.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-correlations"><i class="fa fa-check"></i><b>5.4</b> Plots for examining correlations</a></li>
+<li class="chapter" data-level="5.5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-means-by-group"><i class="fa fa-check"></i><b>5.5</b> Plots for examining means by group</a></li>
+<li class="chapter" data-level="5.6" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-ordinalcategorical-variables"><i class="fa fa-check"></i><b>5.6</b> Plots for ordinal/categorical variables</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-2"><i class="fa fa-check"></i><b>5.6.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>5.7</b> Interactive plots with <code>plotly</code></a><ul>
+<li class="chapter" data-level="5.7.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-3"><i class="fa fa-check"></i><b>5.7.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#customizing-visualizations"><i class="fa fa-check"></i><b>5.8</b> Customizing visualizations</a></li>
+<li class="chapter" data-level="5.9" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#lab-1"><i class="fa fa-check"></i><b>5.9</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="modeling-big-data.html"><a href="modeling-big-data.html"><i class="fa fa-check"></i><b>6</b> Modeling big data</a><ul>
+<li class="chapter" data-level="6.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#introduction-to-machine-learning"><i class="fa fa-check"></i><b>6.1</b> Introduction to machine learning</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#focus-of-machine-learning"><i class="fa fa-check"></i><b>6.1.1</b> Focus of machine learning</a></li>
+<li class="chapter" data-level="6.1.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#some-concepts-underlying-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Some concepts underlying machine learning</a></li>
+<li class="chapter" data-level="6.1.3" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-development"><i class="fa fa-check"></i><b>6.1.3</b> Model development</a></li>
+<li class="chapter" data-level="6.1.4" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-evaluation"><i class="fa fa-check"></i><b>6.1.4</b> Model evaluation</a></li>
+<li class="chapter" data-level="6.1.5" data-path="modeling-big-data.html"><a href="modeling-big-data.html#key-issues"><i class="fa fa-check"></i><b>6.1.5</b> Key issues</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#types-of-machine-learning"><i class="fa fa-check"></i><b>6.2</b> Types of machine learning</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html"><i class="fa fa-check"></i><b>7</b> Supervised Machine Learning - Part I</a><ul>
+<li class="chapter" data-level="7.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#regression-trees"><i class="fa fa-check"></i><b>7.1.1</b> Regression trees</a></li>
+<li class="chapter" data-level="7.1.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#classification-trees"><i class="fa fa-check"></i><b>7.1.2</b> Classification trees</a></li>
+<li class="chapter" data-level="7.1.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#pruning-decision-trees"><i class="fa fa-check"></i><b>7.1.3</b> Pruning decision trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees-in-r"><i class="fa fa-check"></i><b>7.2</b> Decision trees in R</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#cross-validation"><i class="fa fa-check"></i><b>7.2.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests"><i class="fa fa-check"></i><b>7.3</b> Random Forests</a></li>
+<li class="chapter" data-level="7.4" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests-in-r"><i class="fa fa-check"></i><b>7.4</b> Random forests in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html"><i class="fa fa-check"></i><b>8</b> Supervised Machine Learning - Part II</a><ul>
+<li class="chapter" data-level="8.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machines"><i class="fa fa-check"></i><b>8.1</b> Support Vector Machines</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#maximal-margin-classifier"><i class="fa fa-check"></i><b>8.1.1</b> Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="8.1.2" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-classifier"><i class="fa fa-check"></i><b>8.1.2</b> Support Vector Classifier</a></li>
+<li class="chapter" data-level="8.1.3" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machine"><i class="fa fa-check"></i><b>8.1.3</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="8.1.4" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#lab-2"><i class="fa fa-check"></i><b>8.1.4</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#clustering"><i class="fa fa-check"></i><b>9.1</b> Clustering</a></li>
+<li class="chapter" data-level="9.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#distance-measures"><i class="fa fa-check"></i><b>9.2</b> Distance Measures</a></li>
+<li class="chapter" data-level="9.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering"><i class="fa fa-check"></i><b>9.3</b> K-means clustering</a></li>
+<li class="chapter" data-level="9.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering-in-r"><i class="fa fa-check"></i><b>9.4</b> K-means clustering in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>10</b> Summary</a><ul>
+<li class="chapter" data-level="10.1" data-path="summary-1.html"><a href="summary-1.html#topics-covered"><i class="fa fa-check"></i><b>10.1</b> Topics covered</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="summary-1.html"><a href="summary-1.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>10.1.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="10.1.2" data-path="summary-1.html"><a href="summary-1.html#supervised-learning"><i class="fa fa-check"></i><b>10.1.2</b> Supervised learning</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summary-1.html"><a href="summary-1.html#methods-we-didnt-cover"><i class="fa fa-check"></i><b>10.2</b> Methods we didn’t cover</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/okanbulut/bigdata" target="blank">All rights reserved</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring, Visualizing, and Modeling Big Data with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="wrangling-big-data" class="section level1">
+<h1><span class="header-section-number">4</span> Wrangling big data</h1>
+<p>Data wrangling is a general term that refers to transforming data. Wrangling could involve subsetting, recoding, and transforming variables. For the workshop, we’ll also include summarizing data as wrangling as it fits within our discussion of the <code>data.table</code> and <code>sparklyr</code> packages. However, summarizing might more appropriately occur during data exploration/initial data analysis.</p>
+<div id="what-is-data.table" class="section level2">
+<h2><span class="header-section-number">4.1</span> What is <code>data.table</code>?</h2>
+<p>From the <code>data.table</code> wiki</p>
+<blockquote>
+<p>It is a high-performance version of base R’s <code>data.frame</code> with syntax and feature enhancements for ease of use, convenience and programming speed.</p>
+</blockquote>
+<p>Its syntax is designed to be concise and consistent. It’s somewhat similar to base R, but arguably less intuitive than <code>tidyverse</code>. We, and many others, would say that <code>data.table</code> is one of the most underrated package out there.</p>
+<p>If you’re familiar with SQL, then working with a <code>data.table</code> (DT) is conceptually similar to querying.</p>
+<pre class="sourceCode r"><code class="sourceCode r">DT[i, j, by]
+
+  R<span class="op">:</span><span class="st">                 </span>i                 j        by
+SQL<span class="op">:</span><span class="st">  </span>where <span class="op">|</span><span class="st"> </span>order by   select <span class="op">|</span><span class="st"> </span>update  group by</code></pre>
+<p>This should be read as take <code>DT</code>, subset ( or order) rows using <code>i</code>, then calculate <code>j</code>, and group by <code>by</code>. A graphical depiction of this “grammar”, created by one of the developers of <code>data.table</code>, is shown in Figure <a href="wrangling-big-data.html#fig:dtvis">4.1</a>.</p>
+<center>
+<div class="figure"><span id="fig:dtvis"></span>
+<img src="images/dtvis.png" alt="Source: https://tinyurl.com/yyepwjpt." width="80%" />
+<p class="caption">
+Figure 4.1: Source: <a href="https://tinyurl.com/yyepwjpt" class="uri">https://tinyurl.com/yyepwjpt</a>.
+</p>
+</div>
+</center>
+<p>The <code>data.table</code> package needs to be installed and loaded throughout the workshop.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;data.table&quot;</span>)
+<span class="kw">library</span>(data.table)</code></pre>
+<p>Throughout the workshop, we will write DT code as:</p>
+<pre class="sourceCode r"><code class="sourceCode r">DT[i,
+   j,
+   by]</code></pre>
+<p>That is, we will use write separate lines for the i, j, and by DT statements.</p>
+<div id="why-use-data.table-over-tidyverse" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Why use <code>data.table</code> over <code>tidyverse</code>?</h3>
+<p>If you’re familiar with R, then you might wonder why we are using DT and not <code>tidyverse</code>? This has to do with memory management and speed.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#</span>
+<span class="co"># Benchmark #1 - Reading in data</span>
+<span class="co">#</span>
+
+<span class="kw">system.time</span>({<span class="kw">read.csv</span>(<span class="st">&quot;data/pisa2015.csv&quot;</span>)})
+<span class="kw">system.time</span>({<span class="kw">fread</span>(<span class="st">&quot;data/pisa2015.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)})
+<span class="kw">system.time</span>({<span class="kw">read_csv</span>(<span class="st">&quot;data/pisa2015.csv&quot;</span>)})
+
+<span class="co">#</span>
+<span class="co"># Benchmark #2 - Calculating a conditional mean</span>
+<span class="co">#</span>
+
+<span class="co">#&#39; Calculate proportion that strongly agreed to an item</span>
+<span class="co">#&#39; @param x likert-type item as a numeric vector</span>
+getSA &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">mean</span>(x <span class="op">==</span><span class="st"> &quot;Strongly agree&quot;</span>, ...)
+
+<span class="co"># read in data using fread()</span>
+pisa &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&quot;data/pisa2015.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)
+
+<span class="co"># calculate conditional means</span>
+<span class="co"># This is the proportion of students in each country that </span>
+<span class="co"># strongly agree that </span>
+<span class="co"># &quot;I want top grades in most or all of my courses.&quot;</span>
+<span class="kw">benchmark</span>(
+  <span class="st">&quot;baseR&quot;</span> =<span class="st"> </span>{
+    X &lt;-<span class="st"> </span><span class="kw">aggregate</span>(ST119Q01NA <span class="op">~</span><span class="st"> </span>CNTRYID, <span class="dt">data =</span> pisa, getSA, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  },
+  <span class="st">&quot;data.table&quot;</span> =<span class="st"> </span>{
+    X &lt;-<span class="st"> </span>pisa[, 
+              <span class="kw">getSA</span>(ST119Q01NA, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), 
+              by =<span class="st"> </span>CNTRYID]
+  },
+  <span class="st">&quot;tidyverse&quot;</span> =<span class="st"> </span>{
+    X &lt;-<span class="st"> </span>pisa <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">group_by</span>(CNTRYID) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">summarize</span>(<span class="kw">getSA</span>(ST119Q01NA, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+  },
+  <span class="dt">replications =</span> <span class="dv">1000</span>)</code></pre>
+<p>Table <a href="wrangling-big-data.html#tab:benchresults">4.1</a> shows the results of this (relatively) unscientific minibenchmark. The first column is the method, the second column is elapsed time (in seconds) to read in the <strong>pisa</strong> data set (only once, though similar results/pattern is found if repeated), and the third column is the elapsed time (in seconds) to calculate the conditional mean 1000 times. We see that <code>data.table</code> is substantially faster than base R and the <code>tidyverse</code>.</p>
+<table>
+<caption><span id="tab:benchresults">Table 4.1: </span>Comparing base R, data.table, and tidyverse.</caption>
+<thead>
+<tr class="header">
+<th align="left">Method</th>
+<th align="right">Reading in data</th>
+<th align="right">Conditional mean (1000 times)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">base R</td>
+<td align="right">225.51</td>
+<td align="right">196.59</td>
+</tr>
+<tr class="even">
+<td align="left">data.table</td>
+<td align="right">46.80</td>
+<td align="right">27.73</td>
+</tr>
+<tr class="odd">
+<td align="left">tidyverse</td>
+<td align="right">233.72</td>
+<td align="right">159.22</td>
+</tr>
+</tbody>
+</table>
+<p>This extends to other data wrangling procedures (e.g., reshaping, recoding). Importantly, <code>tidyverse</code> is not designed for big data but instead for data science, more generally. From Grolemund &amp; Wickham (2017)</p>
+<blockquote>
+<p>“This book (R for Data Science) proudly focuses on small, in-memory datasets. This is the right place to start because you cannot tackle big data unless you have experience with small data. The tools you learn in this book will easily handle hundreds of megabytes of data, and with a little care you can typically use them to work with 1-2 Gb of data. If you are routinely working with larger data (10-100 Gb, say), you should learn more about data.table. This book does not teach data.table because it has a very concise interface which makes it harder to learn since it offers fewer linguistic cues. But if you are working with large data, the performance payoff is worth the extra effort required to learn it.”</p>
+</blockquote>
+</div>
+</div>
+<div id="readingwriting-data-with-data.table" class="section level2">
+<h2><span class="header-section-number">4.2</span> Reading/writing data with <code>data.table</code></h2>
+<p>The <code>fread</code> function should always be used when reading in large data sets and arguably when ever you read in a CSV file. As shown above, <code>read.csv</code> and <code>readr::read_csv</code> are painfully slow with big data.</p>
+<p>Throughout the workshop we’ll be using the <strong>pisa</strong> data set. Therefore, we begin by reading in (or importing) the data set</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&quot;data/pisa2015.csv&quot;</span>, <span class="dt">na.strings =</span> <span class="st">&quot;&quot;</span>)</code></pre>
+<p>To see the <strong>class</strong> the object <code>pisa</code> is and how big it is in R</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(pisa)</code></pre>
+<pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">object.size</span>(pisa), <span class="dt">unit =</span> <span class="st">&quot;GB&quot;</span>)</code></pre>
+<pre><code>## 3.5 Gb</code></pre>
+<p>We see that objects that are read in with <code>fread</code> are of class <code>data.table</code> and <code>data.frame</code>. That means that methods for data.tables and data.frames will work on these objects. We also see this data set uses up 3.5 Gb of memory and this is all in the memory (RAM) not on the disk and allocated to memory dynamically (this is what SAS does).</p>
+<p>If we wanted to write <code>pisa</code> back to a CSV to share with a colleague or to use in another program after some wrangling, then we should use the <code>fwrite</code> function instead of <code>write.csv</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fwrite</span>(pisa, <span class="dt">file =</span> <span class="st">&quot;pisa2015.csv&quot;</span>)</code></pre>
+The following image (Figure <a href="wrangling-big-data.html#fig:dtcomp">4.2</a>), taken from Matt Dowle’s blog, shows the speed difference using common ways to save R objects and the differences in sizes of these files.
+<center>
+<div class="figure"><span id="fig:dtcomp"></span>
+<img src="images/dtcomp.png" alt="Time to write an R object to a file. Source: https://tinyurl.com/y366kvfx." width="80%" />
+<p class="caption">
+Figure 4.2: Time to write an R object to a file. Source: <a href="https://tinyurl.com/y366kvfx" class="uri">https://tinyurl.com/y366kvfx</a>.
+</p>
+</div>
+</center>
+<p>In the event that you did <strong>just</strong> want to read the data in using the <code>fread()</code> function but then wanted to work with a tibble (tidyverse) or a data.frame, you can convert the data set after its been read in:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa.tib &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw">as_tibble</span>(pisa)
+pisa.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(pisa)</code></pre>
+<p>However, I strongly recommend against this approach unless you have done some amount of subsetting. If your data set is large enough to benefit appreciably by <code>fread</code> then you should try and use the <code>data.table</code> package.</p>
+<p>For the workshop, we have created two smaller versions of the <strong>pisa</strong> data set for those of you with less beefy computers. The first is a file called <code>region6.csv</code> and it was created by</p>
+<pre class="sourceCode r"><code class="sourceCode r">region6 &lt;-<span class="st"> </span><span class="kw">subset</span>(pisa, CNT <span class="op">%in%</span><span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;United States&quot;</span>, <span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>,
+                                    <span class="st">&quot;B-S-J-G (China)&quot;</span>, <span class="st">&quot;Japan&quot;</span>, <span class="st">&quot;Korea&quot;</span>,
+                                    <span class="st">&quot;Germany&quot;</span>, <span class="st">&quot;Italy&quot;</span>, <span class="st">&quot;France&quot;</span>, <span class="st">&quot;Brazil&quot;</span>,
+                                    <span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Uruguay&quot;</span>, <span class="st">&quot;Australia&quot;</span>,
+                                    <span class="st">&quot;New Zealand&quot;</span>, <span class="st">&quot;Jordan&quot;</span>, <span class="st">&quot;Israel&quot;</span>, <span class="st">&quot;Lebanon&quot;</span>))
+<span class="kw">fwrite</span>(region6, <span class="dt">file =</span> <span class="st">&quot;region6.csv&quot;</span>)</code></pre>
+<p>These are the 6 regions that will be covered during data visualization and can be used for the exercises and labs. The other file is a random sample of one country from each regions for even less powerful computers, which can also be used.</p>
+<pre class="sourceCode r"><code class="sourceCode r">random6 &lt;-<span class="st"> </span><span class="kw">subset</span>(pisa, CNT <span class="op">%in%</span><span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;Uruguay&quot;</span>, <span class="st">&quot;Japan&quot;</span>,
+                                    <span class="st">&quot;Germany&quot;</span>, <span class="st">&quot;New Zealand&quot;</span>, <span class="st">&quot;Lebanon&quot;</span>))
+<span class="kw">fwrite</span>(random6, <span class="dt">file =</span> <span class="st">&quot;random6.csv&quot;</span>)</code></pre>
+<div id="exercises" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Read in the <strong>pisa</strong> data set. Either the full data set (recommended to have &gt; 8 Gb of RAM) or one of the smaller data sets.</li>
+</ol>
+</div>
+</div>
+<div id="using-the-i-in-data.table" class="section level2">
+<h2><span class="header-section-number">4.3</span> Using the i in <code>data.table</code></h2>
+<p>One of the first things we need to do when data wrangling is subsetting. Subsetting with <code>data.table</code> is very similar to base R but not identical. For example, if we wanted to subset all the students from Mexico who are currently taking Physics, i.e., they checked the item “Which <school science> course did you attend? Physics: This year” (ST063Q01NA) we would do the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[CNTRYID <span class="op">==</span><span class="st"> &quot;Mexico&quot;</span> <span class="op">&amp;</span><span class="st"> </span>ST063Q01NA <span class="op">==</span><span class="st"> &quot;Checked&quot;</span>]
+
+<span class="co"># or (identical to base R)</span>
+<span class="kw">subset</span>(pisa, CNTRYID <span class="op">==</span><span class="st"> &quot;Mexico&quot;</span> <span class="op">&amp;</span><span class="st"> </span>ST063Q01NA <span class="op">==</span><span class="st"> &quot;Checked&quot;</span>)</code></pre>
+<p>Note that with <code>data.table</code> we do not need to use the <code>$</code> operator to access a variable in a <code>data.table</code> object. This is one improvement to the syntax of a <code>data.frame</code>.</p>
+<p>Typing the name of a <code>data.table</code> won’t print all the rows by default like a <code>data.frame</code>. Instead it prints just the first and last 5 rows.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa</code></pre>
+<p>This is extremely helpful because when we have a object in R, it often defaults to printing the entire object and this has the negative consequence of endless output if we type just the name of a very large object.</p>
+<p>Because we have 921 variables, <code>data.table</code> will still truncate this output. If we want to view just the rows 10 through 25.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[<span class="dv">10</span><span class="op">:</span><span class="dv">25</span>]</code></pre>
+<p>However, with this many columns it is useless to print all of them and instead we should focus on examining just the columns we’re interested in and we will see how to do this when we examine the <code>j</code> operator.</p>
+<p>Often when data wrangling we would like to perform multiple steps without needing to create intermediate variables. This is known as <strong>chaining</strong>. Chaining can be done in <code>data.table</code> via</p>
+<pre class="sourceCode r"><code class="sourceCode r">DT[ ...
+   ][ ...
+     ][ ...
+       ]</code></pre>
+<p>For example, if we wanted to just see rows 17 through 20 after we’ve done previous subset, we can chain together these commands:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[CNTRYID <span class="op">==</span><span class="st"> &quot;Mexico&quot;</span> <span class="op">&amp;</span><span class="st"> </span>ST063Q01NA <span class="op">==</span><span class="st"> &quot;Checked&quot;</span>
+     ][<span class="dv">17</span><span class="op">:</span><span class="dv">20</span>]</code></pre>
+<p>When we’re wrangling data, it’s common and quite helpful to reorder rows. This can be done using the <code>order()</code> function. First, we print the first 6 six elements of the CNTRYID using the default ordering in the <strong>pisa</strong> data. Then we reorder the data by country name in a descending order and then print the first 6 six elements again using chaining.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(pisa<span class="op">$</span>CNTRYID)</code></pre>
+<pre><code>## [1] &quot;Albania&quot; &quot;Albania&quot; &quot;Albania&quot; &quot;Albania&quot; &quot;Albania&quot; &quot;Albania&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[<span class="kw">order</span>(CNTRYID, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
+     ][,
+       <span class="kw">head</span>(CNTRYID)]</code></pre>
+<pre><code>## [1] &quot;Vietnam&quot; &quot;Vietnam&quot; &quot;Vietnam&quot; &quot;Vietnam&quot; &quot;Vietnam&quot; &quot;Vietnam&quot;</code></pre>
+<div id="exercises-1" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Subset all the Female students (ST004D01T) in Germany</li>
+<li>How many female students are there in Germany?</li>
+<li>The <code>.N</code> function returns the length of a vector/number of rows. Use chaining with the <code>.N</code> function to answer Exercise 2.</li>
+</ol>
+</div>
+</div>
+<div id="using-the-j-in-data.table" class="section level2">
+<h2><span class="header-section-number">4.4</span> Using the j in <code>data.table</code></h2>
+<p>Using j we can select columns, summarize variables by performing actions on the variables, and create new variables. If we wanted to just select the country identifier:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[,
+     CNTRYID]</code></pre>
+<p>However, this returns a vector not a <code>data.table</code>. If we wanted instead to return a <code>data.table</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[, 
+     <span class="kw">list</span>(CNTRYID)]</code></pre>
+<pre><code>##                                       CNTRYID
+##      1:                               Albania
+##      2:                               Albania
+##      3:                               Albania
+##      4:                               Albania
+##      5:                               Albania
+##     ---                                      
+## 519330: Argentina (Ciudad Autónoma de Buenos)
+## 519331: Argentina (Ciudad Autónoma de Buenos)
+## 519332: Argentina (Ciudad Autónoma de Buenos)
+## 519333: Argentina (Ciudad Autónoma de Buenos)
+## 519334: Argentina (Ciudad Autónoma de Buenos)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[,
+     .(CNTRYID)]</code></pre>
+<pre><code>##                                       CNTRYID
+##      1:                               Albania
+##      2:                               Albania
+##      3:                               Albania
+##      4:                               Albania
+##      5:                               Albania
+##     ---                                      
+## 519330: Argentina (Ciudad Autónoma de Buenos)
+## 519331: Argentina (Ciudad Autónoma de Buenos)
+## 519332: Argentina (Ciudad Autónoma de Buenos)
+## 519333: Argentina (Ciudad Autónoma de Buenos)
+## 519334: Argentina (Ciudad Autónoma de Buenos)</code></pre>
+<p>The <code>.()</code> is <code>data.table</code> shorthand for <code>list()</code>. To subset more than one variable, we can just add another variable within the <code>.()</code>. For example, if we also wanted to select the science self-efficacy scale (SCIEEFF) as well, we do the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[,
+     .(CNTRYID, SCIEEFF)]</code></pre>
+<pre><code>##                                       CNTRYID SCIEEFF
+##      1:                               Albania      NA
+##      2:                               Albania      NA
+##      3:                               Albania      NA
+##      4:                               Albania      NA
+##      5:                               Albania      NA
+##     ---                                              
+## 519330: Argentina (Ciudad Autónoma de Buenos) -0.8799
+## 519331: Argentina (Ciudad Autónoma de Buenos)  0.9802
+## 519332: Argentina (Ciudad Autónoma de Buenos) -0.5696
+## 519333: Argentina (Ciudad Autónoma de Buenos) -0.7065
+## 519334: Argentina (Ciudad Autónoma de Buenos) -0.3609</code></pre>
+<p>If we wanted see how many students took physics in Japan and Mexico, we would do the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[CNTRYID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;Japan&quot;</span>),
+     <span class="kw">table</span>(ST063Q01NA)]</code></pre>
+<pre><code>## ST063Q01NA
+##     Checked Not checked 
+##        4283        9762</code></pre>
+<p>Because <code>data.table</code> treats string variables as character variables by default we see that when they are printed they are printed alphabetically, which in this case is fine but is often unhelpful. We can chain together variables and create an intermediate tense variable to get this in the correct format. However, when we want to know how students in Mexico and Japan responded to “I get very tense when I study for a test.”</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[CNTRYID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;Japan&quot;</span>),
+     <span class="kw">table</span>(ST118Q04NA)]</code></pre>
+<pre><code>## ST118Q04NA
+##             Agree          Disagree    Strongly agree Strongly disagree 
+##              4074              5313              1760              2904</code></pre>
+<p>We see that the output is unhelpful. Instead, we should convert the character vector into a factor and we will create an intermediate variable called <code>tense</code>, which we won’t add to our data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[CNTRYID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;Japan&quot;</span>),
+     .(<span class="dt">tense =</span> <span class="kw">factor</span>(ST118Q04NA, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Strongly disagree&quot;</span>, <span class="st">&quot;Disagree&quot;</span>, <span class="st">&quot;Agree&quot;</span>, <span class="st">&quot;Strongly agree&quot;</span>)))
+     ][,
+       <span class="kw">table</span>(tense)
+     ]</code></pre>
+<pre><code>## tense
+## Strongly disagree          Disagree             Agree    Strongly agree 
+##              2904              5313              4074              1760</code></pre>
+<p>Quick digression, in case you were wondering why base R reads strings in as factors and not characters by default (which <code>data.table</code> and <code>readr::read_csv</code> do),</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[, .(<span class="dt">tense.as.char =</span> ST118Q04NA,
+         <span class="dt">tense.as.fac =</span> <span class="kw">factor</span>(ST118Q04NA, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Strongly disagree&quot;</span>, <span class="st">&quot;Disagree&quot;</span>, <span class="st">&quot;Agree&quot;</span>, <span class="st">&quot;Strongly agree&quot;</span>)))
+     ][,
+       .(<span class="dt">character =</span> <span class="kw">object.size</span>(tense.as.char),
+         <span class="dt">factor =</span> <span class="kw">object.size</span>(tense.as.fac))
+     ]</code></pre>
+<pre><code>##        character        factor
+## 1: 4154984 bytes 2078064 bytes</code></pre>
+<p>Returning to the science self-efficacy scale, we can request summary information for just these two countries:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[CNTRYID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;Japan&quot;</span>),
+     .(<span class="dt">xbar =</span> <span class="kw">mean</span>(SCIEEFF, <span class="dt">na.rm =</span> T),
+       <span class="dt">sigma =</span> <span class="kw">sd</span>(SCIEEFF, <span class="dt">na.rm =</span> T),
+       <span class="dt">minimum =</span> <span class="kw">min</span>(SCIEEFF, <span class="dt">na.rm =</span> T),
+       <span class="dt">med =</span> <span class="kw">median</span>(SCIEEFF, <span class="dt">na.rm =</span> T),
+       <span class="dt">maximum =</span> <span class="kw">max</span>(SCIEEFF, <span class="dt">na.rm =</span> T))]</code></pre>
+<pre><code>##           xbar    sigma minimum     med maximum
+## 1: -0.08693672 1.216052 -3.7565 -0.0541  3.2775</code></pre>
+<p>We can create a quick plot this way, too. For example, if we wanted a create a scatter plot of the science self-efficacy scale against the enjoyment of science scale (JOYSCIE) for just these two countries and print the mean of the enjoyment of science scale, we can do the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[CNTRYID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;Japan&quot;</span>),
+     .(<span class="kw">plot</span>(<span class="dt">y =</span> SCIEEFF, <span class="dt">x =</span> JOYSCIE, 
+            <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dt">red =</span> <span class="dv">0</span>, <span class="dt">green =</span> <span class="dv">0</span>, <span class="dt">blue =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)), 
+       <span class="dt">xbar.joyscie =</span> <span class="kw">mean</span>(JOYSCIE, <span class="dt">na.rm =</span> T))]</code></pre>
+<p><img src="big-data-in-r_files/figure-html/scatjoy-1.png" width="672" /></p>
+<pre><code>##    xbar.joyscie
+## 1:   0.06140002</code></pre>
+<p>This example is kind of silly but it shows that j is incredibly flexible and that we can string together a bunch of commands using j without even needing to do chaining.</p>
+<p>Let’s say we need to recode “After leaving school did you: Eat dinner” from a character variable to a numeric variable. We can do this with a series of if else statements</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(pisa<span class="op">$</span>ST078Q01NA)</code></pre>
+<pre><code>## 
+##     No    Yes 
+##  23617 373131</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[,
+     <span class="st">&quot;eat.dinner&quot;</span> <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">sapply</span>(ST078Q01NA,
+                            <span class="cf">function</span>(x) {
+                              <span class="cf">if</span> (<span class="kw">is.na</span>(x)) <span class="ot">NA</span>
+                              <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">==</span><span class="st"> &quot;No&quot;</span>) 0L
+                              <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">==</span><span class="st"> &quot;Yes&quot;</span>) 1L
+                            })
+     ][,
+       <span class="kw">table</span>(eat.dinner)
+       ]</code></pre>
+<pre><code>## eat.dinner
+##      0      1 
+##  23617 373131</code></pre>
+<p>In this example we created a new variable called <code>eat.dinner</code> using <code>:=</code> the function. The <code>:=</code> syntax adds this variable directly to the DT. We also specified the <code>L</code> to ensure the variable was treated as an integer and not a double, which uses less memory.</p>
+<p>We should create a function to do this recoding as there are lots of dichotomous items in the <strong>pisa</strong> data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; Convert a dichtomous item (yes/no) to numeric scoring</span>
+<span class="co">#&#39; @param x a character vector containing &quot;Yes&quot; and &quot;No&quot; responses.</span>
+bin.to.num &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+  <span class="cf">if</span> (<span class="kw">is.na</span>(x)) <span class="ot">NA</span>
+  <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">==</span><span class="st"> &quot;Yes&quot;</span>) 1L
+  <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">==</span><span class="st"> &quot;No&quot;</span>) 0L
+}</code></pre>
+<p>Then use this function to create some variables as well as recoding gender to give it a more intuitive variable name.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[, <span class="st">`</span><span class="dt">:=</span><span class="st">`</span> 
+     (<span class="dt">female =</span> <span class="kw">ifelse</span>(ST004D01T <span class="op">==</span><span class="st"> &quot;Female&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>),
+       <span class="dt">sex =</span> ST004D01T,
+       
+       <span class="co"># At my house we have ...</span>
+       <span class="dt">desk =</span> <span class="kw">sapply</span>(ST011Q01TA, bin.to.num),
+       <span class="dt">own.room =</span> <span class="kw">sapply</span>(ST011Q02TA, bin.to.num),
+       <span class="dt">quiet.study =</span> <span class="kw">sapply</span>(ST011Q03TA, bin.to.num),
+       <span class="dt">computer =</span> <span class="kw">sapply</span>(ST011Q04TA, bin.to.num),
+       <span class="dt">software =</span> <span class="kw">sapply</span>(ST011Q05TA, bin.to.num),
+       <span class="dt">internet =</span> <span class="kw">sapply</span>(ST011Q06TA, bin.to.num),
+       <span class="dt">lit =</span> <span class="kw">sapply</span>(ST011Q07TA, bin.to.num),
+       <span class="dt">poetry =</span> <span class="kw">sapply</span>(ST011Q08TA, bin.to.num),
+       <span class="dt">art =</span> <span class="kw">sapply</span>(ST011Q09TA, bin.to.num),
+       <span class="dt">book.sch =</span> <span class="kw">sapply</span>(ST011Q10TA, bin.to.num),
+       <span class="dt">tech.book =</span> <span class="kw">sapply</span>(ST011Q11TA, bin.to.num),
+       <span class="dt">dict =</span> <span class="kw">sapply</span>(ST011Q12TA, bin.to.num),
+       <span class="dt">art.book =</span> <span class="kw">sapply</span>(ST011Q16NA, bin.to.num))]</code></pre>
+<p>Similarly, we can create new variables by combining pre-existing ones. In the later data visualization section, we will use the following variables, so we will create them now. The <code>rowMeans</code> function takes a data.frame, so we need to subset the variables from the <strong>pisa</strong> data set and then convert it to a data.frame. This is what the brackets are doing.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[, <span class="st">`</span><span class="dt">:=</span><span class="st">`</span>
+     (<span class="dt">math =</span> <span class="kw">rowMeans</span>(pisa[, <span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;PV&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="st">&quot;MATH&quot;</span>))], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+       <span class="dt">reading =</span> <span class="kw">rowMeans</span>(pisa[, <span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;PV&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="st">&quot;READ&quot;</span>))], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+       <span class="dt">science =</span> <span class="kw">rowMeans</span>(pisa[, <span class="kw">c</span>(<span class="kw">paste0</span>(<span class="st">&quot;PV&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="st">&quot;SCIE&quot;</span>))], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))]</code></pre>
+<div id="exercises-2" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>The computer and software variables that were created above ask a student whether they had a computer in their home that they can use for school work (computer) and whether they had educational software in their home (software). Find the proportion of students in the Germany and Uruguay that have a computer in their home or have educational software.</p></li>
+<li><p>For just female students, find the proportion of students who have their own room (own.room) or a quiet place to study (quiet.study).</p></li>
+</ol>
+</div>
+</div>
+<div id="summarizing-using-the-by-in-data.table" class="section level2">
+<h2><span class="header-section-number">4.5</span> Summarizing using the by in <code>data.table</code></h2>
+<p>With the by argument, we can now get conditional responses without the need to subset. If we want to know the proportion of students in each country that have their own room at home.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[,
+     .(<span class="kw">mean</span>(own.room, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)),
+     by =<span class="st"> </span>.(CNTRYID)
+     ][<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,
+     ]</code></pre>
+<pre><code>##      CNTRYID        V1
+## 1:   Albania       NaN
+## 2:   Algeria 0.5187970
+## 3: Australia 0.9216078
+## 4:   Austria 0.9054462
+## 5:   Belgium 0.9153612
+## 6:    Brazil 0.7497861</code></pre>
+<p>Again, we can reorder this using chaining:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[,
+     .(<span class="dt">own.room =</span> <span class="kw">mean</span>(own.room, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)),
+     by =<span class="st"> </span>.(<span class="dt">country =</span> CNTRYID)
+     ][<span class="kw">order</span>(own.room, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
+       ][<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>
+         ]</code></pre>
+<pre><code>##        country  own.room
+## 1:     Iceland 0.9862721
+## 2: Netherlands 0.9750188
+## 3:      Norway 0.9737686
+## 4:      Sweden 0.9558879
+## 5:     Finland 0.9440994
+## 6:     Germany 0.9379274</code></pre>
+<p>What if we want to compare just the Canada and Iceland on the proportion of students that have books of poetry at home (poetry) or and their mean on the enjoyment of science by student’s biological sex?</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[CNTRYID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Iceland&quot;</span>),
+     .(<span class="dt">poetry =</span> <span class="kw">mean</span>(poetry, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+       <span class="dt">enjoy =</span> <span class="kw">mean</span>(JOYSCIE, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)),
+     by =<span class="st"> </span>.(<span class="dt">country =</span> CNTRYID, <span class="dt">sex =</span> sex)]</code></pre>
+<pre><code>##    country    sex    poetry      enjoy
+## 1:  Canada Female 0.3632105 0.29635781
+## 2:  Canada   Male 0.3123878 0.40950018
+## 3: Iceland Female 0.7280806 0.03583745
+## 4: Iceland   Male 0.7011494 0.30316273</code></pre>
+<p>We see a strong country effect on poetry at home, with &gt; 70% of Icelandic students reporting poetry books at home and just above 30% in Canadian students and we see that Canadian students enjoy science more than Icelandic students and, male students, overall, enjoy science more than females.</p>
+<p>Let’s examine books of poetry at home by countries and sort it in descending order.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[,
+     .(<span class="dt">poetry =</span> <span class="kw">mean</span>(poetry, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)),
+     by =<span class="st"> </span>.(<span class="dt">country =</span> CNTRYID)
+     ][<span class="kw">order</span>(poetry, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
+       ][<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>
+         ]</code></pre>
+<pre><code>##               country    poetry
+## 1:             Kosovo 0.8352507
+## 2: Russian Federation 0.8045568
+## 3:            Romania 0.8019434
+## 4:            Georgia 0.7495615
+## 5:    B-S-J-G (China) 0.7442052
+## 6:            Estonia 0.7422718</code></pre>
+<p>Iceland is in the top 10, while Canada is 59.</p>
+<p>We can also write more complex functions and provide these to <code>data.table</code>. For example, if wanted to fit a regression model to predict a student’s score on science self-efficacy scale given their score on the enjoyment of science scale and their sex for just the G7 countries (Canada, France, Germany, Italy, Japan, the United Kingdom, and the United States), we can fit a multiple regression model and return the intercept and slope terms.</p>
+<pre class="sourceCode r"><code class="sourceCode r">get.params &lt;-<span class="st"> </span><span class="cf">function</span>(cntry){
+  mod &lt;-<span class="st"> </span><span class="kw">lm</span>(SCIEEFF <span class="op">~</span><span class="st"> </span>JOYSCIE <span class="op">+</span><span class="st"> </span>sex, cntry)
+  est.params &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">int =</span> <span class="kw">coef</span>(mod)[[<span class="dv">1</span>]], <span class="dt">enjoy.slope =</span> <span class="kw">coef</span>(mod)[[<span class="dv">2</span>]], <span class="dt">sex.slope =</span> <span class="kw">coef</span>(mod)[[<span class="dv">3</span>]])
+  <span class="kw">return</span>(est.params)
+}
+
+g7.params &lt;-<span class="st"> </span>pisa[CNTRYID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;France&quot;</span>, <span class="st">&quot;Germany&quot;</span>, <span class="st">&quot;Italy&quot;</span>,
+                                 <span class="st">&quot;Japan&quot;</span>, <span class="st">&quot;United Kingdom&quot;</span>, <span class="st">&quot;United States&quot;</span>),
+               <span class="kw">get.params</span>(.SD), 
+               by =<span class="st"> </span>.(CNTRYID)]
+g7.params</code></pre>
+<pre><code>##           CNTRYID          int enjoy.slope  sex.slope
+## 1:         Canada  0.009803357   0.4370945 0.21489577
+## 2:         France -0.208698984   0.4760903 0.17743126
+## 3:        Germany -0.019150031   0.4316565 0.17971821
+## 4:          Italy -0.030880063   0.3309990 0.18831666
+## 5:          Japan -0.353806055   0.3914385 0.04912039
+## 6: United Kingdom  0.009711647   0.5182592 0.18981965
+## 7:  United States  0.096920721   0.3907848 0.15022008</code></pre>
+<p>We see a fair bit of variability in these estimated parameters</p>
+<div id="exercises-3" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>Calculate the proportion of students who have art in their home (art) and the average age (AGE) of the students by gender.</p></li>
+<li><p>Within a by argument you can discretize a variable to create a grouping variable. Perform a median split for age within the by argument and assess whether there are age difference associated with having your own room (own.room) or a desk (desk).</p></li>
+</ol>
+</div>
+</div>
+<div id="reshaping-data" class="section level2">
+<h2><span class="header-section-number">4.6</span> Reshaping data</h2>
+<p>The <code>data.table</code> package provides some very fast methods to reshape data from wide (the current format) to long format. In long format, a single test taker will correspond to multiple rows of data. Some software and <code>R</code> packages require data to be in long format (e.g., <code>lme4</code> and <code>nlme</code>).</p>
+<p>Let’s begin by creating a student ID and then subsetting this ID and the at-home variables:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa<span class="op">$</span>id &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(pisa)
+athome &lt;-<span class="st"> </span><span class="kw">subset</span>(pisa, <span class="dt">select =</span> <span class="kw">c</span>(id, desk<span class="op">:</span>art.book))</code></pre>
+<p>To transform the data to long format we <em>melt</em> the data.</p>
+<pre class="sourceCode r"><code class="sourceCode r">athome.l &lt;-<span class="st"> </span><span class="kw">melt</span>(athome, 
+                 <span class="dt">id.vars =</span> <span class="st">&quot;id&quot;</span>,
+                 <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;desk&quot;</span>, <span class="st">&quot;own.room&quot;</span>, <span class="st">&quot;quiet.study&quot;</span>, <span class="st">&quot;lit&quot;</span>,
+                                  <span class="st">&quot;poetry&quot;</span>, <span class="st">&quot;art&quot;</span>, <span class="st">&quot;book.sch&quot;</span>, <span class="st">&quot;tech.book&quot;</span>,
+                                  <span class="st">&quot;dict&quot;</span>, <span class="st">&quot;art.book&quot;</span>))
+athome.l</code></pre>
+<pre><code>##              id variable value
+##       1:      1     desk    NA
+##       2:      2     desk    NA
+##       3:      3     desk    NA
+##       4:      4     desk    NA
+##       5:      5     desk    NA
+##      ---                      
+## 5193336: 519330 art.book     1
+## 5193337: 519331 art.book     0
+## 5193338: 519332 art.book     1
+## 5193339: 519333 art.book     0
+## 5193340: 519334 art.book     0</code></pre>
+<p>We could have also allowed <code>melt()</code> to guess the format:</p>
+<pre class="sourceCode r"><code class="sourceCode r">athome.guess &lt;-<span class="st"> </span><span class="kw">melt</span>(athome)</code></pre>
+<pre><code>## Warning in melt.data.table(athome): To be consistent with reshape2&#39;s melt,
+## id.vars and measure.vars are internally guessed when both are &#39;NULL&#39;. All
+## non-numeric/integer/logical type columns are considered id.vars, which
+## in this case are columns []. Consider providing at least one of &#39;id&#39; or
+## &#39;measure&#39; vars in future.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">athome.guess</code></pre>
+<pre><code>##          variable value
+##       1:       id     1
+##       2:       id     2
+##       3:       id     3
+##       4:       id     4
+##       5:       id     5
+##      ---               
+## 7270672: art.book     1
+## 7270673: art.book     0
+## 7270674: art.book     1
+## 7270675: art.book     0
+## 7270676: art.book     0</code></pre>
+<p>It guessed incorrectly. If id was set as a character vector, then it would have guessed correctly this time. However, you should not allow it to guess the names of the variables.</p>
+<p>To go back to wide format we use the <code>dcast()</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">athome.w &lt;-<span class="st"> </span><span class="kw">dcast</span>(athome.l,
+                  id <span class="op">~</span><span class="st"> </span>variable)</code></pre>
+<p>Unlike other reshaping packages, <code>data.table</code> can also handle reshaping multiple outcomes variables. More about reshaping with <code>data.table</code> is available <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html">here</a>.</p>
+</div>
+<div id="the-sparklyr-package" class="section level2">
+<h2><span class="header-section-number">4.7</span> The <code>sparklyr</code> package</h2>
+<p>The <code>sparklyr</code> package provides an R interface to Apache Spark and a complete <code>dplyr</code> backend. Apache Spark “is a unified analytics engine for big data processing, with built-in modules for streaming, SQL, machine learning and graph processing”. Apache Spark can also be interfaced using the <code>sparkR</code> package provided by Apache. See <a href="https://spark.apache.org/docs/2.4.0/">here</a> and <a href="https://spark.apache.org/docs/2.4.0/api/R/index.html">here</a> for more details.</p>
+<p>To use Apache Spark you will need Java 8 JDK installed. It can be installed <a href="https://www.oracle.com/technetwork/java/jdk8-downloads-2133151.html">here</a>. To begin with you need to install <code>sparklyr</code> and <code>dplyr</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sparklyr&quot;</span>)
+<span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;sparklyr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
+<p>We then need to install Spark, which we can do from R.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_install</span>()</code></pre>
+<p>Next, we need to setup a connection with Spark and we’ll be connecting to a local install of Spark.</p>
+<pre class="sourceCode r"><code class="sourceCode r">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</code></pre>
+<p>Then we need to copy the <strong>pisa</strong> data set to the Spark cluster. However, with this large of a data set, this is a bad idea. We will run into memory issues during the copying process. So, we’ll first subset the data before we do this.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa_sub &lt;-<span class="st"> </span><span class="kw">subset</span>(pisa, CNTRYID <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;France&quot;</span>, <span class="st">&quot;Germany&quot;</span>,
+                                        <span class="st">&quot;Italy&quot;</span>, <span class="st">&quot;Japan&quot;</span>, <span class="st">&quot;United Kingdom&quot;</span>,
+                                        <span class="st">&quot;United States&quot;</span>),
+                   <span class="dt">select =</span> <span class="kw">c</span>(<span class="st">&quot;DISCLISCI&quot;</span>, <span class="st">&quot;TEACHSUP&quot;</span>, <span class="st">&quot;IBTEACH&quot;</span>, <span class="st">&quot;TDTEACH&quot;</span>,
+                              <span class="st">&quot;ENVAWARE&quot;</span>, <span class="st">&quot;JOYSCIE&quot;</span>, <span class="st">&quot;INTBRSCI&quot;</span>, <span class="st">&quot;INSTSCIE&quot;</span>,
+                              <span class="st">&quot;SCIEEFF&quot;</span>, <span class="st">&quot;EPIST&quot;</span>, <span class="st">&quot;SCIEACT&quot;</span>, <span class="st">&quot;BSMJ&quot;</span>, <span class="st">&quot;MISCED&quot;</span>,
+                              <span class="st">&quot;FISCED&quot;</span>, <span class="st">&quot;OUTHOURS&quot;</span>, <span class="st">&quot;SMINS&quot;</span>, <span class="st">&quot;TMINS&quot;</span>,
+                              <span class="st">&quot;BELONG&quot;</span>, <span class="st">&quot;ANXTEST&quot;</span>, <span class="st">&quot;MOTIVAT&quot;</span>, <span class="st">&quot;COOPERATE&quot;</span>,
+                              <span class="st">&quot;PERFEED&quot;</span>, <span class="st">&quot;unfairteacher&quot;</span>, <span class="st">&quot;HEDRES&quot;</span>, <span class="st">&quot;HOMEPOS&quot;</span>,
+                              <span class="st">&quot;ICTRES&quot;</span>, <span class="st">&quot;WEALTH&quot;</span>, <span class="st">&quot;ESCS&quot;</span>, <span class="st">&quot;math&quot;</span>, <span class="st">&quot;reading&quot;</span>,
+                              <span class="st">&quot;CNTRYID&quot;</span>, <span class="st">&quot;sex&quot;</span>))</code></pre>
+<p>We will use the selected variables in the labs and a description of these variables can be seen below.</p>
+<p>Now the data are ready to be copied into Spark.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa_tbl &lt;-<span class="st"> </span><span class="kw">copy_to</span>(sc, pisa_sub, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre>
+<p>In tidyverse, you can use the <code>%&gt;%</code> to chain together commands or to pass data to functions. With <code>sparklyr</code>, we can use the <code>filter</code> function instead of subset. For example, if we just want to see the female students’ scores on these scales for Germany, we would do the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa_tbl <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(CNTRYID <span class="op">==</span><span class="st"> &quot;Germany&quot;</span> <span class="op">&amp;</span><span class="st"> </span>sex <span class="op">==</span><span class="st"> &quot;Female&quot;</span>)</code></pre>
+<pre><code>## # Source: spark&lt;?&gt; [?? x 32]
+##    DISCLISCI TEACHSUP IBTEACH TDTEACH ENVAWARE JOYSCIE INTBRSCI INSTSCIE
+##        &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1   -0.234    -0.804  -0.608 -0.867   -0.536   -0.821  -0.550   NaN    
+##  2    0.283     0.488  -0.157 -0.685   -0.805   -2.12   -1.13     -1.93 
+##  3    0.700     1.45    0.988  0.525    0.171   -1.72   -0.225    -0.718
+##  4    0.0039    0.568   0.209 -0.0742  -0.234   -0.821  -0.0831   -0.826
+##  5    0.763    -0.450   0.535 -0.0057  -0.479    0.613   0.198    -0.304
+##  6    0.660    -0.461   0.647  0.450   -0.706   -0.631  -0.551    -1.93 
+##  7    0.288    -1.82    0.430 -1.32    -0.0217  -0.576  -0.566    -0.670
+##  8    0.835    -1.07    0.89  -0.610    0.256    2.16    0.341     1.33 
+##  9    1.32     -0.246   0.257 -0.867   -0.685   -0.152  -0.509    -0.778
+## 10    1.32     -1.29    0.308 -0.790   -0.385   -1.61   -0.399    -1.93 
+## # … with more rows, and 24 more variables: SCIEEFF &lt;dbl&gt;, EPIST &lt;dbl&gt;,
+## #   SCIEACT &lt;dbl&gt;, BSMJ &lt;int&gt;, MISCED &lt;chr&gt;, FISCED &lt;chr&gt;, OUTHOURS &lt;int&gt;,
+## #   SMINS &lt;int&gt;, TMINS &lt;int&gt;, BELONG &lt;dbl&gt;, ANXTEST &lt;dbl&gt;, MOTIVAT &lt;dbl&gt;,
+## #   COOPERATE &lt;dbl&gt;, PERFEED &lt;dbl&gt;, unfairteacher &lt;int&gt;, HEDRES &lt;dbl&gt;,
+## #   HOMEPOS &lt;dbl&gt;, ICTRES &lt;dbl&gt;, WEALTH &lt;dbl&gt;, ESCS &lt;dbl&gt;, math &lt;dbl&gt;,
+## #   reading &lt;dbl&gt;, CNTRYID &lt;chr&gt;, sex &lt;chr&gt;</code></pre>
+<p>You’ll notice the at the top it says <code>#Source: spark&lt;?&gt;</code></p>
+<p>If we wanted to calculate the average disciplinary climate in science classes (DISCLISCI) by country and by sex and have it reorder by country than sex, we can do the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa_tbl <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(CNTRYID, sex) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">ave_disclip =</span> <span class="kw">mean</span>(DISCLISCI, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(CNTRYID, sex)</code></pre>
+<pre><code>## # Source:     spark&lt;?&gt; [?? x 3]
+## # Groups:     CNTRYID
+## # Ordered by: CNTRYID, sex
+##    CNTRYID sex    ave_disclip
+##    &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;
+##  1 Canada  Female      0.0110
+##  2 Canada  Male       -0.0205
+##  3 France  Female     -0.236 
+##  4 France  Male       -0.297 
+##  5 Germany Female      0.0915
+##  6 Germany Male        0.0162
+##  7 Italy   Female      0.0708
+##  8 Italy   Male       -0.137 
+##  9 Japan   Female      0.916 
+## 10 Japan   Male        0.788 
+## # … with more rows</code></pre>
+<p>We can also create new variables using the <code>mutate</code> function. If we want to get a measure of home affluence, we could add home educational resources (HEDRES) and home possessions (HOMEPOS)</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa_tbl <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">totl_home =</span> HEDRES <span class="op">+</span><span class="st"> </span>HOMEPOS) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(CNTRYID) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">xbar =</span> <span class="kw">mean</span>(totl_home, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre>
+<pre><code>## # Source: spark&lt;?&gt; [?? x 2]
+##   CNTRYID          xbar
+##   &lt;chr&gt;           &lt;dbl&gt;
+## 1 United Kingdom  0.370
+## 2 United States   0.113
+## 3 Italy           0.324
+## 4 Japan          -1.30 
+## 5 France         -0.332
+## 6 Germany         0.279
+## 7 Canada          0.430</code></pre>
+<p>On my computer, the Spark code is slightly faster than <code>data.table</code>, but not by much. The real power of using Spark is that we can use its machine learning functions. However, if you’re familiar with <code>tidyverse</code> (<code>dplyr</code>) syntax, then <code>sparklyr</code> is a package that is worth investigating for data wrangling with big data sets.</p>
+</div>
+<div id="lab" class="section level2">
+<h2><span class="header-section-number">4.8</span> Lab</h2>
+<p>This afternoon when we discuss supervised learning, we’ll ask you to develop some models to predict the response to the question Do you expect your child will go into a <science-related career>?&quot; (PA032Q03TA).</p>
+<ol style="list-style-type: decimal">
+<li><p>Recode this variable so that a “Yes” is 1 and a “No” is a -1 and save the variable as <code>sci_car</code>.</p></li>
+<li><p>Calculate descriptives for this variable by sex and country. Specifically, the proportion of test takers whose parents said “Yes” or 1.</p></li>
+</ol>
+<p>After you’ve done this, spend some time investigating the following variables</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Label</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DISCLISCI</td>
+<td align="left">Disciplinary climate in science classes (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">TEACHSUP</td>
+<td align="left">Teacher support in a science classes of students choice (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">IBTEACH</td>
+<td align="left">Inquiry-based science teaching an learning practices (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">TDTEACH</td>
+<td align="left">Teacher-directed science instruction (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">ENVAWARE</td>
+<td align="left">Environmental Awareness (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">JOYSCIE</td>
+<td align="left">Enjoyment of science (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">INTBRSCI</td>
+<td align="left">Interest in broad science topics (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">INSTSCIE</td>
+<td align="left">Instrumental motivation (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">SCIEEFF</td>
+<td align="left">Science self-efficacy (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">EPIST</td>
+<td align="left">Epistemological beliefs (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">SCIEACT</td>
+<td align="left">Index science activities (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">BSMJ</td>
+<td align="left">Student’s expected occupational status (SEI)</td>
+</tr>
+<tr class="odd">
+<td align="left">MISCED</td>
+<td align="left">Mother’s Education (ISCED)</td>
+</tr>
+<tr class="even">
+<td align="left">FISCED</td>
+<td align="left">Father’s Education (ISCED)</td>
+</tr>
+<tr class="odd">
+<td align="left">OUTHOURS</td>
+<td align="left">Out-of-School Study Time per week (Sum)</td>
+</tr>
+<tr class="even">
+<td align="left">SMINS</td>
+<td align="left">Learning time (minutes per week) - <science></td>
+</tr>
+<tr class="odd">
+<td align="left">TMINS</td>
+<td align="left">Learning time (minutes per week) - in total</td>
+</tr>
+<tr class="even">
+<td align="left">BELONG</td>
+<td align="left">Subjective well-being: Sense of Belonging to School (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">ANXTEST</td>
+<td align="left">Personality: Test Anxiety (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">MOTIVAT</td>
+<td align="left">Student Attitudes, Preferences and Self-related beliefs: Achieving motivation (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">COOPERATE</td>
+<td align="left">Collaboration and teamwork dispositions: Enjoy cooperation (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">PERFEED</td>
+<td align="left">Perceived Feedback (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">unfairteacher</td>
+<td align="left">Teacher Fairness (Sum)</td>
+</tr>
+<tr class="even">
+<td align="left">HEDRES</td>
+<td align="left">Home educational resources (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">HOMEPOS</td>
+<td align="left">Home possessions (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">ICTRES</td>
+<td align="left">ICT Resources (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">WEALTH</td>
+<td align="left">Family wealth (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">ESCS</td>
+<td align="left">Index of economic, social and cultural status (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">math</td>
+<td align="left">Students’ math score in PISA 2015</td>
+</tr>
+<tr class="even">
+<td align="left">reading</td>
+<td align="left">Students’ reading score in PISA 2015</td>
+</tr>
+</tbody>
+</table>
+<p>and then do the following using <code>data.table</code> and/or <code>sparklyr</code>:</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Means and standard deviations (<code>sd</code>) for the variables that you think will be most predictive of <code>sci_car</code>.</p></li>
+<li><p>Calculate these same descriptives by groups (by <code>sci_car</code> and by <code>sex</code>).</p></li>
+<li><p>Calculate correlations between these variables and <code>sci_car</code>,</p></li>
+<li>Create new variables
+<ul>
+<li>Discretize the math and reading variables using the OECD means (490 for math and 493) and code them as 1 (at or above the mean) and -1 (below the mean), but do in the <code>data.table</code> way without using the <code>$</code> operator.</li>
+<li>Calculate the correlation between these variables and the list of variables above.</li>
+</ul></li>
+<li>Chain together a set of operations
+<ul>
+<li>For example, create an intermediate variable that is the average of JOYSCIE and INTBRSCI, and then calculate the mean by country by <code>sci_car</code> through chaining.</li>
+</ul></li>
+<li><p>Transform variables, specifically recode MISCED and FISCED from characters to numeric variables.</p></li>
+<li><p>Examine other variables in the <strong>pisa</strong> data set that you think might be predictive of <code>PA032Q03TA</code>.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="eda.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="visualizing-big-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/okanbulut/bigdata/tree/master/03-wrangling_big_data.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["big-data-in-r.pdf", "big-data-in-r.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

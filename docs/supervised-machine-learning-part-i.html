@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>7 Supervised Machine Learning - Part I | Exploring, Visualizing, and Modeling Big Data with R</title>
+  <meta name="description" content="This book presents the materials for our NCME workshop on big data analysis in R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="7 Supervised Machine Learning - Part I | Exploring, Visualizing, and Modeling Big Data with R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  <meta name="github-repo" content="okanbulut/bigdata" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Supervised Machine Learning - Part I | Exploring, Visualizing, and Modeling Big Data with R />
+  
+  <meta name="twitter:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  
+
+<meta name="author" content="Okan Bulut">
+<meta name="author" content="Christopher Desjardins">
+
+
+<meta name="date" content="2019-04-04">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="modeling-big-data.html">
+<link rel="next" href="supervised-machine-learning-part-ii.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Exploring, Visualizing, and Modeling Big Data in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#summary"><i class="fa fa-check"></i><b>1.1</b> Summary</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#who-we-are"><i class="fa fa-check"></i><b>1.2</b> Who we are</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-big-data"><i class="fa fa-check"></i><b>2.1</b> What is big data?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#why-is-big-data-important"><i class="fa fa-check"></i><b>2.2</b> Why is big data important?</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#how-do-we-analyze-big-data"><i class="fa fa-check"></i><b>2.3</b> How do we analyze big data?</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#additional-resources"><i class="fa fa-check"></i><b>2.4</b> Additional resources</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#pisa-dataset"><i class="fa fa-check"></i><b>2.5</b> PISA dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#what-is-exploratory-data-analysis"><i class="fa fa-check"></i><b>3.1</b> What is exploratory data analysis?</a></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#confirmatory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Confirmatory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#a-framework-for-eda"><i class="fa fa-check"></i><b>3.3</b> A framework for EDA</a></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#eda-tools"><i class="fa fa-check"></i><b>3.4</b> EDA tools</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling big data</a><ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#what-is-data.table"><i class="fa fa-check"></i><b>4.1</b> What is <code>data.table</code>?</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#why-use-data.table-over-tidyverse"><i class="fa fa-check"></i><b>4.1.1</b> Why use <code>data.table</code> over <code>tidyverse</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#readingwriting-data-with-data.table"><i class="fa fa-check"></i><b>4.2</b> Reading/writing data with <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-i-in-data.table"><i class="fa fa-check"></i><b>4.3</b> Using the i in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-1"><i class="fa fa-check"></i><b>4.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-j-in-data.table"><i class="fa fa-check"></i><b>4.4</b> Using the j in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-2"><i class="fa fa-check"></i><b>4.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#summarizing-using-the-by-in-data.table"><i class="fa fa-check"></i><b>4.5</b> Summarizing using the by in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.5.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-3"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#reshaping-data"><i class="fa fa-check"></i><b>4.6</b> Reshaping data</a></li>
+<li class="chapter" data-level="4.7" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#the-sparklyr-package"><i class="fa fa-check"></i><b>4.7</b> The <code>sparklyr</code> package</a></li>
+<li class="chapter" data-level="4.8" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#lab"><i class="fa fa-check"></i><b>4.8</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html"><i class="fa fa-check"></i><b>5</b> Visualizing big data</a><ul>
+<li class="chapter" data-level="5.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#introduction-to-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Introduction to <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#marginal-plots"><i class="fa fa-check"></i><b>5.2</b> Marginal plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise"><i class="fa fa-check"></i><b>5.2.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#conditional-plots"><i class="fa fa-check"></i><b>5.3</b> Conditional plots</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-1"><i class="fa fa-check"></i><b>5.3.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-correlations"><i class="fa fa-check"></i><b>5.4</b> Plots for examining correlations</a></li>
+<li class="chapter" data-level="5.5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-means-by-group"><i class="fa fa-check"></i><b>5.5</b> Plots for examining means by group</a></li>
+<li class="chapter" data-level="5.6" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-ordinalcategorical-variables"><i class="fa fa-check"></i><b>5.6</b> Plots for ordinal/categorical variables</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-2"><i class="fa fa-check"></i><b>5.6.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>5.7</b> Interactive plots with <code>plotly</code></a><ul>
+<li class="chapter" data-level="5.7.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-3"><i class="fa fa-check"></i><b>5.7.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#customizing-visualizations"><i class="fa fa-check"></i><b>5.8</b> Customizing visualizations</a></li>
+<li class="chapter" data-level="5.9" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#lab-1"><i class="fa fa-check"></i><b>5.9</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="modeling-big-data.html"><a href="modeling-big-data.html"><i class="fa fa-check"></i><b>6</b> Modeling big data</a><ul>
+<li class="chapter" data-level="6.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#introduction-to-machine-learning"><i class="fa fa-check"></i><b>6.1</b> Introduction to machine learning</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#focus-of-machine-learning"><i class="fa fa-check"></i><b>6.1.1</b> Focus of machine learning</a></li>
+<li class="chapter" data-level="6.1.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#some-concepts-underlying-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Some concepts underlying machine learning</a></li>
+<li class="chapter" data-level="6.1.3" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-development"><i class="fa fa-check"></i><b>6.1.3</b> Model development</a></li>
+<li class="chapter" data-level="6.1.4" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-evaluation"><i class="fa fa-check"></i><b>6.1.4</b> Model evaluation</a></li>
+<li class="chapter" data-level="6.1.5" data-path="modeling-big-data.html"><a href="modeling-big-data.html#key-issues"><i class="fa fa-check"></i><b>6.1.5</b> Key issues</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#types-of-machine-learning"><i class="fa fa-check"></i><b>6.2</b> Types of machine learning</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html"><i class="fa fa-check"></i><b>7</b> Supervised Machine Learning - Part I</a><ul>
+<li class="chapter" data-level="7.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#regression-trees"><i class="fa fa-check"></i><b>7.1.1</b> Regression trees</a></li>
+<li class="chapter" data-level="7.1.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#classification-trees"><i class="fa fa-check"></i><b>7.1.2</b> Classification trees</a></li>
+<li class="chapter" data-level="7.1.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#pruning-decision-trees"><i class="fa fa-check"></i><b>7.1.3</b> Pruning decision trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees-in-r"><i class="fa fa-check"></i><b>7.2</b> Decision trees in R</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#cross-validation"><i class="fa fa-check"></i><b>7.2.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests"><i class="fa fa-check"></i><b>7.3</b> Random Forests</a></li>
+<li class="chapter" data-level="7.4" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests-in-r"><i class="fa fa-check"></i><b>7.4</b> Random forests in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html"><i class="fa fa-check"></i><b>8</b> Supervised Machine Learning - Part II</a><ul>
+<li class="chapter" data-level="8.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machines"><i class="fa fa-check"></i><b>8.1</b> Support Vector Machines</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#maximal-margin-classifier"><i class="fa fa-check"></i><b>8.1.1</b> Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="8.1.2" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-classifier"><i class="fa fa-check"></i><b>8.1.2</b> Support Vector Classifier</a></li>
+<li class="chapter" data-level="8.1.3" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machine"><i class="fa fa-check"></i><b>8.1.3</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="8.1.4" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#lab-2"><i class="fa fa-check"></i><b>8.1.4</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#clustering"><i class="fa fa-check"></i><b>9.1</b> Clustering</a></li>
+<li class="chapter" data-level="9.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#distance-measures"><i class="fa fa-check"></i><b>9.2</b> Distance Measures</a></li>
+<li class="chapter" data-level="9.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering"><i class="fa fa-check"></i><b>9.3</b> K-means clustering</a></li>
+<li class="chapter" data-level="9.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering-in-r"><i class="fa fa-check"></i><b>9.4</b> K-means clustering in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>10</b> Summary</a><ul>
+<li class="chapter" data-level="10.1" data-path="summary-1.html"><a href="summary-1.html#topics-covered"><i class="fa fa-check"></i><b>10.1</b> Topics covered</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="summary-1.html"><a href="summary-1.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>10.1.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="10.1.2" data-path="summary-1.html"><a href="summary-1.html#supervised-learning"><i class="fa fa-check"></i><b>10.1.2</b> Supervised learning</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summary-1.html"><a href="summary-1.html#methods-we-didnt-cover"><i class="fa fa-check"></i><b>10.2</b> Methods we didn’t cover</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/okanbulut/bigdata" target="blank">All rights reserved</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring, Visualizing, and Modeling Big Data with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="supervised-machine-learning---part-i" class="section level1">
+<h1><span class="header-section-number">7</span> Supervised Machine Learning - Part I</h1>
+<div id="decision-trees" class="section level2">
+<h2><span class="header-section-number">7.1</span> Decision Trees</h2>
+<p>Decision trees (also known as classification and regression trees – CART) are an important type of algorithm for predictive modeling and machine learning. In general, the CART approach relies on <em>stratifying</em> or <em>segmenting</em> the prediction space into a number of simple regions. In order to make regression-based or classification-based predictions, we use the mean or the mode of the training observations in the region to which they belong.</p>
+<p>A typical layout of a decision tree model looks like a binary tree. The tree has a root node that represents the starting point of the prediction. There are also decision nodes where we split the data into a smaller subset and leaf nodes where we make a decision. Each node represents a single input variable (i.e., predictor) and a split point on that variable. The leaf nodes of the tree contain an output variable (i.e., dependent variable) for which we make a prediction. Predictions are made by walking the splits of the tree until arriving at a leaf node and output the class value at that leaf node. Figure <a href="supervised-machine-learning-part-i.html#fig:fig6-1">7.1</a> shows an example of a decision tree model in the context of a binary dependent variable (accepting or not accepting a new job offer).</p>
+<center>
+<div class="figure"><span id="fig:fig6-1"></span>
+<img src="images/decisiontree.png" alt="An example of decision tree approach" width="100%" />
+<p class="caption">
+Figure 7.1: An example of decision tree approach
+</p>
+</div>
+</center>
+<p>Although decision trees are not highly competitive with the advanced supervised learning approaches, they are still quite popular in ML applications because they:</p>
+<ul>
+<li>are fast to learn and very fast for making predictions.</li>
+<li>are often accurate for a broad range of problems.</li>
+<li>do not require any special preparation for the data.</li>
+<li>are highly interpretable compared to more complex ML methods (e.g., neural networks).</li>
+<li>are very easy to explain to people as the logic of decision trees closely mirrors human decision-making.</li>
+<li>can be displayed graphically, and thus are easily interpreted even by a non-expert.</li>
+</ul>
+<p>In a decision tree model, either categorical and continuous variables can be used as the outcome variable depending on whether we want classification trees (categorical outcomes) or regression trees (continuous outcomes). Decision trees are particularly useful when predictors interact well with the outcome variable (and with each other).</p>
+<div id="regression-trees" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> Regression trees</h3>
+<p>In regression trees, the following two steps will allow us to create a decision tree model:</p>
+<ol style="list-style-type: decimal">
+<li>We divide the prediction space (with several predictors) into distinct and non-overlapping regions, using a <em>top-down</em>, <em>greedy</em> approach – which is also known as <em>recursive binary splitting</em>. We begin splitting at the top of the tree and then go down by successively splitting the prediction space into two new branches. This step is completed by dividing the prediction space into high-dimensional rectangles and minimizing the following equation:</li>
+</ol>
+<p><span class="math display">\[
+RSS=\sum_{i: x_i \in R_1(j,s)}(y_i-\hat{y}_{R_1})^2 + \sum_{i: x_i \in R_2(j,s)}(y_i-\hat{y}_{R_2})^2
+\]</span></p>
+<p>where <span class="math inline">\(RSS\)</span> is the residual sum of squares, <span class="math inline">\(y_i\)</span> is the observed predicted variable for the observations <span class="math inline">\(i=(1,2,3, \dots, N)\)</span> in the training data, <span class="math inline">\(j\)</span> is the index for the <span class="math inline">\(j^{th}\)</span> split, <span class="math inline">\(s\)</span> is the cutpoint for a given predictor <span class="math inline">\(X_i\)</span>, <span class="math inline">\(\hat{y}_{R_1}\)</span> is the mean response for the observations in the <span class="math inline">\(R_1(j,s)\)</span> region of the training data and <span class="math inline">\(\hat{y}_{R_2}\)</span> is the mean response for the observations in the <span class="math inline">\(R_2(j,s)\)</span> region of the training data.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Once all the regions <span class="math inline">\(R_1, \dots, R_J\)</span> have been created, we predict the response for a given observation using the mean of the observations in the region of the training data to which that observation belongs.</li>
+</ol>
+</div>
+<div id="classification-trees" class="section level3">
+<h3><span class="header-section-number">7.1.2</span> Classification trees</h3>
+<p>A classification tree is very similar to a regression tree, except that the decision tree predicts a qualitative (i.e., categorical) variable rather than a quantitative (i.e., continuous and numerical) variable. The procedure for splitting the data in multiple branches is the same as the one we described for the regression tree above. The only difference is that instead of using the mean of the observations in the region of the training data, we assume that each observation belongs to the <em>mode</em> class (i.e., most commonly occurring class) of the observations in the region of the training data. Also, rather than minimizing <span class="math inline">\(RSS\)</span>, we try to minimize the <em>classification error rate</em>, which is the fraction of the training observations in a given region that do not belong to the most common class:</p>
+<p><span class="math display">\[
+E = 1 - max_k(\hat{p}_{mk})
+\]</span></p>
+<p>where <span class="math inline">\(\hat{p}_{mk}\)</span> is the proportion of training observations in the <span class="math inline">\(m^{th}\)</span> region that are from the <span class="math inline">\(k^{th}\)</span> class. However, only classification error is <strong>NOT</strong> good enough to split decision trees. Therefore, there are two other indices for the same purpose:</p>
+<ol style="list-style-type: decimal">
+<li><strong>The Gini index</strong>:</li>
+</ol>
+<p><span class="math display">\[
+G = \sum_{k=1}^{K}\hat{p}_{mk}(1-\hat{p}_{mk})
+\]</span></p>
+<p>where <span class="math inline">\(K\)</span> represents the number of classes. This is essentially a measure of total variance across the <span class="math inline">\(K\)</span> classes. A small Gini index indicates that a node contains predominantly observations from a single class.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Entropy</strong>:</li>
+</ol>
+<p><span class="math display">\[
+Entropy = -\sum_{k=1}^{K}\hat{p}_{mk}\text{log}\hat{p}_{mk}
+\]</span></p>
+<p>Like the Gini index, the entropy will also take on a small value if the <span class="math inline">\(m^{th}\)</span> node is pure.</p>
+<p>When building a classification tree, either the Gini index or the entropy is typically used to evaluate the quality of a particular split, as they are more sensitive to the changes in the splits than the classification error rate. Typically, the Gini index is better for minimizing misclassification, while the Entropy is better for exploratory analysis.</p>
+</div>
+<div id="pruning-decision-trees" class="section level3">
+<h3><span class="header-section-number">7.1.3</span> Pruning decision trees</h3>
+<p>Sometimes decision trees end up having many branches and nodes, yielding a model that overfits the training data and poorly fits the validation or test data. To eliminate this overfitting problem, we may prefer to have a smaller and more interpretable tree with fewer splits at the cost of a little bias. One strategy to achieve this is to grow a very large tree and then prune it back in order to obtain a <em>subtree</em>.</p>
+<p>Given a subtree, we can estimate its error in the test or validation data. However, estimating the error for every possible subtree would be computationally too expensive. A more feasible way is to use <em>cost complexity pruning</em> by getting a sequence of trees indexed by a nonnegative tuning parameter <span class="math inline">\(\alpha\)</span> – which also known as the complexity parameter (cp). The cp parameter controls a trade-off between the subtree’s complexity and its fit to the training data. As the cp parameter increases from zero, branches in the decision tree get pruned in a nested and predictable fashion. To determine the ideal value for the cp parameter, we can try different values of cp in a validation set or use cross-validation (e.g., <em>K</em>-fold approach). By checking the error (using either RSS, or Gini index, or Entropy depending on the prediction problem) for different sizes of decision trees, we can determine the ideal point to prune the tree.</p>
+</div>
+</div>
+<div id="decision-trees-in-r" class="section level2">
+<h2><span class="header-section-number">7.2</span> Decision trees in R</h2>
+<p>In the following example, we will build a classification tree model, using the science scores from PISA 2015. Using a set of predictors in the <strong>pisa</strong> dataset, we will predict whether students are above or below the mean scale score for science. The average science score in PISA 2015 was 493 across all participating countries (see <a href="https://www.oecd.org/pisa/pisa-2015-results-in-focus.pdf">PISA 2015 Results in Focus</a> for more details). Using this score as a cut-off value, we will first create a binary variable called <code>science_perf</code> where <code>science_perf</code>= High if a student’s science score is equal or larger than 493; otherwise <code>science_perf</code>= Low.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa &lt;-<span class="st"> </span>pisa[, science_perf <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(science <span class="op">&gt;=</span><span class="st"> </span><span class="dv">493</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))]</code></pre>
+<p>In addition, we will subset the students from the United States and Canada and choose some variables (rather than the entire set of variables) to make our example relatively simple and manageable in terms of time. We will use the following variables in our model:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Label</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">WEALTH</td>
+<td align="left">Family wealth (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">HEDRES</td>
+<td align="left">Home educational resources (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">ENVAWARE</td>
+<td align="left">Environmental Awareness (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">ICTRES</td>
+<td align="left">ICT Resources (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">EPIST</td>
+<td align="left">Epistemological beliefs (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">HOMEPOS</td>
+<td align="left">Home possessions (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">ESCS</td>
+<td align="left">Index of economic, social and cultural status (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">reading</td>
+<td align="left">Students’ reading score in PISA 2015</td>
+</tr>
+<tr class="odd">
+<td align="left">math</td>
+<td align="left">Students’ math score in PISA 2015</td>
+</tr>
+</tbody>
+</table>
+<p>We call this new dataset <code>pisa_small</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa_small &lt;-<span class="st"> </span><span class="kw">subset</span>(pisa, CNT <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;United States&quot;</span>), 
+                     <span class="dt">select =</span> <span class="kw">c</span>(science_perf, WEALTH, HEDRES, ENVAWARE, ICTRES, 
+                                EPIST, HOMEPOS, ESCS, reading, math))</code></pre>
+<p>Before we begin the analysis, we need to install and load all the required packages.</p>
+<pre class="sourceCode r"><code class="sourceCode r">decision_packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;caret&quot;</span>, <span class="st">&quot;rpart&quot;</span>, <span class="st">&quot;rpart.plot&quot;</span>, <span class="st">&quot;randomForest&quot;</span>, <span class="st">&quot;modelr&quot;</span>)
+<span class="kw">install.packages</span>(decision_packages)
+
+<span class="kw">library</span>(<span class="st">&quot;caret&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;rpart&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;rpart.plot&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;randomForest&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)
+
+<span class="co"># Already installed packages that we will use</span>
+<span class="kw">library</span>(<span class="st">&quot;data.table&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</code></pre>
+<p>Next, we will split our dataset into a training dataset and a test dataset. We will train the decision tree on the training data and check its accuracy using the test data. In order to replicate the results later on, we need to set the seed – which will allow us to fix the randomization. Next, we remove the missing cases, save it as a new dataset, and then use <code>createDataPartition()</code> from the <code>caret</code> package to create an index to split the dataset as 70% to 30% using p = 0.7.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set the seed before splitting the data</span>
+<span class="kw">set.seed</span>(<span class="dv">442019</span>)
+
+<span class="co"># We need to remove missing cases</span>
+pisa_nm &lt;-<span class="st"> </span><span class="kw">na.omit</span>(pisa_small)
+
+<span class="co"># Split the data into training and test</span>
+index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(pisa_nm<span class="op">$</span>science_perf, <span class="dt">p =</span> <span class="fl">0.7</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
+train_dat &lt;-<span class="st"> </span>pisa_nm[index, ]
+test_dat  &lt;-<span class="st"> </span>pisa_nm[<span class="op">-</span>index, ]
+
+<span class="kw">nrow</span>(train_dat)</code></pre>
+<pre><code>## [1] 16561</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(test_dat)</code></pre>
+<pre><code>## [1] 7097</code></pre>
+<p>Alternatively, we could simply create the index using random number generation with <code>sample.int()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(pisa_nm)
+index &lt;-<span class="st"> </span><span class="kw">sample.int</span>(n, <span class="dt">size =</span> <span class="kw">round</span>(<span class="fl">0.7</span> <span class="op">*</span><span class="st"> </span>n))</code></pre>
+<p>To build a decision tree model, we will use the <code>rpart</code> function from the <code>rpart</code> package. In the function, there are several elements:</p>
+<ul>
+<li><code>formula = science_perf ~ .</code> defines the dependent variable (i.e., science_perf) and the predictors (and <code>~</code> is the separator). Because we use <code>science_perf ~ .</code>, we use all variables in the dataset (except for science_perf) as our predictors. We could also write the same formula as <code>science_perf ~ math + reading + ESCS + ... + WEALTH</code> by specifying each variable individually.</li>
+<li><code>data = train_dat</code> defines the dataset we are using for the analysis.</li>
+<li><code>method = &quot;class&quot;</code> defines what type of decision tree we are building. <code>method = &quot;class&quot;</code> defines a classification tree and <code>method = &quot;anova&quot;</code> defines a regression tree.</li>
+<li><code>control</code> is a list of control (i.e., tuning) elements for the decision tree algorithm. <code>minsplit</code> defines the minimum number of observations that must exist in a node (default = 20); <code>cp</code> is the complexity parameter to prune the subtrees that don’t improve the model fit (default = 0.01, if <code>cp</code> = 0, then no pruning); <code>xval</code> is the number of cross-validations (default = 10, if <code>xval</code> = 0, then no cross validation).</li>
+<li><code>parms</code> is a list of optional parameters for the splitting function.<code>anova</code> splitting (i.e., regression trees) has no parameters. For <code>class</code> splitting (i.e., classification tree), the most important option is the split index – which is either <code>&quot;gini&quot;</code> for the Gini index or <code>&quot;information&quot;</code> for the Entropy index. Splitting based on <code>information</code> can be slightly slower compared to the Gini index (see the <a href="https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf">vignette</a> for more information).</li>
+</ul>
+<p>We will start building our decision tree model <code>df_fit1</code> (standing for decision tree fit for model 1) with no pruning (i.e., <code>cp = 0</code>) and no cross-validation as we have a test dataset already (i.e., <code>xval = 0</code>). We will use the Gini index for the splitting.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_fit1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
+                                         <span class="dt">cp =</span> <span class="dv">0</span>, 
+                                         <span class="dt">xval =</span> <span class="dv">0</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))</code></pre>
+<p>The estimated model is very likely to have too many nodes because we set <code>cp = 0</code>. Due to having many nodes, first we will examine the results graphically, before we attempt to print the output. Although the <code>rpart</code> package can draw decision tree plots, they are very basic. Therefore, we will use the <code>rpart.plot</code> function from the <code>rpart.plot</code> package to draw a nicer decision tree plot. Let’s see the results graphically using the default settings of the <code>rpart.plot</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(dt_fit1)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-6-1.png" width="100%" /></p>
+<p>How does the model look like? It is <strong>NOT</strong> very interpretable, isn’t it? We definitely need to prune the trees; otherwise the model yields a very complex model with many nodes – which is very likely to overfit the data. In the following model, we use <code>cp = 0.005</code>. Remember that as we increase <code>cp</code>, the pruning for the model will also increase. The higher the cp value, the shorter the trees with possibly fewer predictors.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_fit2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
+                                         <span class="dt">cp =</span> <span class="fl">0.005</span>, 
+                                         <span class="dt">xval =</span> <span class="dv">0</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
+
+<span class="kw">rpart.plot</span>(dt_fit2)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-7a-1.png" width="100%" /></p>
+<p>We could also estimate the same model with the Entropy as the split criterion, <code>split = &quot;information&quot;</code>, and the results would be similar (not necessarily the tree itself, but its classification performance).</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_fit2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
+                                         <span class="dt">cp =</span> <span class="fl">0.005</span>, 
+                                         <span class="dt">xval =</span> <span class="dv">0</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;information&quot;</span>))</code></pre>
+<p>Now our model is less complex compared compared to the previous model. In the above decision tree plot, each node shows:</p>
+<ul>
+<li>the predicted class (High or low)</li>
+<li>the predicted probability of the second class (i.e., “Low”)</li>
+<li>the percentage of observations in the node</li>
+</ul>
+<p>Let’s play with the colors to make the trees even more distinct. Also, we will adjust which values should be shown in the nodes, using <code>extra = 8</code> (see other possible options <a href="http://www.milbo.org/doc/prp.pdf">HERE</a>). Each node in the new plot shows:</p>
+<ul>
+<li>the predicted class (High or low)</li>
+<li>the predicted probability of the fitted class</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(dt_fit2, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-8-1.png" width="100%" /></p>
+<p>An alternative way to prune the model is to use the <code>prune()</code> function from the <code>rpart</code> package. In the following example, we will use our initial complex model <code>dt_fit1</code> and prune it.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_fit1_prune &lt;-<span class="st"> </span><span class="kw">prune</span>(dt_fit1, <span class="dt">cp =</span> <span class="fl">0.005</span>)
+<span class="kw">rpart.plot</span>(dt_fit1_prune, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<p>which would yield the same model that we estimated. Now let’s print the output of our model using <code>printcp()</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">printcp</span>(dt_fit2)</code></pre>
+<pre><code>## 
+## Classification tree:
+## rpart(formula = science_perf ~ ., data = train_dat, method = &quot;class&quot;, 
+##     parms = list(split = &quot;gini&quot;), control = rpart.control(minsplit = 20, 
+##         cp = 0.005, xval = 0))
+## 
+## Variables actually used in tree construction:
+## [1] math    reading
+## 
+## Root node error: 6461/16561 = 0.39013
+## 
+## n= 16561 
+## 
+##          CP nsplit rel error
+## 1 0.7461693      0   1.00000
+## 2 0.0153227      1   0.25383
+## 3 0.0147036      3   0.22319
+## 4 0.0080483      4   0.20848
+## 5 0.0050000      6   0.19239</code></pre>
+<p>In the output, <code>CP</code> refers to the complexity parameter, <code>nsplit</code> is the number of splits in the decision tree based on the complexity parameter, and <code>rel error</code> is the relative error (i.e., <span class="math inline">\(1 - R^2\)</span>) of the solution. This is the error for predictions of the data that were used to estimate the model. The section of <code>Variables actually used in tree construction</code> shows which variables have been used in the final model. In our example, only math and reading have been used. What happened to the other variables?</p>
+<p>In addition to <code>printcp()</code>, we can use <code>summary()</code> to print out more detailed results with all splits.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(dt_fit2)</code></pre>
+<p>We don’t print the entire summary output here. Instead, we want to focus on a specific section in the output:</p>
+<pre class="sourceCode r"><code class="sourceCode r">Variable importance
+    math  reading ENVAWARE     ESCS    EPIST  HOMEPOS 
+      <span class="dv">46</span>       <span class="dv">37</span>        <span class="dv">5</span>        <span class="dv">4</span>        <span class="dv">4</span>        <span class="dv">4</span>  </code></pre>
+<p>Similarly, <code>varImp()</code> from the <code>caret</code> package also gives us a similar output:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImp</span>(dt_fit2)</code></pre>
+<pre><code>##              Overall
+## ENVAWARE  582.079065
+## EPIST     791.498637
+## ESCS      427.818610
+## HEDRES      5.287639
+## HOMEPOS    17.914110
+## math     5529.901785
+## reading  5752.549285
+## WEALTH      7.572725
+## ICTRES      0.000000</code></pre>
+<p>Both of these show the importance of the variables for our estimated decision tree model. The larger the values are, the more crucial they are for the model. In our example, math and reading seem to be highly important for the decision tree model, whereas ICTRES is the least important variable. The variables that were not very important for the model are those that were not included in the final model. These variables are possibly have very low correlations with our outcome variable, <code>science_perf</code>.</p>
+<p>We can use <code>rpart.rules</code> to print out the decision rules from the trees. By default, the output from this function shows the probability of the <strong>second</strong> class for each decision/split being made (i.e., the category “low” in our example) and what percent of the observations fall into this category.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.rules</span>(dt_fit2, <span class="dt">cover =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>##  science_perf                                                   cover
+##          0.03 when math &gt;=        478 &amp; reading &gt;=        499     53%
+##          0.21 when math &lt;  478        &amp; reading &gt;=        539      1%
+##          0.34 when math &gt;=        478 &amp; reading is 468 to 499      6%
+##          0.40 when math is 458 to 478 &amp; reading is 507 to 539      2%
+##          0.68 when math &lt;  458        &amp; reading is 507 to 539      2%
+##          0.70 when math &gt;=        478 &amp; reading &lt;  468             3%
+##          0.95 when math &lt;  478        &amp; reading &lt;  507            33%</code></pre>
+<p>Furthermore, we need to check the classification accuracy of the estimated decision tree with the <strong>test</strong> data. Otherwise, it is hard to justify whether or not the estimated decision tree would work accurately for prediction. Below we estimate the predicted classes (either high or low) from the test data by applying the estimated model.First we obtain model predictions using <code>predict()</code> and then turn the results into a data frame called <code>dt_pred</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(dt_fit2, test_dat) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as.data.frame</span>()
+
+<span class="kw">head</span>(dt_pred)</code></pre>
+<pre><code>##         High        Low
+## 1 0.97465045 0.02534955
+## 2 0.05406386 0.94593614
+## 3 0.05406386 0.94593614
+## 4 0.66243386 0.33756614
+## 5 0.97465045 0.02534955
+## 6 0.05406386 0.94593614</code></pre>
+<p>This dataset shows each observation’s (i.e., students from the test data) probability of falling into either <em>high</em> or <em>low</em> categories based on the decision rules that we estimated. We will turn these probabilities into binary classifications, depending on whether or not they are &gt;= <span class="math inline">\(50\%\)</span>. Then, we will compare these estimates with the actual classes in the test data (i.e., <code>test_dat$science_perf</code>) in order to create a confusion matrix.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_pred &lt;-<span class="st"> </span><span class="kw">mutate</span>(dt_pred,
+  <span class="dt">science_perf =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(High <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(science_perf)
+  
+<span class="kw">confusionMatrix</span>(dt_pred<span class="op">$</span>science_perf, test_dat<span class="op">$</span>science_perf)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction High  Low
+##       High 4076  316
+##       Low   252 2453
+##                                           
+##                Accuracy : 0.92            
+##                  95% CI : (0.9134, 0.9262)
+##     No Information Rate : 0.6098          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.8311          
+##  Mcnemar&#39;s Test P-Value : 0.008207        
+##                                           
+##             Sensitivity : 0.9418          
+##             Specificity : 0.8859          
+##          Pos Pred Value : 0.9281          
+##          Neg Pred Value : 0.9068          
+##              Prevalence : 0.6098          
+##          Detection Rate : 0.5743          
+##    Detection Prevalence : 0.6189          
+##       Balanced Accuracy : 0.9138          
+##                                           
+##        &#39;Positive&#39; Class : High            
+## </code></pre>
+<p>The output shows that the overall accuracy is around <span class="math inline">\(92\%\)</span>, sensitivit is <span class="math inline">\(94\%\)</span>, and specificity is <span class="math inline">\(89\%\)</span>. For only two variables, this is very good. However, sometimes we do not have predictors that are highly correlated with the outcome variables. In such cases, the model tuning might take much longer.</p>
+<p>Let’s assume that we did <strong>NOT</strong> have reading and math in our dataset. We still want to predict <code>science_perf</code> using the remaining variables.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_fit3a &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>
+<span class="st">                   </span>HOMEPOS <span class="op">+</span>ESCS,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
+                                         <span class="dt">cp =</span> <span class="fl">0.001</span>, 
+                                         <span class="dt">xval =</span> <span class="dv">0</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
+
+<span class="kw">rpart.plot</span>(dt_fit3a, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-12a-1.png" width="100%" /></p>
+<p>Now, let’s change cp to 0.005.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_fit3b &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>
+<span class="st">                   </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
+                                         <span class="dt">cp =</span> <span class="fl">0.005</span>, 
+                                         <span class="dt">xval =</span> <span class="dv">0</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
+
+<span class="kw">rpart.plot</span>(dt_fit3b, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-12b-1.png" width="100%" /></p>
+<p>Since we also care about the accuracy, sensitivity, and specificity of these models, we can turn this experiment into a small function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">decision_check &lt;-<span class="st"> </span><span class="cf">function</span>(cp) {
+  <span class="kw">require</span>(<span class="st">&quot;rpart&quot;</span>)
+  <span class="kw">require</span>(<span class="st">&quot;dplyr&quot;</span>)
+  
+  dt &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>
+<span class="st">                   </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
+              <span class="dt">data =</span> train_dat,
+              <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
+              <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
+                                           <span class="dt">cp =</span> cp, 
+                                           <span class="dt">xval =</span> <span class="dv">0</span>),
+              <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
+  
+  dt_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(dt, test_dat) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">science_perf =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(High <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(science_perf)
+  
+  cm &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(dt_pred<span class="op">$</span>science_perf, test_dat<span class="op">$</span>science_perf)
+  
+  results &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">cp =</span> cp, 
+                        <span class="dt">Accuracy =</span> <span class="kw">round</span>(cm<span class="op">$</span>overall[<span class="dv">1</span>], <span class="dv">3</span>),
+                        <span class="dt">Sensitivity =</span> <span class="kw">round</span>(cm<span class="op">$</span>byClass[<span class="dv">1</span>], <span class="dv">3</span>),
+                        <span class="dt">Specificity =</span> <span class="kw">round</span>(cm<span class="op">$</span>byClass[<span class="dv">2</span>], <span class="dv">3</span>))
+  
+  <span class="kw">return</span>(results)
+}
+
+result &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dt">from=</span><span class="fl">0.001</span>, <span class="dt">to=</span><span class="fl">0.08</span>, <span class="dt">by =</span> <span class="fl">0.005</span>)) {
+  result &lt;-<span class="st"> </span><span class="kw">rbind</span>(result, <span class="kw">decision_check</span>(<span class="dt">cp =</span> i))
+}
+
+result &lt;-<span class="st"> </span>result[<span class="kw">order</span>(result<span class="op">$</span>Accuracy, result<span class="op">$</span>Sensitivity, result<span class="op">$</span>Specificity),]
+result</code></pre>
+<pre><code>##               cp Accuracy Sensitivity Specificity
+## Accuracy9  0.046    0.675       0.947       0.250
+## Accuracy10 0.051    0.675       0.947       0.250
+## Accuracy11 0.056    0.675       0.947       0.250
+## Accuracy12 0.061    0.675       0.947       0.250
+## Accuracy13 0.066    0.675       0.947       0.250
+## Accuracy14 0.071    0.675       0.947       0.250
+## Accuracy15 0.076    0.675       0.947       0.250
+## Accuracy3  0.016    0.686       0.757       0.574
+## Accuracy4  0.021    0.686       0.757       0.574
+## Accuracy5  0.026    0.686       0.757       0.574
+## Accuracy6  0.031    0.686       0.757       0.574
+## Accuracy7  0.036    0.686       0.757       0.574
+## Accuracy8  0.041    0.686       0.757       0.574
+## Accuracy1  0.006    0.694       0.850       0.449
+## Accuracy2  0.011    0.694       0.850       0.449
+## Accuracy   0.001    0.705       0.835       0.502</code></pre>
+<p>We can also visulize the results using <code>ggplot2</code>. First, we wil transform the <code>result</code> dataset into a long format and then use this new dataset (called <code>result_long</code>) in <code>ggplot()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">result_long &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.data.table</span>(result),
+                    <span class="dt">id.vars =</span> <span class="kw">c</span>(<span class="st">&quot;cp&quot;</span>),
+                    <span class="dt">measure =</span> <span class="kw">c</span>(<span class="st">&quot;Accuracy&quot;</span>, <span class="st">&quot;Sensitivity&quot;</span>, <span class="st">&quot;Specificity&quot;</span>),
+                    <span class="dt">variable.name =</span> <span class="st">&quot;Index&quot;</span>,
+                    <span class="dt">value.name =</span> <span class="st">&quot;Value&quot;</span>)
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> result_long,
+       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cp, <span class="dt">y =</span> Value)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Index), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Complexity Parameter&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Value&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-12d-1.png" width="100%" /></p>
+<p>In the plot, we see that there is a trade-off between sensitivity and specificity. Depending on the situation, we may prefer higher sensitivity (e.g., correctly identifying those who have “high” science scores) or higher specificity (e.g., correctly identifying those who have “low” science scores). For example, if we want to know who is performing poorly in science (so that we can design additional instructional materials), we may want the model to identify “low” performers more accurately.</p>
+<div id="cross-validation" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Cross-validation</h3>
+<p>As you may remember, we set <code>xval = 0</code> in our decision tree models because we did not want to run any cross-validation samples. However, cross-validations (e.g., <em>K</em>-fold approach) are highly useful when we do not have a test or validation dataset, or our dataset is to small to split into training and test data. A typical way to use cross-validation in decision trees is to not specify a cp (i.e., complexity parameter) and perform cross validation. In the following example, we will assume that our dataset is not too big and thus we want to run 10 cross-validation samples (i.e., splits) as we build our decision tree model. Note that we use <code>cp = 0</code> this time.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_fit4 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>
+<span class="st">                   </span>EPIST <span class="op">+</span><span class="st"> </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>,
+                                         <span class="dt">cp =</span> <span class="dv">0</span>,
+                                         <span class="dt">xval =</span> <span class="dv">10</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))</code></pre>
+<p>In the results, we can evaluate the cross-validated error (i.e., X-val Relative Error) and choose the complexity parameter that would give us an acceptable value. Then, we can use this cp value and prune the trees. We use <code>plotcp()</code> function to visualize the cross-validation results.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">printcp</span>(dt_fit4)</code></pre>
+<pre><code>## 
+## Classification tree:
+## rpart(formula = science_perf ~ WEALTH + HEDRES + ENVAWARE + ICTRES + 
+##     EPIST + HOMEPOS + ESCS, data = train_dat, method = &quot;class&quot;, 
+##     parms = list(split = &quot;gini&quot;), control = rpart.control(minsplit = 20, 
+##         cp = 0, xval = 10))
+## 
+## Variables actually used in tree construction:
+## [1] ENVAWARE EPIST    ESCS     HEDRES   HOMEPOS  ICTRES   WEALTH  
+## 
+## Root node error: 6461/16561 = 0.39013
+## 
+## n= 16561 
+## 
+##            CP nsplit rel error  xerror      xstd
+## 1  7.7233e-02      0   1.00000 1.00000 0.0097156
+## 2  4.3646e-02      2   0.84553 0.84677 0.0093682
+## 3  1.1918e-02      3   0.80189 0.80406 0.0092417
+## 4  5.6493e-03      5   0.77805 0.78703 0.0091875
+## 5  2.6312e-03      7   0.76675 0.78270 0.0091733
+## 6  2.3216e-03      9   0.76149 0.78378 0.0091769
+## 7  1.9347e-03     11   0.75685 0.78270 0.0091733
+## 8  1.8573e-03     13   0.75298 0.78115 0.0091683
+## 9  1.7025e-03     16   0.74741 0.78130 0.0091688
+## 10 1.5477e-03     18   0.74400 0.78068 0.0091667
+## 11 1.5220e-03     24   0.73425 0.77743 0.0091560
+## 12 1.3930e-03     30   0.72512 0.77852 0.0091596
+## 13 1.2382e-03     34   0.71955 0.77356 0.0091430
+## 14 1.0834e-03     35   0.71831 0.77465 0.0091467
+## 15 1.0525e-03     47   0.70392 0.77387 0.0091441
+## 16 8.5126e-04     52   0.69865 0.77279 0.0091404
+## 17 8.2547e-04     54   0.69695 0.77790 0.0091575
+## 18 7.7387e-04     57   0.69447 0.77697 0.0091544
+## 19 7.2228e-04     69   0.68488 0.77914 0.0091616
+## 20 6.7069e-04     72   0.68271 0.77697 0.0091544
+## 21 6.1910e-04     84   0.67466 0.78099 0.0091677
+## 22 5.8041e-04    101   0.66398 0.78610 0.0091845
+## 23 5.6751e-04    106   0.66104 0.78718 0.0091880
+## 24 5.4171e-04    123   0.65036 0.79121 0.0092010
+## 25 5.1592e-04    148   0.63612 0.79121 0.0092010
+## 26 4.9012e-04    153   0.63287 0.79910 0.0092262
+## 27 4.6432e-04    159   0.62993 0.79957 0.0092277
+## 28 4.3337e-04    198   0.61059 0.80313 0.0092388
+## 29 4.1273e-04    211   0.60331 0.80607 0.0092480
+## 30 4.0241e-04    231   0.59403 0.80916 0.0092576
+## 31 3.8694e-04    254   0.58180 0.81009 0.0092604
+## 32 3.6114e-04    275   0.57282 0.81226 0.0092671
+## 33 3.3166e-04    298   0.56369 0.81272 0.0092685
+## 34 3.0955e-04    310   0.55905 0.82216 0.0092970
+## 35 2.7086e-04    360   0.54341 0.82479 0.0093048
+## 36 2.5796e-04    380   0.53707 0.83083 0.0093226
+## 37 2.4764e-04    399   0.53134 0.83965 0.0093481
+## 38 2.3216e-04    411   0.52825 0.84197 0.0093547
+## 39 2.2111e-04    456   0.51602 0.84492 0.0093630
+## 40 2.1668e-04    467   0.51323 0.84492 0.0093630
+## 41 2.0637e-04    495   0.50317 0.84909 0.0093747
+## 42 1.9347e-04    507   0.50070 0.85188 0.0093824
+## 43 1.8573e-04    521   0.49760 0.85234 0.0093837
+## 44 1.7197e-04    529   0.49574 0.85234 0.0093837
+## 45 1.5477e-04    538   0.49420 0.87339 0.0094403
+## 46 1.2898e-04    632   0.47810 0.87463 0.0094435
+## 47 1.1608e-04    638   0.47733 0.87773 0.0094515
+## 48 1.0318e-04    646   0.47640 0.88222 0.0094630
+## 49 9.2865e-05    667   0.47423 0.88345 0.0094662
+## 50 7.7387e-05    672   0.47377 0.89305 0.0094902
+## 51 6.8789e-05    716   0.47036 0.89305 0.0094902
+## 52 5.8041e-05    725   0.46974 0.89661 0.0094990
+## 53 5.1592e-05    740   0.46881 0.90094 0.0095095
+## 54 3.8694e-05    770   0.46727 0.90187 0.0095117
+## 55 2.2111e-05    782   0.46680 0.90497 0.0095192
+## 56 0.0000e+00    796   0.46618 0.90652 0.0095229</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotcp</span>(dt_fit4)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-14-1.png" width="100%" /></p>
+<p>Next, we can modify our model as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r">dt_fit5 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>
+<span class="st">                   </span>EPIST <span class="op">+</span><span class="st"> </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
+                                         <span class="dt">cp =</span> <span class="fl">0.0039</span>,
+                                         <span class="dt">xval =</span> <span class="dv">0</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
+
+<span class="kw">printcp</span>(dt_fit5)</code></pre>
+<pre><code>## 
+## Classification tree:
+## rpart(formula = science_perf ~ WEALTH + HEDRES + ENVAWARE + ICTRES + 
+##     EPIST + HOMEPOS + ESCS, data = train_dat, method = &quot;class&quot;, 
+##     parms = list(split = &quot;gini&quot;), control = rpart.control(minsplit = 20, 
+##         cp = 0.0039, xval = 0))
+## 
+## Variables actually used in tree construction:
+## [1] ENVAWARE EPIST    ESCS     HOMEPOS 
+## 
+## Root node error: 6461/16561 = 0.39013
+## 
+## n= 16561 
+## 
+##          CP nsplit rel error
+## 1 0.0772326      0   1.00000
+## 2 0.0436465      2   0.84553
+## 3 0.0119177      3   0.80189
+## 4 0.0056493      5   0.77805
+## 5 0.0039000      7   0.76675</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(dt_fit5, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-15-1.png" width="100%" /></p>
+<p>Lastly, for the sake of brevity, we demonstrate a short regression tree example below where we predict math scores (a continuous variable) using the same set of variables. This time we use <code>method = &quot;anova&quot;</code> in the <code>rpart()</code> function to estimate a regression tree.</p>
+<p>Let’s begin with cross-validation and check how <span class="math inline">\(R^2\)</span> changes depending on the number of splits.</p>
+<pre class="sourceCode r"><code class="sourceCode r">rt_fit1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> math <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>
+<span class="st">                  </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;anova&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>,
+                                         <span class="dt">cp =</span> <span class="fl">0.001</span>,
+                                         <span class="dt">xval =</span> <span class="dv">10</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
+
+<span class="kw">printcp</span>(rt_fit1)</code></pre>
+<pre><code>## 
+## Regression tree:
+## rpart(formula = math ~ WEALTH + HEDRES + ENVAWARE + ICTRES + 
+##     EPIST + HOMEPOS + ESCS, data = train_dat, method = &quot;anova&quot;, 
+##     parms = list(split = &quot;gini&quot;), control = rpart.control(minsplit = 20, 
+##         cp = 0.001, xval = 10))
+## 
+## Variables actually used in tree construction:
+## [1] ENVAWARE EPIST    ESCS     HEDRES   WEALTH  
+## 
+## Root node error: 104625310/16561 = 6317.6
+## 
+## n= 16561 
+## 
+##           CP nsplit rel error  xerror      xstd
+## 1  0.1121549      0   1.00000 1.00014 0.0100818
+## 2  0.0382061      1   0.88785 0.88819 0.0091919
+## 3  0.0353050      2   0.84964 0.85964 0.0089652
+## 4  0.0166934      3   0.81433 0.81758 0.0085677
+## 5  0.0078301      4   0.79764 0.80105 0.0084293
+## 6  0.0070306      5   0.78981 0.79455 0.0083594
+## 7  0.0063780      6   0.78278 0.78877 0.0083343
+## 8  0.0040553      7   0.77640 0.78437 0.0083043
+## 9  0.0033408      8   0.77235 0.78091 0.0082947
+## 10 0.0030034      9   0.76901 0.77942 0.0082741
+## 11 0.0028744     10   0.76600 0.77759 0.0082582
+## 12 0.0024670     11   0.76313 0.77469 0.0082327
+## 13 0.0021466     12   0.76066 0.77141 0.0082005
+## 14 0.0021460     13   0.75851 0.77185 0.0082082
+## 15 0.0019919     14   0.75637 0.77166 0.0082192
+## 16 0.0018103     15   0.75438 0.76997 0.0082037
+## 17 0.0017435     17   0.75076 0.76856 0.0081993
+## 18 0.0017275     18   0.74901 0.76836 0.0081954
+## 19 0.0016846     19   0.74728 0.76787 0.0081916
+## 20 0.0016463     20   0.74560 0.76770 0.0081872
+## 21 0.0015453     21   0.74395 0.76759 0.0081813
+## 22 0.0013210     22   0.74241 0.76538 0.0081718
+## 23 0.0012386     23   0.74109 0.76290 0.0081676
+## 24 0.0012244     25   0.73861 0.76170 0.0081598
+## 25 0.0011261     27   0.73616 0.75927 0.0081399
+## 26 0.0011075     28   0.73504 0.75895 0.0081377
+## 27 0.0011003     29   0.73393 0.75948 0.0081432
+## 28 0.0010564     30   0.73283 0.75924 0.0081413
+## 29 0.0010195     31   0.73177 0.75704 0.0081125
+## 30 0.0010000     32   0.73075 0.75675 0.0081169</code></pre>
+<p>Then, we can adjust our model based on the suggestions from the previous plot. Note that we use <code>extra = 100</code> in the <code>rpart.plot()</code> function to show percentages (<em>Note</em>: <code>rpart.plot</code> has different <em>extra</em> options depending on whether it is a classification or regression tree).</p>
+<pre class="sourceCode r"><code class="sourceCode r">rt_fit2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> math <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>
+<span class="st">                  </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
+                 <span class="dt">data =</span> train_dat,
+                 <span class="dt">method =</span> <span class="st">&quot;anova&quot;</span>, 
+                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
+                                         <span class="dt">cp =</span> <span class="fl">0.007</span>,
+                                         <span class="dt">xval =</span> <span class="dv">0</span>),
+                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
+
+<span class="kw">printcp</span>(rt_fit2)</code></pre>
+<pre><code>## 
+## Regression tree:
+## rpart(formula = math ~ WEALTH + HEDRES + ENVAWARE + ICTRES + 
+##     EPIST + HOMEPOS + ESCS, data = train_dat, method = &quot;anova&quot;, 
+##     parms = list(split = &quot;gini&quot;), control = rpart.control(minsplit = 20, 
+##         cp = 0.007, xval = 0))
+## 
+## Variables actually used in tree construction:
+## [1] ENVAWARE EPIST    ESCS    
+## 
+## Root node error: 104625310/16561 = 6317.6
+## 
+## n= 16561 
+## 
+##          CP nsplit rel error
+## 1 0.1121549      0   1.00000
+## 2 0.0382061      1   0.88785
+## 3 0.0353050      2   0.84964
+## 4 0.0166934      3   0.81433
+## 5 0.0078301      4   0.79764
+## 6 0.0070306      5   0.78981
+## 7 0.0070000      6   0.78278</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(rt_fit2, <span class="dt">extra =</span> <span class="dv">100</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-17a-1.png" width="100%" /></p>
+<p>To evaluate the model accuracy, we cannot use the classification-based indices anymore because we built a regression tree, not a classification tree. Two useful measures that we can for evaluating regression trees are the mean absolute error (mae) and the root mean square error (rmse). The <code>modelr</code> package has several functions – such as <code>mae()</code> and <code>rmse()</code> – to evaluate regression-based models. Using the training and (more importantly) test data, we can evaluate the accuracy of the decision tree model that we estimated above.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Training data</span>
+<span class="kw">mae</span>(<span class="dt">model =</span> rt_fit2, <span class="dt">data =</span> train_dat)</code></pre>
+<pre><code>## [1] 56.48637</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rmse</span>(<span class="dt">model =</span> rt_fit2, <span class="dt">data =</span> train_dat)</code></pre>
+<pre><code>## [1] 70.3226</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test data</span>
+<span class="kw">mae</span>(<span class="dt">model =</span> rt_fit2, <span class="dt">data =</span> test_dat)</code></pre>
+<pre><code>## [1] 56.65823</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rmse</span>(<span class="dt">model =</span> rt_fit2, <span class="dt">data =</span> test_dat)</code></pre>
+<pre><code>## [1] 70.41532</code></pre>
+<p>We seem to have slightly less error with the training data than the test data. Is this finding suprising to you?</p>
+<hr />
+</div>
+</div>
+<div id="random-forests" class="section level2">
+<h2><span class="header-section-number">7.3</span> Random Forests</h2>
+<p>Decision trees can sometimes be non-robust because a small change in the data may cause a significant change in the final estimated tree. Therefore, whenever a decision tree approach is not completely stable, an alternative method – such as <strong>random forests</strong> – can be more suitable for supervised ML applications. Unlike the decision tree approach where there is a single solution from the same sample, random forest builds multiple decision trees by splitting the data into multiple sub-samples and merges them together to get a more accurate and stable prediction.</p>
+<p>The underlying mechanism of random forests is very similar to that of decision trees. However, random forests first build lots of bushy trees and then average them to reduce the overall variance. Figure <a href="supervised-machine-learning-part-i.html#fig:fig6-2">7.2</a> shows how a random forest would look like with three trees.</p>
+<center>
+<div class="figure"><span id="fig:fig6-2"></span>
+<img src="images/randomforest.png" alt="An example of random forests approach" width="100%" />
+<p class="caption">
+Figure 7.2: An example of random forests approach
+</p>
+</div>
+</center>
+<p>Random forest adds additional randomness to the model, while growing the trees. Instead of searching for the most important feature (i.e., predictor) while splitting a node, it searches for the best feature among a random subset of features. That is, only a random subset of the features is taken into consideration by the algorithm for splitting a node. This results in a wide diversity that generally results in a better model. For example, if there is a strong predictor among a set of predictors, a decision tree would typically rely on this particular predictor to make predictions and build trees. However, random forests force each split to consider only a set of the predictors – which would result in trees that utilize not only the strong predictor but also other predictors that are moderately correlated with the outcome variable.</p>
+<p>Random forest has nearly the same tuning parameters as a decision tree. Also, like decision trees, random forests can be used for both classification and regression problems. However, there are some differences between the two approaches. Unlike in decision trees, it is easier to control and prevent overfitting in random forests. This is because random forests create random subsets of the features and build much smaller trees using these subsets. Afterwards, it combines the subtrees. It should be noted that this procedure makes random forests computationally slower, depending on how many trees random forest builds. Therefore, it may not be effective for <em>real-time</em> predictions.</p>
+<p>The random forest algorithm is used in a lot of different fields, like banking, stock market, medicine, and e-commerce. For example, random forests can be used to detect customers who will use the bank’s services more frequently than others and repay their debt in time. It can also used to detect fraud customers who want to scam the bank. In educational testing, we can use random forests to analyze a student’s assessment history (e.g., test scores, response times, demographic variables, grade level, and so on) to identify whether the student has any learning difficulties. Similarly, we can use examinee-related variables, test scores, and test administration date to identify whether an examinee is likely to re-take the test (e.g., TOEFL or GRE) in the future.</p>
+</div>
+<div id="random-forests-in-r" class="section level2">
+<h2><span class="header-section-number">7.4</span> Random forests in R</h2>
+<p>In R, <code>randomForest</code> and <code>caret</code> packages can be used to apply the random forest algorithm to classification and regression problems. The use of the <code>randomForest()</code> function is similar to that of <code>rpart()</code>. The main elements that we need to define are:</p>
+<ul>
+<li><strong>formula</strong>: A regression-like formula defining the dependent variable and the predictors – it is the same as the one for <code>rpart()</code>.</li>
+<li><strong>data</strong>: The dataset that we use to train the model.</li>
+<li><strong>importance</strong>: If TRUE, then importance of the predictors is assessed in the model.</li>
+<li><strong>ntree</strong>: Number of trees to grow in the model; we often start with a large number and then reduce it as we adjust the model based on the results. A large number for <strong>ntree</strong> can significantly increase the estimation time for the model.</li>
+</ul>
+<p>There are also other elements that we can change depending on whether it is a classification or regression model (see <code>?randomForest</code> for more details). In the following example, we will focus on the same classification problem that we used before for decision trees. We initially set <code>ntree = 1000</code> to get 1000 trees in total but we will evaluate whether we need all of these trees to have an accurate model.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;randomForest&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;caret&quot;</span>)
+
+rf_fit1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
+                        <span class="dt">data =</span> train_dat,
+                        <span class="dt">importance =</span> <span class="ot">TRUE</span>, <span class="dt">ntree =</span> <span class="dv">1000</span>)
+
+<span class="kw">print</span>(rf_fit1)</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(formula = science_perf ~ ., data = train_dat, importance = TRUE,      ntree = 1000) 
+##                Type of random forest: classification
+##                      Number of trees: 1000
+## No. of variables tried at each split: 3
+## 
+##         OOB estimate of  error rate: 7.58%
+## Confusion matrix:
+##      High  Low class.error
+## High 9464  636   0.0629703
+## Low   619 5842   0.0958056</code></pre>
+<p>In the output, we see the confusion matrix along with classification error and out-of-bag (OOB) error. OBB is a method of measuring the prediction error of random forests, finding the mean prediction error on each training sample, using only the trees that did not have in their bootstrap sample. The results show that the overall OBB error is around <span class="math inline">\(7.6\%\)</span>, while the classification error is <span class="math inline">\(6\%\)</span> for the <em>high</em> category and around <span class="math inline">\(10\%\)</span> for the <em>low</em> category.</p>
+<p>Next, by checking the level error across the number of trees, we can determine the ideal number of trees for our model.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_fit1)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-19-1.png" width="100%" /></p>
+<p>The plot shows that the error level does not go down any further after roughly 50 trees. So, we can run our model again by using <code>ntree = 50</code> this time.</p>
+<pre class="sourceCode r"><code class="sourceCode r">rf_fit2 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
+                        <span class="dt">data =</span> train_dat,
+                        <span class="dt">importance =</span> <span class="ot">TRUE</span>, <span class="dt">ntree =</span> <span class="dv">50</span>)
+
+<span class="kw">print</span>(rf_fit2)</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(formula = science_perf ~ ., data = train_dat, importance = TRUE,      ntree = 50) 
+##                Type of random forest: classification
+##                      Number of trees: 50
+## No. of variables tried at each split: 3
+## 
+##         OOB estimate of  error rate: 7.95%
+## Confusion matrix:
+##      High  Low class.error
+## High 9459  641  0.06346535
+## Low   675 5786  0.10447299</code></pre>
+<p>We can see the overall accuracy of model (<span class="math inline">\(92.12\%\)</span>) as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(rf_fit2<span class="op">$</span>confusion)) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(train_dat)</code></pre>
+<pre><code>## [1] 0.9205362</code></pre>
+<p>As we did for the decision trees, we can check the importance of the predictors in the model, using <code>importance()</code> and <code>varImpPlot()</code>. With <code>importance()</code>, we will first import the importance measures, turn it into a data.frame, save the row names as predictor names, and finally sort the data by MeanDecreaseGini (or, you can also see the basic output using only <code>importance(rf_fit2)</code>)</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">importance</span>(rf_fit2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Predictors =</span> <span class="kw">row.names</span>(.)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(MeanDecreaseGini))</code></pre>
+<pre><code>##        High       Low MeanDecreaseAccuracy MeanDecreaseGini Predictors
+## 1 28.659419 33.636045            39.132181        3483.8309       math
+## 2 36.009283 34.864208            47.182695        2747.9847    reading
+## 3  1.737624  1.235376             1.906881         362.2179      EPIST
+## 4  4.234494  6.218419             7.870379         292.6858   ENVAWARE
+## 5  5.395840  3.214590             6.759172         281.1615       ESCS
+## 6  6.820185  6.218776            11.009217         218.7035    HOMEPOS
+## 7  6.795979  9.105067            10.887967         197.7090     WEALTH
+## 8  5.246056  3.811507             6.574882         161.3102     ICTRES
+## 9  7.454470  1.509708             5.713732         133.4999     HEDRES</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(rf_fit2, 
+           <span class="dt">main =</span> <span class="st">&quot;Importance of Variables for Science Performance&quot;</span>)</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-21-1.png" width="100%" /></p>
+<p>The output shows different importance measures for the predictors that we used in the model. <code>MeanDecreaseAccuracy</code> and <code>MeanDecreaseGini</code> represent the overall classification error rate (or, mean squared error for regression) and the total decrease in node impurities from splitting on the variable, averaged over all trees. In the output, math and reading are the two predictors that seem to influence the model performance substantially, whereas EPIST and HEDRES are the least important variables. <code>varImpPlot()</code> presents the same information visually.</p>
+<p>Next, we check the confusion matrix to see the accuracy, sensitivity, and specificity of our model.</p>
+<pre class="sourceCode r"><code class="sourceCode r">rf_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(rf_fit2, test_dat) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">science_perf =</span> <span class="kw">as.factor</span>(<span class="st">`</span><span class="dt">.</span><span class="st">`</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(science_perf)
+  
+<span class="kw">confusionMatrix</span>(rf_pred<span class="op">$</span>science_perf, test_dat<span class="op">$</span>science_perf)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction High  Low
+##       High 4058  274
+##       Low   270 2495
+##                                           
+##                Accuracy : 0.9233          
+##                  95% CI : (0.9169, 0.9294)
+##     No Information Rate : 0.6098          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.8389          
+##  Mcnemar&#39;s Test P-Value : 0.8977          
+##                                           
+##             Sensitivity : 0.9376          
+##             Specificity : 0.9010          
+##          Pos Pred Value : 0.9367          
+##          Neg Pred Value : 0.9024          
+##              Prevalence : 0.6098          
+##          Detection Rate : 0.5718          
+##    Detection Prevalence : 0.6104          
+##       Balanced Accuracy : 0.9193          
+##                                           
+##        &#39;Positive&#39; Class : High            
+## </code></pre>
+<p>The results show that the accuracy is quite high (<span class="math inline">\(92\%\)</span>). Similarly, sensitivity and specificity are also very high. This is not necessarily surprising because we already knew that the math and reading scores are highly correlated with the science performance. Also, our decision tree model yielded very similar results.</p>
+<p>Finally, let’s visualize the classification results using <code>ggplot2</code>. First, we will create a new dataset called <code>rf_class</code> with the predicted and actual classifications (from the test data) based on the random forest model. Then, we will visualize the correct and incorrect classifications using a bar chart and a point plot with jittering.</p>
+<pre class="sourceCode r"><code class="sourceCode r">rf_class &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">actual =</span> test_dat<span class="op">$</span>science_perf,
+                      <span class="dt">predicted =</span> rf_pred<span class="op">$</span>science_perf) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Status =</span> <span class="kw">ifelse</span>(actual <span class="op">==</span><span class="st"> </span>predicted, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> rf_class, 
+       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> predicted, <span class="dt">fill =</span> Status)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Predicted Science Performance&quot;</span>,
+       <span class="dt">y =</span> <span class="st">&quot;Actual Science Performance&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-23-1.png" width="100%" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> rf_class, 
+       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> predicted, <span class="dt">y =</span> actual, 
+                     <span class="dt">color =</span> Status, <span class="dt">shape =</span> Status)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Predicted Science Performance&quot;</span>,
+       <span class="dt">y =</span> <span class="st">&quot;Actual Science Performance&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
+<p><img src="big-data-in-r_files/figure-html/ch6-24-1.png" width="100%" /></p>
+<p>Like decision trees, random forests can also be used for cross-validation, using the package <code>rfUtilities</code> that utilizes the objects returned from the <code>randomForest()</code> function. Below we show how cross-validation would work for random forests (output is not shown). Using the <code>randomForest</code> object that we estimated earlier (i.e.,, <code>rf_fit2</code>), we can run cross validations as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;rfUtilities&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;rfUtilities&quot;</span>)
+
+rf_fit2_cv &lt;-<span class="st"> </span><span class="kw">rf.crossValidation</span>(
+  <span class="dt">x =</span> rf_fit2, 
+  <span class="dt">xdata =</span> train_dat,
+  <span class="dt">p=</span><span class="fl">0.10</span>, <span class="co"># Proportion of data to test (the rest is training)</span>
+  <span class="dt">n=</span><span class="dv">10</span>,   <span class="co"># Number of cross validation samples</span>
+  <span class="dt">ntree =</span> <span class="dv">50</span>)   
+
+
+<span class="co"># Plot cross validation verses model producers accuracy</span>
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) 
+<span class="kw">plot</span>(rf_fit2_cv, <span class="dt">type =</span> <span class="st">&quot;cv&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;CV producers accuracy&quot;</span>)
+<span class="kw">plot</span>(rf_fit2_cv, <span class="dt">type =</span> <span class="st">&quot;model&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Model producers accuracy&quot;</span>)
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) 
+
+<span class="co"># Plot cross validation verses model oob</span>
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) 
+<span class="kw">plot</span>(rf_fit2_cv, <span class="dt">type =</span> <span class="st">&quot;cv&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;oob&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;CV oob error&quot;</span>)
+<span class="kw">plot</span>(rf_fit2_cv, <span class="dt">type =</span> <span class="st">&quot;model&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;oob&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Model oob error&quot;</span>)    
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) </code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modeling-big-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="supervised-machine-learning-part-ii.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/okanbulut/bigdata/tree/master/06-supervised_learning_part1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["big-data-in-r.pdf", "big-data-in-r.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -14,7 +14,7 @@
   
   
   <meta property="og:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
-  <meta name="github-repo" content="okanbulut/BigDataAnalysisWithR" />
+  <meta name="github-repo" content="okanbulut/bigdata" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Exploring, Visualizing, and Modeling Big Data with R" />
@@ -26,7 +26,7 @@
 <meta name="author" content="Christopher Desjardins">
 
 
-<meta name="date" content="2019-04-01">
+<meta name="date" content="2019-04-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -138,8 +138,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Exploring, Visualizing, and Modeling Big Data in R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> <strong>Exploring, Visualizing, and Modeling Big Data with R</strong></a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#who-we-are"><i class="fa fa-check"></i><b>1.1</b> Who we are</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#summary"><i class="fa fa-check"></i><b>1.1</b> Summary</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#who-we-are"><i class="fa fa-check"></i><b>1.2</b> Who we are</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-big-data"><i class="fa fa-check"></i><b>2.1</b> What is big data?</a></li>
@@ -148,24 +149,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#additional-resources"><i class="fa fa-check"></i><b>2.4</b> Additional resources</a></li>
 <li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#pisa-dataset"><i class="fa fa-check"></i><b>2.5</b> PISA dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html"><i class="fa fa-check"></i><b>3</b> Visualizing big data</a><ul>
-<li class="chapter" data-level="3.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#introduction-to-ggplot2"><i class="fa fa-check"></i><b>3.1</b> Introduction to <code>ggplot2</code></a></li>
-<li class="chapter" data-level="3.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#marginal-plots"><i class="fa fa-check"></i><b>3.2</b> Marginal plots</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise"><i class="fa fa-check"></i><b>3.2.1</b> Exercise</a></li>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#what-is-exploratory-data-analysis"><i class="fa fa-check"></i><b>3.1</b> What is exploratory data analysis?</a></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#confirmatory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Confirmatory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#a-framework-for-eda"><i class="fa fa-check"></i><b>3.3</b> A framework for EDA</a></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#eda-tools"><i class="fa fa-check"></i><b>3.4</b> EDA tools</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#conditional-plots"><i class="fa fa-check"></i><b>3.3</b> Conditional plots</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-1"><i class="fa fa-check"></i><b>3.3.1</b> Exercise</a></li>
-<li class="chapter" data-level="3.3.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-2"><i class="fa fa-check"></i><b>3.3.2</b> Exercise</a></li>
+<li class="chapter" data-level="4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling big data</a><ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#what-is-data.table"><i class="fa fa-check"></i><b>4.1</b> What is <code>data.table</code>?</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#why-use-data.table-over-tidyverse"><i class="fa fa-check"></i><b>4.1.1</b> Why use <code>data.table</code> over <code>tidyverse</code>?</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>3.4</b> Interactive plots with <code>plotly</code></a><ul>
-<li class="chapter" data-level="3.4.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-3"><i class="fa fa-check"></i><b>3.4.1</b> Exercise</a></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#readingwriting-data-with-data.table"><i class="fa fa-check"></i><b>4.2</b> Reading/writing data with <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#customizing-visualizations"><i class="fa fa-check"></i><b>3.5</b> Customizing visualizations</a></li>
-<li class="chapter" data-level="3.6" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#web-based-visualizations-and-dashboards"><i class="fa fa-check"></i><b>3.6</b> Web-based visualizations and dashboards</a></li>
-<li class="chapter" data-level="3.7" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#lab"><i class="fa fa-check"></i><b>3.7</b> Lab</a></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-i-in-data.table"><i class="fa fa-check"></i><b>4.3</b> Using the i in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-1"><i class="fa fa-check"></i><b>4.3.1</b> Exercises</a></li>
 </ul></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-j-in-data.table"><i class="fa fa-check"></i><b>4.4</b> Using the j in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-2"><i class="fa fa-check"></i><b>4.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#summarizing-using-the-by-in-data.table"><i class="fa fa-check"></i><b>4.5</b> Summarizing using the by in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.5.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-3"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#reshaping-data"><i class="fa fa-check"></i><b>4.6</b> Reshaping data</a></li>
+<li class="chapter" data-level="4.7" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#the-sparklyr-package"><i class="fa fa-check"></i><b>4.7</b> The <code>sparklyr</code> package</a></li>
+<li class="chapter" data-level="4.8" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#lab"><i class="fa fa-check"></i><b>4.8</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html"><i class="fa fa-check"></i><b>5</b> Visualizing big data</a><ul>
+<li class="chapter" data-level="5.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#introduction-to-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Introduction to <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#marginal-plots"><i class="fa fa-check"></i><b>5.2</b> Marginal plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise"><i class="fa fa-check"></i><b>5.2.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#conditional-plots"><i class="fa fa-check"></i><b>5.3</b> Conditional plots</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-1"><i class="fa fa-check"></i><b>5.3.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-correlations"><i class="fa fa-check"></i><b>5.4</b> Plots for examining correlations</a></li>
+<li class="chapter" data-level="5.5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-means-by-group"><i class="fa fa-check"></i><b>5.5</b> Plots for examining means by group</a></li>
+<li class="chapter" data-level="5.6" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-ordinalcategorical-variables"><i class="fa fa-check"></i><b>5.6</b> Plots for ordinal/categorical variables</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-2"><i class="fa fa-check"></i><b>5.6.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>5.7</b> Interactive plots with <code>plotly</code></a><ul>
+<li class="chapter" data-level="5.7.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-3"><i class="fa fa-check"></i><b>5.7.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#customizing-visualizations"><i class="fa fa-check"></i><b>5.8</b> Customizing visualizations</a></li>
+<li class="chapter" data-level="5.9" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#lab-1"><i class="fa fa-check"></i><b>5.9</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="modeling-big-data.html"><a href="modeling-big-data.html"><i class="fa fa-check"></i><b>6</b> Modeling big data</a><ul>
+<li class="chapter" data-level="6.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#introduction-to-machine-learning"><i class="fa fa-check"></i><b>6.1</b> Introduction to machine learning</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#focus-of-machine-learning"><i class="fa fa-check"></i><b>6.1.1</b> Focus of machine learning</a></li>
+<li class="chapter" data-level="6.1.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#some-concepts-underlying-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Some concepts underlying machine learning</a></li>
+<li class="chapter" data-level="6.1.3" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-development"><i class="fa fa-check"></i><b>6.1.3</b> Model development</a></li>
+<li class="chapter" data-level="6.1.4" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-evaluation"><i class="fa fa-check"></i><b>6.1.4</b> Model evaluation</a></li>
+<li class="chapter" data-level="6.1.5" data-path="modeling-big-data.html"><a href="modeling-big-data.html#key-issues"><i class="fa fa-check"></i><b>6.1.5</b> Key issues</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#types-of-machine-learning"><i class="fa fa-check"></i><b>6.2</b> Types of machine learning</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html"><i class="fa fa-check"></i><b>7</b> Supervised Machine Learning - Part I</a><ul>
+<li class="chapter" data-level="7.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#regression-trees"><i class="fa fa-check"></i><b>7.1.1</b> Regression trees</a></li>
+<li class="chapter" data-level="7.1.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#classification-trees"><i class="fa fa-check"></i><b>7.1.2</b> Classification trees</a></li>
+<li class="chapter" data-level="7.1.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#pruning-decision-trees"><i class="fa fa-check"></i><b>7.1.3</b> Pruning decision trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees-in-r"><i class="fa fa-check"></i><b>7.2</b> Decision trees in R</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#cross-validation"><i class="fa fa-check"></i><b>7.2.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests"><i class="fa fa-check"></i><b>7.3</b> Random Forests</a></li>
+<li class="chapter" data-level="7.4" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests-in-r"><i class="fa fa-check"></i><b>7.4</b> Random forests in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html"><i class="fa fa-check"></i><b>8</b> Supervised Machine Learning - Part II</a><ul>
+<li class="chapter" data-level="8.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machines"><i class="fa fa-check"></i><b>8.1</b> Support Vector Machines</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#maximal-margin-classifier"><i class="fa fa-check"></i><b>8.1.1</b> Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="8.1.2" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-classifier"><i class="fa fa-check"></i><b>8.1.2</b> Support Vector Classifier</a></li>
+<li class="chapter" data-level="8.1.3" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machine"><i class="fa fa-check"></i><b>8.1.3</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="8.1.4" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#lab-2"><i class="fa fa-check"></i><b>8.1.4</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#clustering"><i class="fa fa-check"></i><b>9.1</b> Clustering</a></li>
+<li class="chapter" data-level="9.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#distance-measures"><i class="fa fa-check"></i><b>9.2</b> Distance Measures</a></li>
+<li class="chapter" data-level="9.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering"><i class="fa fa-check"></i><b>9.3</b> K-means clustering</a></li>
+<li class="chapter" data-level="9.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering-in-r"><i class="fa fa-check"></i><b>9.4</b> K-means clustering in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>10</b> Summary</a><ul>
+<li class="chapter" data-level="10.1" data-path="summary-1.html"><a href="summary-1.html#topics-covered"><i class="fa fa-check"></i><b>10.1</b> Topics covered</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="summary-1.html"><a href="summary-1.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>10.1.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="10.1.2" data-path="summary-1.html"><a href="summary-1.html#supervised-learning"><i class="fa fa-check"></i><b>10.1.2</b> Supervised learning</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summary-1.html"><a href="summary-1.html#methods-we-didnt-cover"><i class="fa fa-check"></i><b>10.2</b> Methods we didn’t cover</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/okanbulut/BigDataAnalysisWithR" target="blank">Published with bookdown</a></li>
+<li><a href="https://github.com/okanbulut/bigdata" target="blank">All rights reserved</a></li>
 
 </ul>
 
@@ -188,26 +262,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title">Exploring, Visualizing, and Modeling Big Data with R</h1>
 <p class="author"><em>Okan Bulut</em></p>
 <p class="author"><em>Christopher Desjardins</em></p>
-<p class="date"><em>2019-04-01</em></p>
+<p class="date"><em>2019-04-04</em></p>
 </div>
-<div id="exploring-visualizing-and-modeling-big-data-with-r" class="section level1">
-<h1><span class="header-section-number">1</span> <strong>Exploring, Visualizing, and Modeling Big Data with R</strong></h1>
+<div id="preface" class="section level1">
+<h1><span class="header-section-number">1</span> Preface</h1>
 <center>
 <img src="images/Cover2.jpg" />
 </center>
-<p><br /></p>
+<p><br/></p>
+<div id="summary" class="section level2">
+<h2><span class="header-section-number">1.1</span> Summary</h2>
 <p>Working with <strong>BIG DATA</strong> requires a particular suite of data analytics tools and advanced techniques, such as machine learning (ML). Many of these tools are readily and freely available in <a href="https://cran.r-project.org/">R</a>. This full-day session will provide participants with a hands-on training on how to use data analytics tools and machine learning methods available in R to explore, visualize, and model big data.</p>
-<p>The first half of our training session will focus on organizing (manipulating and summarizing) and visualizing (both statically and dynamically) big data in R. The second half will involve a series of short lectures on ML techniques (decision trees, support vector machines, and k-nearest neighbors), as well as hands-on demonstrations applying these methods in R. Examples will be drawn from the OECD’s <a href="http://www.oecd.org/pisa/">Programme for International Student Assessment (PISA)</a>. As participants, you will get opportunities to work through several hands-on lab sessions throughout the day.</p>
+<p>The first half of our training session will focus on organizing (manipulating and summarizing) and visualizing (both statically and dynamically) big data in R. The second half will involve a series of short lectures on ML techniques (decision trees, random forests, and support vector machines), as well as hands-on demonstrations applying these methods in R. Examples will be drawn from the OECD’s <a href="http://www.oecd.org/pisa/">Programme for International Student Assessment (PISA)</a>. Participants will get opportunities to work through several hands-on lab sessions throughout the day.</p>
+</div>
 <div id="who-we-are" class="section level2">
-<h2><span class="header-section-number">1.1</span> Who we are</h2>
+<h2><span class="header-section-number">1.2</span> Who we are</h2>
 <ol style="list-style-type: decimal">
 <li><p><strong>Okan Bulut – University of Alberta</strong></p>
 <ul>
 <li>Associate Professor of educational measurement and psychometrics at the University of Alberta</li>
 <li>10+ years using the R programming language for data analysis and visualization</li>
 <li>Specialized in the analysis and visualization of big data (mostly from large-scale assessments)</li>
-<li>5+ years teaching courses and workshops on statistics, psychometrics, and programming with R</li>
-<li><a href="https://github.com/okanbulut" class="uri">https://github.com/okanbulut</a> and &lt;www.okanbulut.com&gt;</li>
+<li>6+ years teaching courses and workshops on statistics, psychometrics, and programming with R</li>
+<li><a href="https://github.com/okanbulut" class="uri">https://github.com/okanbulut</a> and <a href="https://sites.ualberta.ca/~bulut/" class="uri">https://sites.ualberta.ca/~bulut/</a></li>
 <li><strong>E-mail:</strong> <a href="mailto:bulut@ualberta.ca" class="email">bulut@ualberta.ca</a></li>
 </ul></li>
 <li><p><strong>Christopher D. Desjardins – University of Minnesota</strong></p>
@@ -218,13 +295,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>E-mail:</strong> <a href="mailto:cdesjard@umn.edu" class="email">cdesjard@umn.edu</a></li>
 </ul></li>
 </ol>
-<p><br />
-We also co-authored:</p>
+<p><br/></p>
+<p>We also co-authored:</p>
 <ul>
-<li>two R packages – <a href="https://cran.r-project.org/web/packages/profileR/index.html">profileR</a> for profile analysis of multivariate data and <a href="https://github.com/cddesja/hemp">hemp</a> for psychometric analysis of assessment data</li>
-<li>a recent book titled <a href="https://www.crcpress.com/Handbook-of-Educational-Measurement-and-Psychometrics-Using-R/Desjardins-Bulut/p/book/9781498770132">Handbook of Educational Measurement and Psychometrics Using R</a></li>
+<li>Two R packages – <a href="https://cran.r-project.org/web/packages/profileR/index.html">profileR</a> for profile analysis of multivariate data and <a href="https://github.com/cddesja/hemp">hemp</a> for psychometric analysis of assessment data</li>
+<li>A recent book titled <a href="https://www.crcpress.com/Handbook-of-Educational-Measurement-and-Psychometrics-Using-R/Desjardins-Bulut/p/book/9781498770132">Handbook of Educational Measurement and Psychometrics Using R</a></li>
 </ul>
-<p><br /></p>
+<p><br/></p>
 
 </div>
 </div>
@@ -264,7 +341,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/okanbulut/bigdata/tree/master/index.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -279,6 +356,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

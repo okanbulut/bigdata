@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>3 Exploratory data analysis | Exploring, Visualizing, and Modeling Big Data with R</title>
+  <meta name="description" content="This book presents the materials for our NCME workshop on big data analysis in R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="3 Exploratory data analysis | Exploring, Visualizing, and Modeling Big Data with R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  <meta name="github-repo" content="okanbulut/bigdata" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Exploratory data analysis | Exploring, Visualizing, and Modeling Big Data with R />
+  
+  <meta name="twitter:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  
+
+<meta name="author" content="Okan Bulut">
+<meta name="author" content="Christopher Desjardins">
+
+
+<meta name="date" content="2019-04-04">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="intro.html">
+<link rel="next" href="wrangling-big-data.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Exploring, Visualizing, and Modeling Big Data in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#summary"><i class="fa fa-check"></i><b>1.1</b> Summary</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#who-we-are"><i class="fa fa-check"></i><b>1.2</b> Who we are</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-big-data"><i class="fa fa-check"></i><b>2.1</b> What is big data?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#why-is-big-data-important"><i class="fa fa-check"></i><b>2.2</b> Why is big data important?</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#how-do-we-analyze-big-data"><i class="fa fa-check"></i><b>2.3</b> How do we analyze big data?</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#additional-resources"><i class="fa fa-check"></i><b>2.4</b> Additional resources</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#pisa-dataset"><i class="fa fa-check"></i><b>2.5</b> PISA dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#what-is-exploratory-data-analysis"><i class="fa fa-check"></i><b>3.1</b> What is exploratory data analysis?</a></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#confirmatory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Confirmatory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#a-framework-for-eda"><i class="fa fa-check"></i><b>3.3</b> A framework for EDA</a></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#eda-tools"><i class="fa fa-check"></i><b>3.4</b> EDA tools</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling big data</a><ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#what-is-data.table"><i class="fa fa-check"></i><b>4.1</b> What is <code>data.table</code>?</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#why-use-data.table-over-tidyverse"><i class="fa fa-check"></i><b>4.1.1</b> Why use <code>data.table</code> over <code>tidyverse</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#readingwriting-data-with-data.table"><i class="fa fa-check"></i><b>4.2</b> Reading/writing data with <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-i-in-data.table"><i class="fa fa-check"></i><b>4.3</b> Using the i in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-1"><i class="fa fa-check"></i><b>4.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-j-in-data.table"><i class="fa fa-check"></i><b>4.4</b> Using the j in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-2"><i class="fa fa-check"></i><b>4.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#summarizing-using-the-by-in-data.table"><i class="fa fa-check"></i><b>4.5</b> Summarizing using the by in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.5.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-3"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#reshaping-data"><i class="fa fa-check"></i><b>4.6</b> Reshaping data</a></li>
+<li class="chapter" data-level="4.7" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#the-sparklyr-package"><i class="fa fa-check"></i><b>4.7</b> The <code>sparklyr</code> package</a></li>
+<li class="chapter" data-level="4.8" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#lab"><i class="fa fa-check"></i><b>4.8</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html"><i class="fa fa-check"></i><b>5</b> Visualizing big data</a><ul>
+<li class="chapter" data-level="5.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#introduction-to-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Introduction to <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#marginal-plots"><i class="fa fa-check"></i><b>5.2</b> Marginal plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise"><i class="fa fa-check"></i><b>5.2.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#conditional-plots"><i class="fa fa-check"></i><b>5.3</b> Conditional plots</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-1"><i class="fa fa-check"></i><b>5.3.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-correlations"><i class="fa fa-check"></i><b>5.4</b> Plots for examining correlations</a></li>
+<li class="chapter" data-level="5.5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-means-by-group"><i class="fa fa-check"></i><b>5.5</b> Plots for examining means by group</a></li>
+<li class="chapter" data-level="5.6" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-ordinalcategorical-variables"><i class="fa fa-check"></i><b>5.6</b> Plots for ordinal/categorical variables</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-2"><i class="fa fa-check"></i><b>5.6.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>5.7</b> Interactive plots with <code>plotly</code></a><ul>
+<li class="chapter" data-level="5.7.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-3"><i class="fa fa-check"></i><b>5.7.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#customizing-visualizations"><i class="fa fa-check"></i><b>5.8</b> Customizing visualizations</a></li>
+<li class="chapter" data-level="5.9" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#lab-1"><i class="fa fa-check"></i><b>5.9</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="modeling-big-data.html"><a href="modeling-big-data.html"><i class="fa fa-check"></i><b>6</b> Modeling big data</a><ul>
+<li class="chapter" data-level="6.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#introduction-to-machine-learning"><i class="fa fa-check"></i><b>6.1</b> Introduction to machine learning</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#focus-of-machine-learning"><i class="fa fa-check"></i><b>6.1.1</b> Focus of machine learning</a></li>
+<li class="chapter" data-level="6.1.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#some-concepts-underlying-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Some concepts underlying machine learning</a></li>
+<li class="chapter" data-level="6.1.3" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-development"><i class="fa fa-check"></i><b>6.1.3</b> Model development</a></li>
+<li class="chapter" data-level="6.1.4" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-evaluation"><i class="fa fa-check"></i><b>6.1.4</b> Model evaluation</a></li>
+<li class="chapter" data-level="6.1.5" data-path="modeling-big-data.html"><a href="modeling-big-data.html#key-issues"><i class="fa fa-check"></i><b>6.1.5</b> Key issues</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#types-of-machine-learning"><i class="fa fa-check"></i><b>6.2</b> Types of machine learning</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html"><i class="fa fa-check"></i><b>7</b> Supervised Machine Learning - Part I</a><ul>
+<li class="chapter" data-level="7.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#regression-trees"><i class="fa fa-check"></i><b>7.1.1</b> Regression trees</a></li>
+<li class="chapter" data-level="7.1.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#classification-trees"><i class="fa fa-check"></i><b>7.1.2</b> Classification trees</a></li>
+<li class="chapter" data-level="7.1.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#pruning-decision-trees"><i class="fa fa-check"></i><b>7.1.3</b> Pruning decision trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees-in-r"><i class="fa fa-check"></i><b>7.2</b> Decision trees in R</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#cross-validation"><i class="fa fa-check"></i><b>7.2.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests"><i class="fa fa-check"></i><b>7.3</b> Random Forests</a></li>
+<li class="chapter" data-level="7.4" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests-in-r"><i class="fa fa-check"></i><b>7.4</b> Random forests in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html"><i class="fa fa-check"></i><b>8</b> Supervised Machine Learning - Part II</a><ul>
+<li class="chapter" data-level="8.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machines"><i class="fa fa-check"></i><b>8.1</b> Support Vector Machines</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#maximal-margin-classifier"><i class="fa fa-check"></i><b>8.1.1</b> Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="8.1.2" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-classifier"><i class="fa fa-check"></i><b>8.1.2</b> Support Vector Classifier</a></li>
+<li class="chapter" data-level="8.1.3" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machine"><i class="fa fa-check"></i><b>8.1.3</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="8.1.4" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#lab-2"><i class="fa fa-check"></i><b>8.1.4</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#clustering"><i class="fa fa-check"></i><b>9.1</b> Clustering</a></li>
+<li class="chapter" data-level="9.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#distance-measures"><i class="fa fa-check"></i><b>9.2</b> Distance Measures</a></li>
+<li class="chapter" data-level="9.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering"><i class="fa fa-check"></i><b>9.3</b> K-means clustering</a></li>
+<li class="chapter" data-level="9.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering-in-r"><i class="fa fa-check"></i><b>9.4</b> K-means clustering in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>10</b> Summary</a><ul>
+<li class="chapter" data-level="10.1" data-path="summary-1.html"><a href="summary-1.html#topics-covered"><i class="fa fa-check"></i><b>10.1</b> Topics covered</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="summary-1.html"><a href="summary-1.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>10.1.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="10.1.2" data-path="summary-1.html"><a href="summary-1.html#supervised-learning"><i class="fa fa-check"></i><b>10.1.2</b> Supervised learning</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summary-1.html"><a href="summary-1.html#methods-we-didnt-cover"><i class="fa fa-check"></i><b>10.2</b> Methods we didn’t cover</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/okanbulut/bigdata" target="blank">All rights reserved</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring, Visualizing, and Modeling Big Data with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="eda" class="section level1">
+<h1><span class="header-section-number">3</span> Exploratory data analysis</h1>
+<div id="what-is-exploratory-data-analysis" class="section level2">
+<h2><span class="header-section-number">3.1</span> What is exploratory data analysis?</h2>
+<center>
+<div class="figure"><span id="fig:tukey"></span>
+<img src="images/tukey.jpg" alt="The EDA classic." width="40%" />
+<p class="caption">
+Figure 3.1: The EDA classic.
+</p>
+</div>
+</center>
+<blockquote>
+<p>Exploratory data analysis is detective work – numerical detective work – or counting detective work – or graphical detective work.</p>
+</blockquote>
+<blockquote>
+<p>To learn about data analysis, it is right that each of us try many things that do not work</p>
+</blockquote>
+<p>Exploratory data analysis (EDA) is an <strong>iterative, hypothesis-generating framework</strong>. Through EDA, we hope to <strong>uncover new relationships</strong> among the variables in our data. In EDA, our job is the accumulation of evidence, preferably novel evidence and the widespread availability of powerful computers and able statistical tools means accumulating evidence is much easier now than ever before. But everything we find may not be meaningful. Nonetheless, our job is not to evaluate what we’ve learned but rather discovery and EDA “is an attitude, a state of flexibility, a willingness to look for those things that we believe are not there, as well as those we believe to be there.” It is for researchers building on our sleuthing to evaluate whether what we’ve found is real or not, but it’s not our focus in EDA. Regardless of the ultimate fate of what we’ve found, EDA is vital to science as it challenges our dogmas about the relationships among variables and it forces us to face the fact that our theories may be wrong. It pushes science forwards and provides a framework for designing new studies and experiments to confirm/refute what we’ve found. We’re the detectives, not the judges.</p>
+</div>
+<div id="confirmatory-data-analysis" class="section level2">
+<h2><span class="header-section-number">3.2</span> Confirmatory data analysis</h2>
+<blockquote>
+<p>You can only use an observation once to confirm a hypothesis. As soon as you use it more than once you’re back to doing exploratory analysis. This means to do hypothesis confirmation you need to “preregister” (write out in advance) your analysis plan, and not deviate from it even when you have seen the data. Grolemund &amp; Wickham, (2017)</p>
+</blockquote>
+</div>
+<div id="a-framework-for-eda" class="section level2">
+<h2><span class="header-section-number">3.3</span> A framework for EDA</h2>
+<p>Figure <a href="eda.html#fig:edamod">3.2</a> shows a framework for data science presented in Grolemund &amp; Wickham (2017). This model is equally applicable for EDA.</p>
+<center>
+<div class="figure"><span id="fig:edamod"></span>
+<img src="images/datascienceexplore.png" alt="Grolemund and Wickham (2017) model of data science." width="80%" />
+<p class="caption">
+Figure 3.2: Grolemund and Wickham (2017) model of data science.
+</p>
+</div>
+</center>
+<p>The first step in any analysis involves <strong>importing</strong> the data into the software. Depending on how you import data into R, this step can be relatively instantaneous or it can take minutes.</p>
+<p>The second step is <strong>tidying</strong> or <strong>reshaping</strong> your data. Grolemund &amp; Wickham’s criteria for tidy data are</p>
+<ol style="list-style-type: decimal">
+<li>Each variable must have its own column.</li>
+<li>Each observation must have its own row.</li>
+<li>Each value must have its own cell.</li>
+</ol>
+<p>Note that this does not explicit refer to data being in a wide or long format. Table 11 in Wickham (2014) in the Journal of Statistical Software, shown below in Figure <a href="eda.html#fig:tidypic">3.3</a>, highlights this issue. In this particular example, without knowing what X and Y are (e.g., do they code for 1) measurements on two occasions? 2) two items on the same assessment? 3) the height and weight of the participants?) we do not know which format is the tidy one.</p>
+<center>
+<div class="figure"><span id="fig:tidypic"></span>
+<img src="images/whichtidy.png" alt="Table 11 from Wickham (2014). Which data set is tidy?" width="60%" />
+<p class="caption">
+Figure 3.3: Table 11 from Wickham (2014). Which data set is tidy?
+</p>
+</div>
+</center>
+<p>The next steps in EDA are iterative and they involve <strong>transforming</strong> variables (e.g., changing type, rescaling, creating new ones, etc), <strong>visualizing</strong> these variables (e.g., marginal, bivariate, multivariate plots), and <strong>modeling</strong> the relationships (can these variables predict/classify our outcomes).</p>
+<p>Finally, once an interesting relationship has been discovered it must be <strong>communicated</strong> and any, arguably all, of these three would be communicated.</p>
+</div>
+<div id="eda-tools" class="section level2">
+<h2><span class="header-section-number">3.4</span> EDA tools</h2>
+<center>
+<img src="images/allfour.png" width="60%" />
+</center>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wrangling-big-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/okanbulut/bigdata/tree/master/02-eda.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["big-data-in-r.pdf", "big-data-in-r.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

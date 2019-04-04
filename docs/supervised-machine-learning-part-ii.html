@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>8 Supervised Machine Learning - Part II | Exploring, Visualizing, and Modeling Big Data with R</title>
+  <meta name="description" content="This book presents the materials for our NCME workshop on big data analysis in R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="8 Supervised Machine Learning - Part II | Exploring, Visualizing, and Modeling Big Data with R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  <meta name="github-repo" content="okanbulut/bigdata" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Supervised Machine Learning - Part II | Exploring, Visualizing, and Modeling Big Data with R />
+  
+  <meta name="twitter:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  
+
+<meta name="author" content="Okan Bulut">
+<meta name="author" content="Christopher Desjardins">
+
+
+<meta name="date" content="2019-04-04">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="supervised-machine-learning-part-i.html">
+<link rel="next" href="unsupervised-machine-learning.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Exploring, Visualizing, and Modeling Big Data in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#summary"><i class="fa fa-check"></i><b>1.1</b> Summary</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#who-we-are"><i class="fa fa-check"></i><b>1.2</b> Who we are</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-big-data"><i class="fa fa-check"></i><b>2.1</b> What is big data?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#why-is-big-data-important"><i class="fa fa-check"></i><b>2.2</b> Why is big data important?</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#how-do-we-analyze-big-data"><i class="fa fa-check"></i><b>2.3</b> How do we analyze big data?</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#additional-resources"><i class="fa fa-check"></i><b>2.4</b> Additional resources</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#pisa-dataset"><i class="fa fa-check"></i><b>2.5</b> PISA dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#what-is-exploratory-data-analysis"><i class="fa fa-check"></i><b>3.1</b> What is exploratory data analysis?</a></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#confirmatory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Confirmatory data analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#a-framework-for-eda"><i class="fa fa-check"></i><b>3.3</b> A framework for EDA</a></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#eda-tools"><i class="fa fa-check"></i><b>3.4</b> EDA tools</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling big data</a><ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#what-is-data.table"><i class="fa fa-check"></i><b>4.1</b> What is <code>data.table</code>?</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#why-use-data.table-over-tidyverse"><i class="fa fa-check"></i><b>4.1.1</b> Why use <code>data.table</code> over <code>tidyverse</code>?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#readingwriting-data-with-data.table"><i class="fa fa-check"></i><b>4.2</b> Reading/writing data with <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-i-in-data.table"><i class="fa fa-check"></i><b>4.3</b> Using the i in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-1"><i class="fa fa-check"></i><b>4.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-j-in-data.table"><i class="fa fa-check"></i><b>4.4</b> Using the j in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-2"><i class="fa fa-check"></i><b>4.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#summarizing-using-the-by-in-data.table"><i class="fa fa-check"></i><b>4.5</b> Summarizing using the by in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.5.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-3"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#reshaping-data"><i class="fa fa-check"></i><b>4.6</b> Reshaping data</a></li>
+<li class="chapter" data-level="4.7" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#the-sparklyr-package"><i class="fa fa-check"></i><b>4.7</b> The <code>sparklyr</code> package</a></li>
+<li class="chapter" data-level="4.8" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#lab"><i class="fa fa-check"></i><b>4.8</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html"><i class="fa fa-check"></i><b>5</b> Visualizing big data</a><ul>
+<li class="chapter" data-level="5.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#introduction-to-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Introduction to <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#marginal-plots"><i class="fa fa-check"></i><b>5.2</b> Marginal plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise"><i class="fa fa-check"></i><b>5.2.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#conditional-plots"><i class="fa fa-check"></i><b>5.3</b> Conditional plots</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-1"><i class="fa fa-check"></i><b>5.3.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-correlations"><i class="fa fa-check"></i><b>5.4</b> Plots for examining correlations</a></li>
+<li class="chapter" data-level="5.5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-means-by-group"><i class="fa fa-check"></i><b>5.5</b> Plots for examining means by group</a></li>
+<li class="chapter" data-level="5.6" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-ordinalcategorical-variables"><i class="fa fa-check"></i><b>5.6</b> Plots for ordinal/categorical variables</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-2"><i class="fa fa-check"></i><b>5.6.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>5.7</b> Interactive plots with <code>plotly</code></a><ul>
+<li class="chapter" data-level="5.7.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-3"><i class="fa fa-check"></i><b>5.7.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#customizing-visualizations"><i class="fa fa-check"></i><b>5.8</b> Customizing visualizations</a></li>
+<li class="chapter" data-level="5.9" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#lab-1"><i class="fa fa-check"></i><b>5.9</b> Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="modeling-big-data.html"><a href="modeling-big-data.html"><i class="fa fa-check"></i><b>6</b> Modeling big data</a><ul>
+<li class="chapter" data-level="6.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#introduction-to-machine-learning"><i class="fa fa-check"></i><b>6.1</b> Introduction to machine learning</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#focus-of-machine-learning"><i class="fa fa-check"></i><b>6.1.1</b> Focus of machine learning</a></li>
+<li class="chapter" data-level="6.1.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#some-concepts-underlying-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Some concepts underlying machine learning</a></li>
+<li class="chapter" data-level="6.1.3" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-development"><i class="fa fa-check"></i><b>6.1.3</b> Model development</a></li>
+<li class="chapter" data-level="6.1.4" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-evaluation"><i class="fa fa-check"></i><b>6.1.4</b> Model evaluation</a></li>
+<li class="chapter" data-level="6.1.5" data-path="modeling-big-data.html"><a href="modeling-big-data.html#key-issues"><i class="fa fa-check"></i><b>6.1.5</b> Key issues</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#types-of-machine-learning"><i class="fa fa-check"></i><b>6.2</b> Types of machine learning</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html"><i class="fa fa-check"></i><b>7</b> Supervised Machine Learning - Part I</a><ul>
+<li class="chapter" data-level="7.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#regression-trees"><i class="fa fa-check"></i><b>7.1.1</b> Regression trees</a></li>
+<li class="chapter" data-level="7.1.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#classification-trees"><i class="fa fa-check"></i><b>7.1.2</b> Classification trees</a></li>
+<li class="chapter" data-level="7.1.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#pruning-decision-trees"><i class="fa fa-check"></i><b>7.1.3</b> Pruning decision trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees-in-r"><i class="fa fa-check"></i><b>7.2</b> Decision trees in R</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#cross-validation"><i class="fa fa-check"></i><b>7.2.1</b> Cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests"><i class="fa fa-check"></i><b>7.3</b> Random Forests</a></li>
+<li class="chapter" data-level="7.4" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests-in-r"><i class="fa fa-check"></i><b>7.4</b> Random forests in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html"><i class="fa fa-check"></i><b>8</b> Supervised Machine Learning - Part II</a><ul>
+<li class="chapter" data-level="8.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machines"><i class="fa fa-check"></i><b>8.1</b> Support Vector Machines</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#maximal-margin-classifier"><i class="fa fa-check"></i><b>8.1.1</b> Maximal Margin Classifier</a></li>
+<li class="chapter" data-level="8.1.2" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-classifier"><i class="fa fa-check"></i><b>8.1.2</b> Support Vector Classifier</a></li>
+<li class="chapter" data-level="8.1.3" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machine"><i class="fa fa-check"></i><b>8.1.3</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="8.1.4" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#lab-2"><i class="fa fa-check"></i><b>8.1.4</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#clustering"><i class="fa fa-check"></i><b>9.1</b> Clustering</a></li>
+<li class="chapter" data-level="9.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#distance-measures"><i class="fa fa-check"></i><b>9.2</b> Distance Measures</a></li>
+<li class="chapter" data-level="9.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering"><i class="fa fa-check"></i><b>9.3</b> K-means clustering</a></li>
+<li class="chapter" data-level="9.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering-in-r"><i class="fa fa-check"></i><b>9.4</b> K-means clustering in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>10</b> Summary</a><ul>
+<li class="chapter" data-level="10.1" data-path="summary-1.html"><a href="summary-1.html#topics-covered"><i class="fa fa-check"></i><b>10.1</b> Topics covered</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="summary-1.html"><a href="summary-1.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>10.1.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="10.1.2" data-path="summary-1.html"><a href="summary-1.html#supervised-learning"><i class="fa fa-check"></i><b>10.1.2</b> Supervised learning</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summary-1.html"><a href="summary-1.html#methods-we-didnt-cover"><i class="fa fa-check"></i><b>10.2</b> Methods we didn’t cover</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/okanbulut/bigdata" target="blank">All rights reserved</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring, Visualizing, and Modeling Big Data with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="supervised-machine-learning---part-ii" class="section level1">
+<h1><span class="header-section-number">8</span> Supervised Machine Learning - Part II</h1>
+<div id="support-vector-machines" class="section level2">
+<h2><span class="header-section-number">8.1</span> Support Vector Machines</h2>
+<p>The support vector machine (SVM) is a family of related techniques developed in the 80s in computer science. They can be used in either a classification or a regression framework, but are principally known for/applied to classification (of which they are considered one of the best classification techniques because of their flexibility). Following James et al. (2013), we will make the distinction here between maximal margin classifiers (basically a support vector classifier with a cost parameter of 0 and a separating hyperplane), support vector classifiers (or an SVM with a linear kernel), and support vector machines (which employ non-linear kernels).</p>
+<div id="maximal-margin-classifier" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Maximal Margin Classifier</h3>
+<div id="hyperplane" class="section level4">
+<h4><span class="header-section-number">8.1.1.1</span> Hyperplane</h4>
+<p>The concept of a hyperplane is a critical concept in SVM, therefore, we need to understand what exactly a hyperplane is to understand SVM. A <strong>hyperplane</strong> is a subspace whose dimension is one less than that of the ambient space. Specifically, in a <em>p</em>-dimensional space, a <strong>hyperplane</strong> is a flat affline subspace of dimensional <em>p - 1</em>, where affline refers to the fact that the subspace need not pass through the origin.</p>
+<p>We define a hyperplane as</p>
+<p><span class="math display">\[
+\beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p = 0
+\]</span></p>
+<p>Where <span class="math inline">\(X_1, X_2, ..., X_p\)</span> are predictors (or <em>features</em>). Therefore, for any observation of <span class="math inline">\(X = (X_1, X_2, \dots, X_p)^T\)</span> that <em>satisfies</em> the above equation, the observation falls directly onto the hyperplane. However, a value of <span class="math inline">\(X\)</span> does not need to fall onto the hyperplane, but could fall on either side of the hyperplane such that either</p>
+<p><span class="math display">\[
+\beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots + \beta_pX_p &gt; 0
+\]</span></p>
+<p>or</p>
+<p><span class="math display">\[
+\beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots + \beta_pX_p &lt; 0
+\]</span></p>
+<p>occurs. In that situation, the value of <span class="math inline">\(X\)</span> lies on one of the two sides of the hyperplane and the hyperplane acts to split the <em>p</em>-dimensional space into two halves.</p>
+<p>Figure <a href="supervised-machine-learning-part-ii.html#fig:hyper">8.1</a> shows the hyperplane <span class="math inline">\(.5 + 1X_1 + -4X_2 = 0\)</span>. If we plug a value of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> into this equation, we know based on the sign alone if the points falls on one side of the hyperplane or if it falls directly onto the hyperplane. In Figure <a href="supervised-machine-learning-part-ii.html#fig:hyper">8.1</a> all the points in the red region will have negative signs (i.e., if we plug in the values of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> into the above equation the sign will be negative), while all the points in the blue region would be positive, whereas any points that would have no sign are represented by the black line (the hyperplane).</p>
+<div class="figure"><span id="fig:hyper"></span>
+<img src="big-data-in-r_files/figure-html/hyper-1.png" alt="The hyperplane, $.5 + 1X_1 + -4X_2 = 0$, is black line, the red points occur in the region where $.5 + 1X_1 + -4X_2 &gt; 0$, while the blue points occur in the region where $.5 + 1X_1 + -4X_2 &lt; 0$." width="100%" />
+<p class="caption">
+Figure 8.1: The hyperplane, <span class="math inline">\(.5 + 1X_1 + -4X_2 = 0\)</span>, is black line, the red points occur in the region where <span class="math inline">\(.5 + 1X_1 + -4X_2 &gt; 0\)</span>, while the blue points occur in the region where <span class="math inline">\(.5 + 1X_1 + -4X_2 &lt; 0\)</span>.
+</p>
+</div>
+<p>Wee can apply this idea of a hyperplane to classifying observations. We learned earlier how it important it is when applying machine learning techniques to split our data into training and testing data sets to avoid overfitting. We can split our <em>n + m</em> by <em>p</em> matrix of observations into an <em>n</em> by <em>p</em> <span class="math inline">\(\mathbf{X}\)</span> matrix of training observations, which fall into one of two classes for <span class="math inline">\(Y = y_1, .., y_n\)</span> where <span class="math inline">\(Y_i \in {-1, 1}\)</span> and an <em>m</em> by <em>p</em> matrix <span class="math inline">\(\mathbf{X^*}\)</span> of testing observations. Using just the training data, our goal is develop a model that will correctly classify our testing data using just a hyperplane and we will do this by creating a <strong>separating hyperplane</strong> (a hyperplane that will separate our classes).</p>
+<p>Let’s assume we have the training data in Figure <a href="supervised-machine-learning-part-ii.html#fig:hyperex">8.2</a> and that the blue points correspond to one class (labelled as <span class="math inline">\(y = 1\)</span>) and the red points correspond to the other class (<span class="math inline">\(y = -1\)</span>). The separating hyper plane has the property that:</p>
+<p><span class="math display">\[
+\beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_px_{p1} &gt; 0 \quad \text{if} \quad y_i = 1
+\]</span>
+and
+<span class="math display">\[
+\beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_px_{p1} &lt; 0 \quad \text{if} \quad y_i = -1
+\]</span>
+Or more succintly,
+<span class="math display">\[
+y_i(\beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_px_{p1}) &gt; 0
+\]</span></p>
+<p>Ideally, we would create a hyperplane that perfectly separates the classes based on <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>. However, as Figure <a href="supervised-machine-learning-part-ii.html#fig:hyperex">8.2</a> makes clear, we can create many separating hyperplanes of which 3 of these are shown. In fact, it’s often the case that an infinite number of separating hyperplanes could be created when the classes are perfectly separable. What we need to do is to develop some kind of a criterion for selecting one of the many separating hyperplanes.</p>
+<div class="figure"><span id="fig:hyperex"></span>
+<img src="big-data-in-r_files/figure-html/hyperex-1.png" alt="Candidate hyperplanes to separate the two classes." width="100%" />
+<p class="caption">
+Figure 8.2: Candidate hyperplanes to separate the two classes.
+</p>
+</div>
+<p>For any given hyperplane, we have two pieces of information available for each observation: 1) the side of the hyperplane it lies on (represented by its sign) and 2) the distance it is from the hyperplane. The natural criterion for selecting a separating hyperplane is to <strong>maximize the distance</strong> it is from from the training observations. Therefore, we compute the distance that each training observation is from a candidate hyperplane. The minimal such distance from the observation to the hyperplane is known as the <strong>margin</strong>. Then we will select the hyperplane with the largest margin (the <strong>maximal margin hyperplane</strong>) and classify observations based on which side of this hyperplane they fall (<strong>maximal margin classifier</strong>). The hope is that a classifier with a large margin on the training data will also have a large margin on the test observations and subsequently classify well.</p>
+<p>Figure <a href="supervised-machine-learning-part-ii.html#fig:mmc">8.3</a> depicts a maximal margin classifier. The red line corresponds to the maximal margin hyperplane and the distance between one of the dotted lines and the black line is the <strong>margin</strong>. The black and white points along the boundary of the margin are the <strong>support vectors</strong>. It is clear in Figure <a href="supervised-machine-learning-part-ii.html#fig:mmc">8.3</a> that the maximal margin hyperplane depends only on these two support vectors. If they are moved, the maximal margin hyperplane moves, however, if any other observations are moved they would have no effect on this hyperplane <em>unless</em> they crossed the boundary of the margin.</p>
+<center>
+<div class="figure"><span id="fig:mmc"></span>
+<img src="images/mmc.png" alt="Maximal margin hyperplane. Source: https://tinyurl.com/y493pww8" width="50%" />
+<p class="caption">
+Figure 8.3: Maximal margin hyperplane. Source: <a href="https://tinyurl.com/y493pww8" class="uri">https://tinyurl.com/y493pww8</a>
+</p>
+</div>
+</center>
+<p>The problem in practice is that a separating hyperplane usually doesn’t exist. Even if a separating hyperplane existed, we may not want to use the maximal margin hyperplane as it would perfectly classify all of the observations and may be too sensitive to individual observations and subsequently overfitting.</p>
+<p>Figure <a href="supervised-machine-learning-part-ii.html#fig:fig95">8.4</a> from James, et al. (2013) clearly illustrates this problem. The left figure shows the maximal margin hyperplane (solid) in a completely separable solution. The figure on the right shows that when a new observation is introduced that the maximal margin hyperplane (solid) shifts rather dramatically relative to its original location (dashed).</p>
+<center>
+<div class="figure"><span id="fig:fig95"></span>
+<img src="images/fig95.png" alt="The impact of adding one observations to the maximal margin hyperplane from James et al. (2013)." width="100%" />
+<p class="caption">
+Figure 8.4: The impact of adding one observations to the maximal margin hyperplane from James et al. (2013).
+</p>
+</div>
+</center>
+</div>
+</div>
+<div id="support-vector-classifier" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Support Vector Classifier</h3>
+<p>Our hope for a hyperplane is that it would be relatively insensitive to individual observations, while still classifying training observations well. That is, we would like to have what is termed a <strong>soft margin classifier</strong> or a <strong>support vector classifier</strong>. Essentially, we are willing to allow some observations to be on the incorrect side of the margin (classified correctly) or even the incorrect side of the hyperplane (incorrectly classified) if our classifier, overall, performs well.</p>
+<p>We do this by introducing a tuning parameter, C, which determines the number and the severity of violations to the margin/hyperplane we are willing to tolerate. As C increases, our <strong>tolerance</strong> for violations will increase and subsequently our margin will widen. C, thus, represents a <strong>bias-variance tradeoff</strong>, when C is small bias should be low, but variance will likely be high, whereas when C is large, bias is likely high but our variance is typically small. C will be selected, optimally, through cross-validation (as we’ll see later).</p>
+<p>The observations that lie on the margin or violate the margin are the only ones that will affect the hyperplane and the classifier (similar to the maximal margin classifier). These observations are the <strong>support vectors</strong> and only they will affect the support vector classifier. When C is large, there will be many support vectors, whereas when C is small, the number of support vectors will be less.</p>
+<p>Because the support vector classifier depends on only the on the support vectors (which could be very few) this means they are quite <strong>robust to the observations that are far</strong> from the hyperplane. This makes this technique similar to logistic regression.</p>
+<!-- Our optimization problem is now: -->
+<!-- * Maximize M  -->
+<!-- * Subject to $\sum_{j = 1}^p \beta_j^2 = 1$ -->
+<!-- * $y_i(\beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_PX_{p1}) \geq M (1 - \epsilon_i)$ -->
+<!-- * $\epsilon_i \geq 0, \sum_{i = 1}^n \epsilon_i \leq C$ -->
+<div id="example" class="section level4">
+<h4><span class="header-section-number">8.1.2.1</span> Example</h4>
+<p>In our example, we’ll try and classify whether someone scores at or above the mean on the science scale we created earlier. To do support vector classifiers (and SVMs) in R, we’ll use the <code>e1071</code> package (though the <code>caret</code> package could be used, too).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># check if e1071 is installed</span>
+<span class="co"># if not, install it</span>
+<span class="cf">if</span> (<span class="op">!</span>(<span class="st">&quot;e1071&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()[,<span class="st">&quot;Package&quot;</span>])) {
+  <span class="kw">install.packages</span>(<span class="st">&quot;e1071&quot;</span>)
+  <span class="kw">library</span>(<span class="st">&quot;e1071&quot;</span>)
+} <span class="cf">else</span> {
+  <span class="kw">library</span>(<span class="st">&quot;e1071&quot;</span>)
+}</code></pre>
+<p>The <code>svm</code> function in the <code>e1071</code> package requires that the outcome variable is a factor. So, we’ll do a mean split (at the OECD mean of 493) on the <code>science</code> scale and convert it to a factor.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa[, sci_class <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(science <span class="op">&gt;=</span><span class="st"> </span><span class="dv">493</span>, <span class="dv">1</span>, <span class="dv">-1</span>))]</code></pre>
+<p>While, I’m coding this variable as 1 and -1 to be consistent with the notation above, it doesn’t matter to the <code>svm</code> function. The only thing the <code>svm</code> function needs to perform classification and not regression is that the outcome is a factor. If the outcome has just two values, a 1 and -1, but is not a factor, <code>svm</code> will perform regression.</p>
+<p>We will use the following variables in our model:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Label</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">WEALTH</td>
+<td align="left">Family wealth (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">HEDRES</td>
+<td align="left">Home educational resources (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">ENVAWARE</td>
+<td align="left">Environmental Awareness (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">ICTRES</td>
+<td align="left">ICT Resources (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">EPIST</td>
+<td align="left">Epistemological beliefs (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">HOMEPOS</td>
+<td align="left">Home possessions (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">ESCS</td>
+<td align="left">Index of economic, social and cultural status (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">reading</td>
+<td align="left">Reading score</td>
+</tr>
+<tr class="odd">
+<td align="left">math</td>
+<td align="left">Math score</td>
+</tr>
+</tbody>
+</table>
+<p>We’ll subset the variables to make it easier and in order for the model fitting to be performed in a reasonable amount of time in R, we’ll just subset the United States and Canada.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pisa_sub &lt;-<span class="st"> </span><span class="kw">subset</span>(pisa, CNT <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;United States&quot;</span>), <span class="dt">select =</span> <span class="kw">c</span>(sci_class, WEALTH, HEDRES, ENVAWARE, ICTRES, EPIST, HOMEPOS, ESCS, reading, math))</code></pre>
+<p>To fit a support vector classier, we use the <code>svm</code> function. Before we get started, let’s divide the data set into a training and a testing data set. We will use a 66/33 split, though other splits could be used (e.g., 50/50).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set a random seed</span>
+<span class="kw">set.seed</span>(<span class="dv">442019</span>)
+
+<span class="co"># svm uses listwise deletion, so we should just drop</span>
+<span class="co"># the observations now</span>
+pisa_m &lt;-<span class="st"> </span><span class="kw">na.omit</span>(pisa_sub)
+
+<span class="co"># select the rows that will go into the training data set.</span>
+train &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(pisa_m), <span class="dv">2</span><span class="op">/</span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(pisa_m))
+
+<span class="co"># subset the data based on the rows that were selected to be in training data set.</span>
+train_dat &lt;-<span class="st"> </span>pisa_m[train, ]
+test_dat &lt;-<span class="st"> </span>pisa_m[<span class="op">-</span>train, ]</code></pre>
+<p>To perform support vector classification, we pass the <code>svm</code> function the <code>kernel = &quot;linear&quot;</code> argument. We also need to specify our tolerance, which is represented by the <code>cost</code> argument. The <code>cost</code> parameter is essentially the inverse of the tolerance parameter, C, described above. When the <code>cost</code> value is low, the tolerance is high (i.e., the margin is wide and there are lots of support vectors) and when the <code>cost</code> value is high, the tolerance is low (i.e., narrower margin). By default <code>cost = 1</code> and we will tune this parameter via cross-validation momentarily. For now, we’ll just fit the model.</p>
+<pre class="sourceCode r"><code class="sourceCode r">svc_fit &lt;-<span class="st"> </span><span class="kw">svm</span>(sci_class <span class="op">~</span>., <span class="dt">data =</span> train_dat, <span class="dt">kernel =</span> <span class="st">&quot;linear&quot;</span>)</code></pre>
+<p>We can obtain basic information about our model using the <code>summary</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(svc_fit)</code></pre>
+<pre><code>## 
+## Call:
+## svm(formula = sci_class ~ ., data = train_dat, kernel = &quot;linear&quot;)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  1 
+##       gamma:  0.1111111 
+## 
+## Number of Support Vectors:  2782
+## 
+##  ( 1390 1392 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+<p>We see there are 2782 support vectors: 1390 in class -1 and 1392 in class 1. We can also plot our model but we need to specific the two features we want to plot (because our model has nine feature). Let’s look at the model with <code>math</code> on the y-axis and <code>reading</code> on the x-axis.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svc_fit, <span class="dt">data =</span> train_dat, math <span class="op">~</span><span class="st"> </span>reading)</code></pre>
+<div class="figure"><span id="fig:svcplot"></span>
+<img src="big-data-in-r_files/figure-html/svcplot-1.png" alt="Support vector classifier plot for all the training data." width="100%" />
+<p class="caption">
+Figure 8.5: Support vector classifier plot for all the training data.
+</p>
+</div>
+<p>In this figure, the red points correspond to observations that belong to class 1 (below the mean on science), while the black points correspond to observations that belong to class -1 (at/above the mean on science); the Xs are the support vectors, while the Os are the non-support vector observations; the upper triangle (purple) are for class 1, while the lower triangle (blue) is for class -1. While the decision boundary looks jagged, it’s just an artifact of the way it’s drawn with this function. We can see that many observations are misclassified (i.e., some red points are in the lower triangle and some black points are in the upper triangle). However, there are a lot of observations shown in this figure and it is difficult to discern the nature of the misclassification.</p>
+<p>As was discussed in the section on data visualization, with this many points on a figure it is difficult to evaluate patterns, not to mention that the figure is extremely slow to render. Therefore, let’s take a random sample of 1,000 observations to get a better sense of our classifier. This is shown in Figure <a href="supervised-machine-learning-part-ii.html#fig:svcplotran">8.6</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+ran_obs &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(train_dat), <span class="dv">1000</span>)
+<span class="kw">plot</span>(svc_fit, <span class="dt">data =</span> train_dat[ran_obs, ], math <span class="op">~</span><span class="st"> </span>reading)</code></pre>
+<div class="figure"><span id="fig:svcplotran"></span>
+<img src="big-data-in-r_files/figure-html/svcplotran-1.png" alt="Support vector classifier plot for all a random subsample (n = 1000) of training observations." width="100%" />
+<p class="caption">
+Figure 8.6: Support vector classifier plot for all a random subsample (n = 1000) of training observations.
+</p>
+</div>
+<p>Notice that few points are crossing the hyperplane (i.e., are misclassified). This looks like the classier is doing pretty good.</p>
+<p>Initially when we fit the support vector classifier we used the default cost parameter, but we really should select this parameter through tuning via cross-validation as we might be able to do an even better job at classifying. The <code>e1071</code> package includes a <code>tune</code> function which makes this easy and automatic. It performs the tuning via 10-folds cross-validation by default, which is probably a fine tradeoff (see James, et al. 2013 for a comparison of k-folds vs. leave one out cross-validation). We need to provide the <code>tune</code> function with a range of cost values (which again corresponds to our tolerance to violate the margin and hyperplane).</p>
+<pre class="sourceCode r"><code class="sourceCode r">tune_svc &lt;-<span class="st"> </span><span class="kw">tune</span>(svm, sci_class <span class="op">~</span>., <span class="dt">data =</span> train_dat,
+                 <span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,
+                 <span class="dt">ranges =</span> <span class="kw">list</span>(<span class="dt">cost =</span> <span class="kw">c</span>(.<span class="dv">01</span>, <span class="fl">.1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>)))</code></pre>
+<p>On my Macbook Pro (2.6 GHz Intel Core i7 and 16 GB RAM) it takes approximately 2 minutes run this. Without doing this subsetting, it will take quite a bit longer to do.</p>
+<p>We can view the cross-validation errors by using the <code>summary</code> function on this object.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(tune_svc)</code></pre>
+<pre><code>## 
+## Parameter tuning of &#39;svm&#39;:
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  cost
+##     1
+## 
+## - best performance: 0.07316727 
+## 
+## - Detailed performance results:
+##    cost      error  dispersion
+## 1  0.01 0.07342096 0.005135708
+## 2  0.10 0.07354766 0.004985649
+## 3  1.00 0.07316727 0.004952085
+## 4  5.00 0.07329406 0.004879146
+## 5 10.00 0.07335747 0.004887063</code></pre>
+<p>And then select the best model and view it.</p>
+<pre class="sourceCode r"><code class="sourceCode r">best_svc &lt;-<span class="st"> </span>tune_svc<span class="op">$</span>best.model
+<span class="kw">summary</span>(best_svc)</code></pre>
+<pre><code>## 
+## Call:
+## best.tune(method = svm, train.x = sci_class ~ ., data = train_dat, 
+##     ranges = list(cost = c(0.01, 0.1, 1, 5, 10)), kernel = &quot;linear&quot;)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  1 
+##       gamma:  0.1111111 
+## 
+## Number of Support Vectors:  2782
+## 
+##  ( 1390 1392 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+<p>Next, we write a function to evaluate our classifier that has one argument that takes a confusion matrix.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; Evaluate classifier</span>
+<span class="co">#&#39;</span>
+<span class="co">#&#39; Evaluates a classifier (e.g. SVM, logistic regression)</span>
+<span class="co">#&#39; @param tab a confusion matrix</span>
+eval_classifier &lt;-<span class="st"> </span><span class="cf">function</span>(tab, <span class="dt">print =</span> F){
+  n &lt;-<span class="st"> </span><span class="kw">sum</span>(tab)
+  TP &lt;-<span class="st"> </span>tab[<span class="dv">2</span>,<span class="dv">2</span>]
+  FN &lt;-<span class="st"> </span>tab[<span class="dv">2</span>,<span class="dv">1</span>]
+  FP &lt;-<span class="st"> </span>tab[<span class="dv">1</span>,<span class="dv">2</span>]
+  TN &lt;-<span class="st"> </span>tab[<span class="dv">1</span>,<span class="dv">1</span>]
+  classify.rate &lt;-<span class="st"> </span>(TP <span class="op">+</span><span class="st"> </span>TN) <span class="op">/</span><span class="st"> </span>n
+  TP.rate &lt;-<span class="st"> </span>TP <span class="op">/</span><span class="st"> </span>(TP <span class="op">+</span><span class="st"> </span>FN)
+  TN.rate &lt;-<span class="st"> </span>TN <span class="op">/</span><span class="st"> </span>(TN <span class="op">+</span><span class="st"> </span>FP)
+  object &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">accuracy =</span> classify.rate,
+                       <span class="dt">sensitivity =</span> TP.rate,
+                       <span class="dt">specificity =</span> TN.rate)
+  object
+}</code></pre>
+<p>The confusion matrix is just a list of all possible outcomes (true positives, true negatives, false positives, and false negatives). A confusion matrix for our <code>best_svc</code> can be created by:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to create a confusion matrix this order is important!</span>
+<span class="co"># observed values first and predict values second!</span>
+svc_cm_train &lt;-<span class="st"> </span><span class="kw">table</span>(train_dat<span class="op">$</span>sci_class,
+                      <span class="kw">predict</span>(best_svc)) 
+svc_cm_train</code></pre>
+<pre><code>##     
+##        -1    1
+##   -1 5563  606
+##   1   550 9053</code></pre>
+<p>The top-left are the true negatives, the bottom-left are the false negatives, the top-right are the false positives, and the bottom-right are the true positives. We can request the accuracy (the % of observations that were correctly classified), the sensitivity (the % of observations that were in class 1 that were correctly identified), and specificity (the % of observations that were in class -1 that were correctly identified) using the <code>eval_classifier</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(svc_cm_train)</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9267056   0.9427262   0.9017669</code></pre>
+<p>Performance is pretty good overall. We see that class -1 (specificity) isn’t classified as well as class 1 (sensitivity). These statistics are likely overly optimistic as we are evaluating our model using the training data (the same data that we used to build our model). How well does the model perform on the testing data?</p>
+<pre class="sourceCode r"><code class="sourceCode r">svc_cm_test &lt;-<span class="st"> </span><span class="kw">table</span>(test_dat<span class="op">$</span>sci_class,
+                     <span class="kw">predict</span>(best_svc, <span class="dt">newdata =</span> test_dat))
+svc_cm_test</code></pre>
+<pre><code>##     
+##        -1    1
+##   -1 2780  281
+##   1   278 4547</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(svc_cm_test)</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9291149   0.9423834   0.9081999</code></pre>
+<p>Still impressively high! This is a very good classifier indeed. This is likely because <code>math</code> and <code>reading</code> are so highly correlated with <code>science</code> scores.</p>
+<p>We can extract the coefficients from our model that make up our decision boundary.</p>
+<pre class="sourceCode r"><code class="sourceCode r">beta0 &lt;-<span class="st"> </span>best_svc<span class="op">$</span>rho
+beta &lt;-<span class="st">  </span><span class="kw">drop</span>(<span class="kw">t</span>(best_svc<span class="op">$</span>coefs) <span class="op">%*%</span><span class="st"> </span><span class="kw">as.matrix</span>(train_dat[best_svc<span class="op">$</span>index, <span class="dv">-1</span>]))
+beta0</code></pre>
+<pre><code>## [1] -1.220883</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">beta</code></pre>
+<pre><code>##       WEALTH       HEDRES     ENVAWARE       ICTRES        EPIST 
+##   0.04398688  -0.24398165   0.36167882  -0.09803825   0.04652237 
+##      HOMEPOS         ESCS      reading         math 
+##   0.22005477  -0.15065808 188.02960807 196.93421586</code></pre>
+<p>With more complicated SVMs with non-linear kernels, coefficients don’t make any sense and generally are of little interest with applying these models.</p>
+</div>
+<div id="comparison-to-logistic-regression" class="section level4">
+<h4><span class="header-section-number">8.1.2.2</span> Comparison to logistic regression</h4>
+<p>Support vector classifiers are quite similar to logistic regression. This has to do with them having similar loss functions (the functions used to estimate the parameters). In situations where the classes are well separated, SVM (more generally), tend to do better than logistic regression and when they are not well separated, logistic regression tends to do better (James, et al., 2013).</p>
+<p>Let’s compare logistic regression to the support vector classier. We’ll begin by fitting the model</p>
+<pre class="sourceCode r"><code class="sourceCode r">lr_fit &lt;-<span class="st"> </span><span class="kw">glm</span>(sci_class <span class="op">~</span>. , <span class="dt">data =</span> train_dat, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</code></pre>
+<p>and then viewing the coefficients.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(lr_fit)</code></pre>
+<pre><code>##  (Intercept)       WEALTH       HEDRES     ENVAWARE       ICTRES 
+## -41.82682653   0.11666541  -0.26667828   0.30159987  -0.13594566 
+##        EPIST      HOMEPOS         ESCS      reading         math 
+##   0.05053261   0.20699211  -0.24568642   0.03917470   0.04651408</code></pre>
+<p>How does it do relative to our best support vector classifier on the training and the testing data sets? For the training data set</p>
+<pre class="sourceCode r"><code class="sourceCode r">lr_cm_train &lt;-<span class="st"> </span><span class="kw">table</span>(train_dat<span class="op">$</span>sci_class,
+                     <span class="kw">round</span>(<span class="kw">predict</span>(lr_fit, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)))
+lr_cm_train</code></pre>
+<pre><code>##     
+##         0    1
+##   -1 5567  602
+##   1   541 9062</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(lr_cm_train)</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9275298   0.9436634   0.9024153</code></pre>
+<p>and then for the testing data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r">lr_cm_test &lt;-<span class="st"> </span><span class="kw">table</span>(test_dat<span class="op">$</span>sci_class,
+                     <span class="kw">round</span>(<span class="kw">predict</span>(lr_fit, <span class="dt">newdata =</span> test_dat, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)))
+lr_cm_test</code></pre>
+<pre><code>##     
+##         0    1
+##   -1 2780  281
+##   1   275 4550</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(lr_cm_test)</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9294953   0.9430052   0.9081999</code></pre>
+<p>Equivalent out to the hundredths place. Either model would be fine here.</p>
+</div>
+<div id="using-apache-spark-for-machine-learning" class="section level4">
+<h4><span class="header-section-number">8.1.2.3</span> Using Apache Spark for machine learning</h4>
+<p>Apache Spark is also capable of running support vector classifiers. It does this using the <code>ml_linear_svc</code> function. The amazing thing about this is that you can use it to run the entire data set (i.e., there is no need to subset out a portion of the countries). If we tried to do this with the <code>e1071</code> package it would be very impractical and take forever, but with Apache Spark it is feasible and reasonably quick (just a few minutes).</p>
+<p>We’ll again use the <code>sparklyr</code> package to interface with Spark and use the <code>dplyr</code> package to simplify interacting with Spark.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sparklyr)
+<span class="kw">library</span>(dplyr)</code></pre>
+<p>We first need to establish a connection with Spark and then copy a subsetted PISA data set to Spark.</p>
+<pre class="sourceCode r"><code class="sourceCode r">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)
+spark_sub &lt;-<span class="st"> </span><span class="kw">subset</span>(pisa, 
+                    <span class="dt">select =</span> <span class="kw">c</span>(sci_class, WEALTH, HEDRES, ENVAWARE, ICTRES,
+                               EPIST, HOMEPOS, ESCS, reading, math))
+spark_sub &lt;-<span class="st"> </span><span class="kw">na.omit</span>(spark_sub) <span class="co"># can&#39;t handle missing data</span>
+pisa_tbl &lt;-<span class="st"> </span><span class="kw">copy_to</span>(sc, spark_sub, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre>
+<p>Now, we’ll let Spark partition the data into a training and a test data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r">partition &lt;-<span class="st"> </span>pisa_tbl <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">sdf_partition</span>(<span class="dt">training =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>, <span class="dt">test =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dt">seed =</span> <span class="dv">442019</span>)
+pisa_training &lt;-<span class="st"> </span>partition<span class="op">$</span>training
+pisa_test &lt;-<span class="st"> </span>partition<span class="op">$</span>test</code></pre>
+<p>We are ready to run the classifier in Spark. Unlike the <code>svm</code> function, the tolerance parameter is called <code>reg_param</code>. This parameter should be optimally selected like it was for <code>svm</code>. By default the tolerance is 1e-06.</p>
+<pre class="sourceCode r"><code class="sourceCode r">svc_spark &lt;-<span class="st"> </span>pisa_training <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ml_linear_svc</span>(sci_class <span class="op">~</span><span class="st"> </span>.)</code></pre>
+<p>We then use the <code>ml_predict</code> function to predict the classes.</p>
+<pre class="sourceCode r"><code class="sourceCode r">svc_pred &lt;-<span class="st"> </span><span class="kw">ml_predict</span>(svc_spark, pisa_training) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(sci_class, predicted_label) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>()</code></pre>
+<p>Then print the confusion matrix and the criteria that we’ve been using to evaluate our models.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(svc_pred)</code></pre>
+<pre><code>##          predicted_label
+## sci_class     -1      1
+##        -1 145111  12353
+##        1   10753 121967</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(<span class="kw">table</span>(svc_pred))</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9203747   0.9189798   0.9215503</code></pre>
+<p>Again, this is really good. How does it look on the testing data?</p>
+<pre class="sourceCode r"><code class="sourceCode r">svc_pred_test &lt;-<span class="st"> </span><span class="kw">ml_predict</span>(svc_spark, pisa_test) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(sci_class, predicted_label) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>()</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(svc_pred_test)</code></pre>
+<pre><code>##          predicted_label
+## sci_class    -1     1
+##        -1 72577  6199
+##        1   5438 60953</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(<span class="kw">table</span>(svc_pred_test))</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9198372   0.9180913   0.9213085</code></pre>
+<p>Pretty impressive. We can also Apache Spark to fit logistic regression using the <code>ml_logistic_regression</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">spark_lr &lt;-<span class="st"> </span>pisa_training <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ml_logistic_regression</span>(sci_class <span class="op">~</span><span class="st"> </span>.)</code></pre>
+<p>And view the performance on the training and test data sets.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Training data </span>
+svc_pred_lr &lt;-<span class="st"> </span><span class="kw">ml_predict</span>(spark_lr, pisa_training) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(sci_class, predicted_label) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>()
+<span class="kw">table</span>(svc_pred_lr)</code></pre>
+<pre><code>##          predicted_label
+## sci_class     -1      1
+##        -1 146217  11247
+##        1   11133 121587</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(<span class="kw">table</span>(svc_pred_lr))</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9228765   0.9161166   0.9285742</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Test data</span>
+svc_pred_test_lr &lt;-<span class="st"> </span><span class="kw">ml_predict</span>(spark_lr, pisa_test) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(sci_class, predicted_label) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">collect</span>()
+<span class="kw">table</span>(svc_pred_test_lr)</code></pre>
+<pre><code>##          predicted_label
+## sci_class    -1     1
+##        -1 73098  5678
+##        1   5646 60745</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(<span class="kw">table</span>(svc_pred_test_lr))</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9219933   0.9149584   0.9279222</code></pre>
+<p>We could also use the logistic regression in R as it’s pretty quick even with this large of a data set (in fact, it’s slightly quicker).</p>
+<p>Finally, it is quite common to evaluate these models using AUC. We can let Apache Spark do this for the test data sets.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract predictions</span>
+pred_svc &lt;-<span class="st"> </span><span class="kw">ml_predict</span>(svc_spark, pisa_test)
+pred_lr &lt;-<span class="st"> </span><span class="kw">ml_predict</span>(spark_lr, pisa_test)
+
+<span class="kw">ml_binary_classification_evaluator</span>(pred_svc)</code></pre>
+<pre><code>## [1] 0.9795075</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ml_binary_classification_evaluator</span>(pred_lr)</code></pre>
+<pre><code>## [1] 0.9805051</code></pre>
+<p>We want these values as close to 1 as a possible. These values are all quite large and corroborate that these are both good classifiers.</p>
+</div>
+</div>
+<div id="support-vector-machine" class="section level3">
+<h3><span class="header-section-number">8.1.3</span> Support Vector Machine</h3>
+<p>SVM is an extension of support vector classifiers using <strong>kernels</strong> that allow for a non-linear boundary between the classes. Without getting into the weeds, to solve a support vector classifier problem all you need to know is the inner products of the observations. Assuming that <span class="math inline">\(x_i\)</span> and <span class="math inline">\(x_i&#39;\)</span> are two observations and <span class="math inline">\(p\)</span> is the number of predictors (features), their inner product is defined as:</p>
+<p><span class="math display">\[
+\langle x_i, x_i&#39;\rangle = \begin{bmatrix} 
+x_{i1} x_{i2} \dots x_{ip}
+\end{bmatrix} 
+\begin{bmatrix} 
+x_{i1}&#39; \\
+x_{i2}&#39; \\
+\vdots \\
+x_{ip}&#39;
+\end{bmatrix} = x_{i1}x_{i1}&#39; + x_{i2}x_{i2}&#39; + \dots x_{ip}x_{ip}&#39;
+\]</span></p>
+<p>More succinctly, <span class="math inline">\(\langle x_i, x_i&#39;\rangle = \sum_{i = 1}^p x_{ij}x_{ij}&#39;\)</span>. We can replace the inner product with a more general form, <span class="math inline">\(K(x_i, x_i&#39;)\)</span>, where <span class="math inline">\(K\)</span> is a kernel (a function that quantifies the similarity of two observations). When,</p>
+<p><span class="math display">\[
+K(x_i, x_i&#39;) = \sum_{i = 1}^p x_{ij}x_{ij}
+\]</span></p>
+<p>We have the linear kernel and this is the support vector classifier. However, we can use a more flexible kernel. Such as:</p>
+<p><span class="math display">\[
+K(x_i, x_i&#39;) = (1 + \sum_{i = 1}^p x_{ij}x_{ij})^d
+\]</span></p>
+<p>which is known as a <strong>polynomial kernel</strong> of degree <span class="math inline">\(d\)</span> and when <span class="math inline">\(d &gt; 1\)</span> we have much more flexible decision boundary than we do for support vector classifiers (when <span class="math inline">\(d = 1\)</span> we are back to the support vector classifier).</p>
+<p>Another very common kernel is the <strong>radial kernel</strong>, which is given by:</p>
+<p><span class="math display">\[
+K(x_i, x_i&#39;) = \exp\left(-\gamma \sum_{i = 1}^p (x_{ij} - x_{ij})^2\right)
+\]</span></p>
+<p>where <span class="math inline">\(\gamma\)</span> is a positive constant. Note, both <span class="math inline">\(d\)</span> and <span class="math inline">\(\gamma\)</span> are selected via tuning and cross-validation.</p>
+<p>Both of these kernels are worth considering when the decision boundary is non-linear. Figure <a href="supervised-machine-learning-part-ii.html#fig:james2">8.7</a> from James, et al. (2013) gives an example of a non-linear boundary. We see that the classes are not linearly separated and if we tried to use a linear decision boundary, we would end up with a very poor classifier. Therefore, we need to use a more flexible kernel. In both cases, we should expect that an SVM would greatly outperform both a support vector classifier and logistic regression.</p>
+<center>
+<div class="figure"><span id="fig:james2"></span>
+<img src="images/james2.png" alt="Non-linear decision boundary with a polynomial kernel (left) and radial kernel (right) from James et al., 2013." width="100%" />
+<p class="caption">
+Figure 8.7: Non-linear decision boundary with a polynomial kernel (left) and radial kernel (right) from James et al., 2013.
+</p>
+</div>
+</center>
+<div id="examples" class="section level4">
+<h4><span class="header-section-number">8.1.3.1</span> Examples</h4>
+<p>We will continue trying to build the best classifier of whether someone scored in the upper or lower half on the science scale and again use the <code>svm</code> function in the <code>e1071</code> package. For brevity, we’ll consider only the radial kernel. By default gamma is set to 1. We’ll explicitly set it to 1 below and cost to 1.</p>
+<pre class="sourceCode r"><code class="sourceCode r">svm_fit &lt;-<span class="st"> </span><span class="kw">svm</span>(sci_class <span class="op">~</span>., <span class="dt">data =</span> train_dat,
+               <span class="dt">cost =</span> <span class="dv">1</span>,
+               <span class="dt">gamma =</span> <span class="dv">1</span>, 
+               <span class="dt">kernel =</span> <span class="st">&quot;radial&quot;</span>)</code></pre>
+<p>Again, we can request some basic information about our model.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(svm_fit)</code></pre>
+<pre><code>## 
+## Call:
+## svm(formula = sci_class ~ ., data = train_dat, cost = 1, gamma = 1, 
+##     kernel = &quot;radial&quot;)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  radial 
+##        cost:  1 
+##       gamma:  1 
+## 
+## Number of Support Vectors:  6988
+## 
+##  ( 3676 3312 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+<p>This time we see we have 6988 support vectors, 3676 in class -1 and 3312 in class 1. Quite a bit more support vectors than the support vector classifier. Lets visually inspect this model by plotting it against the math and reading features on the same subset of test takers (Figure <a href="supervised-machine-learning-part-ii.html#fig:svmplot">8.8</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svm_fit, <span class="dt">data =</span> train_dat[ran_obs, ], math <span class="op">~</span><span class="st"> </span>reading)</code></pre>
+<div class="figure"><span id="fig:svmplot"></span>
+<img src="big-data-in-r_files/figure-html/svmplot-1.png" alt="Support vector classifier plot for all a random subsample (n = 1000) of training observations." width="100%" />
+<p class="caption">
+Figure 8.8: Support vector classifier plot for all a random subsample (n = 1000) of training observations.
+</p>
+</div>
+<p>We see that the decision boundary is now clearly no longer linear and we again see decent classification. Before we investigate the fit of the model, we should tune it.</p>
+<pre class="sourceCode r"><code class="sourceCode r">tune_svm &lt;-<span class="st"> </span><span class="kw">tune</span>(svm, sci_class <span class="op">~</span>., <span class="dt">data =</span> train_dat,
+                 <span class="dt">kernel =</span> <span class="st">&quot;radial&quot;</span>,
+                 <span class="dt">ranges =</span> <span class="kw">list</span>(<span class="dt">cost =</span> <span class="kw">c</span>(.<span class="dv">01</span>, <span class="fl">.1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>),
+                               <span class="dt">gamma =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</code></pre>
+<p>We can see which model was selected</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(tune_svm)</code></pre>
+<pre><code>## 
+## Parameter tuning of &#39;svm&#39;:
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  cost gamma
+##   0.1   0.5
+## 
+## - best performance: 0.07583144 
+## 
+## - Detailed performance results:
+##     cost gamma      error  dispersion
+## 1   0.01   0.5 0.17670590 0.010347886
+## 2   0.10   0.5 0.07583144 0.008233504
+## 3   1.00   0.5 0.07754307 0.009223528
+## 4   5.00   0.5 0.08375680 0.008098257
+## 5  10.00   0.5 0.08718054 0.008157393
+## 6   0.01   1.0 0.36425229 0.011955406
+## 7   0.10   1.0 0.13162657 0.007210614
+## 8   1.00   1.0 0.08242504 0.008590571
+## 9   5.00   1.0 0.09402859 0.009848512
+## 10 10.00   1.0 0.10074908 0.007984562
+## 11  0.01   2.0 0.39113500 0.011126599
+## 12  0.10   2.0 0.31409966 0.010609909
+## 13  1.00   2.0 0.11469785 0.006880824
+## 14  5.00   2.0 0.12363760 0.006591525
+## 15 10.00   2.0 0.12465198 0.006523243
+## 16  0.01   3.0 0.39113500 0.011126599
+## 17  0.10   3.0 0.38257549 0.012981991
+## 18  1.00   3.0 0.17562831 0.007488136
+## 19  5.00   3.0 0.17277475 0.006502038
+## 20 10.00   3.0 0.17309173 0.006145790
+## 21  0.01   4.0 0.39113500 0.011126599
+## 22  0.10   4.0 0.39107163 0.011072976
+## 23  1.00   4.0 0.23960159 0.011545434
+## 24  5.00   4.0 0.22641364 0.008709051
+## 25 10.00   4.0 0.22641360 0.008779341</code></pre>
+<p>And then select the best model and view it.</p>
+<pre class="sourceCode r"><code class="sourceCode r">best_svm &lt;-<span class="st"> </span>tune_svm<span class="op">$</span>best.model
+<span class="kw">summary</span>(best_svm)</code></pre>
+<pre><code>## 
+## Call:
+## best.tune(method = svm, train.x = sci_class ~ ., data = train_dat, 
+##     ranges = list(cost = c(0.01, 0.1, 1, 5, 10), gamma = c(0.5, 
+##         1, 2, 3, 4)), kernel = &quot;radial&quot;)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  radial 
+##        cost:  0.1 
+##       gamma:  0.5 
+## 
+## Number of Support Vectors:  6138
+## 
+##  ( 3095 3043 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+<p>Finally, we see how well this predicts on both the training observations</p>
+<pre class="sourceCode r"><code class="sourceCode r">svm_cm_train &lt;-<span class="st"> </span><span class="kw">table</span>(train_dat<span class="op">$</span>sci_class,
+                     <span class="kw">predict</span>(best_svm))
+svm_cm_train</code></pre>
+<pre><code>##     
+##        -1    1
+##   -1 5620  549
+##   1   519 9084</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(svm_cm_train)</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9322851   0.9459544   0.9110066</code></pre>
+<p>and finally the testing observations.</p>
+<pre class="sourceCode r"><code class="sourceCode r">svm_cm_test &lt;-<span class="st"> </span><span class="kw">table</span>(test_dat<span class="op">$</span>sci_class,
+                     <span class="kw">predict</span>(best_svm, <span class="dt">newdata =</span> test_dat))
+svm_cm_test</code></pre>
+<pre><code>##     
+##        -1    1
+##   -1 2781  280
+##   1   291 4534</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_classifier</span>(svm_cm_test)</code></pre>
+<pre><code>##    accuracy sensitivity specificity
+## 1 0.9275932   0.9396891   0.9085266</code></pre>
+<p>Performance is very comparable to the support vector classifier and logistic regression implying there isn’t much gain from the use of non-linear decision boundary.</p>
+</div>
+</div>
+<div id="lab-2" class="section level3">
+<h3><span class="header-section-number">8.1.4</span> Lab</h3>
+<p>For the lab, we’ll try to build the best classifier for the “Do you expect your child will go into a <science-related career>?” item. Using the following variables (and any variables that you think might be relevant in the codebook) and <strong>data for just Mexico</strong>, try and build the best classifier. Do the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Split the data into a training and a testing data set. Rather than using a 66/33 split, try a 50/50 or a 75/25 split.</p></li>
+<li>Fit a decision tree <strong>or</strong> random forest</li>
+</ol>
+<ul>
+<li>Prune your model and plot your model (if using decision trees)</li>
+<li>Determine the ideal number of trees (if using random forests)</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Fit a support vector machine</li>
+</ol>
+<ul>
+<li>Consider different kernels (e.g., linear and radial)</li>
+<li>Visually inspect your model by plotting it against a few features. Create a few different plots.</li>
+<li>Tune the parameters.
+<ul>
+<li>How many support vectors do you have?</li>
+<li>Did you notice much difference in the error rates?</li>
+<li>Does your model have a high tolerance?</li>
+</ul></li>
+<li>(OPTIONAL): When fitting the support vector classifier, you could try and fit it using Apache Spark
+<ul>
+<li>If you do this, use the <code>ml_binary_classification_evaluator</code> function to calculate AUC.</li>
+</ul></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Run a logistic regression</li>
+</ol>
+<ul>
+<li>Examine the coefficients table</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>Evaluate the fit of your models using the <code>eval_classifier</code> function on the testing data.</li>
+</ol>
+<ul>
+<li>Which model(s) fits the best? Can you improve it?</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li>Record your accuracy, sensitivity, and specificity for all the models (decision tree or random forest and SVM) to share.</li>
+</ol>
+<p>The following table contains the list of variables you could consider (this were introduced earlier):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Label</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DISCLISCI</td>
+<td align="left">Disciplinary climate in science classes (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">TEACHSUP</td>
+<td align="left">Teacher support in a science classes of students choice (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">IBTEACH</td>
+<td align="left">Inquiry-based science teaching an learning practices (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">TDTEACH</td>
+<td align="left">Teacher-directed science instruction (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">ENVAWARE</td>
+<td align="left">Environmental Awareness (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">JOYSCIE</td>
+<td align="left">Enjoyment of science (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">INTBRSCI</td>
+<td align="left">Interest in broad science topics (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">INSTSCIE</td>
+<td align="left">Instrumental motivation (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">SCIEEFF</td>
+<td align="left">Science self-efficacy (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">EPIST</td>
+<td align="left">Epistemological beliefs (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">SCIEACT</td>
+<td align="left">Index science activities (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">BSMJ</td>
+<td align="left">Student’s expected occupational status (SEI)</td>
+</tr>
+<tr class="odd">
+<td align="left">MISCED</td>
+<td align="left">Mother’s Education (ISCED)</td>
+</tr>
+<tr class="even">
+<td align="left">FISCED</td>
+<td align="left">Father’s Education (ISCED)</td>
+</tr>
+<tr class="odd">
+<td align="left">OUTHOURS</td>
+<td align="left">Out-of-School Study Time per week (Sum)</td>
+</tr>
+<tr class="even">
+<td align="left">SMINS</td>
+<td align="left">Learning time (minutes per week) - <science></td>
+</tr>
+<tr class="odd">
+<td align="left">TMINS</td>
+<td align="left">Learning time (minutes per week) - in total</td>
+</tr>
+<tr class="even">
+<td align="left">BELONG</td>
+<td align="left">Subjective well-being: Sense of Belonging to School (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">ANXTEST</td>
+<td align="left">Personality: Test Anxiety (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">MOTIVAT</td>
+<td align="left">Student Attitudes, Preferences and Self-related beliefs: Achieving motivation (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">COOPERATE</td>
+<td align="left">Collaboration and teamwork dispositions: Enjoy cooperation (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">PERFEED</td>
+<td align="left">Perceived Feedback (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">unfairteacher</td>
+<td align="left">Teacher Fairness (Sum)</td>
+</tr>
+<tr class="even">
+<td align="left">HEDRES</td>
+<td align="left">Home educational resources (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">HOMEPOS</td>
+<td align="left">Home possessions (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">ICTRES</td>
+<td align="left">ICT Resources (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">WEALTH</td>
+<td align="left">Family wealth (WLE)</td>
+</tr>
+<tr class="even">
+<td align="left">ESCS</td>
+<td align="left">Index of economic, social and cultural status (WLE)</td>
+</tr>
+<tr class="odd">
+<td align="left">math</td>
+<td align="left">Students’ math scores</td>
+</tr>
+<tr class="even">
+<td align="left">reading</td>
+<td align="left">Students’ reading scores</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="supervised-machine-learning-part-i.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="unsupervised-machine-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/okanbulut/bigdata/tree/master/07-supervised_learning_part2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["big-data-in-r.pdf", "big-data-in-r.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
