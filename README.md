@@ -11,7 +11,7 @@ This GitHub repo contains the materials for the training session titled "Explori
 * **Cheat Sheets**: <https://github.com/okanbulut/bigdata/tree/master/Cheat_sheets>
 
 * **R Scripts for Activities:**
-  * [Visualizing Big Data](https://gist.github.com/cddesja/8f0812a21a253fc3c919531ee99ae647)
+  * [Visualizing Big Data](https://github.com/okanbulut/bigdata/blob/master/R_scripts/visualizing_bigdata.R)
   * [Data Wrangling](https://gist.github.com/cddesja/8f0812a21a253fc3c919531ee99ae647)
 
 
