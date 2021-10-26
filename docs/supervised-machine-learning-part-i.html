@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7 Supervised Machine Learning - Part I | Exploring, Visualizing, and Modeling Big Data with R</title>
-  <meta name="description" content="This book presents the materials for our NCME workshop on big data analysis in R.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Supervised Machine Learning - Part I | Exploring, Visualizing, and Modeling Big Data with R />
+  <meta property="og:title" content="7 Supervised Machine Learning - Part I | Exploring, Visualizing, and Modeling Big Data with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,24 +16,25 @@
   <meta name="github-repo" content="okanbulut/bigdata" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Supervised Machine Learning - Part I | Exploring, Visualizing, and Modeling Big Data with R />
+  <meta name="twitter:title" content="7 Supervised Machine Learning - Part I | Exploring, Visualizing, and Modeling Big Data with R" />
   
   <meta name="twitter:description" content="This book presents the materials for our NCME workshop on big data analysis in R." />
   
 
-<meta name="author" content="Okan Bulut">
-<meta name="author" content="Christopher Desjardins">
+<meta name="author" content="Okan Bulut" />
+<meta name="author" content="Christopher Desjardins" />
 
 
-<meta name="date" content="2019-04-04">
+<meta name="date" content="2021-10-13" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="modeling-big-data.html">
-<link rel="next" href="supervised-machine-learning-part-ii.html">
+<link rel="prev" href="modeling-big-data.html"/>
+<link rel="next" href="supervised-machine-learning-part-ii.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -42,6 +42,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -49,36 +50,38 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+
+
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +90,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -138,64 +141,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Exploring, Visualizing, and Modeling Big Data in R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#summary"><i class="fa fa-check"></i><b>1.1</b> Summary</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#who-we-are"><i class="fa fa-check"></i><b>1.2</b> Who we are</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-big-data"><i class="fa fa-check"></i><b>2.1</b> What is big data?</a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#why-is-big-data-important"><i class="fa fa-check"></i><b>2.2</b> Why is big data important?</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#how-do-we-analyze-big-data"><i class="fa fa-check"></i><b>2.3</b> How do we analyze big data?</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#additional-resources"><i class="fa fa-check"></i><b>2.4</b> Additional resources</a></li>
 <li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#pisa-dataset"><i class="fa fa-check"></i><b>2.5</b> PISA dataset</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Exploratory data analysis</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#what-is-exploratory-data-analysis"><i class="fa fa-check"></i><b>3.1</b> What is exploratory data analysis?</a></li>
 <li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#confirmatory-data-analysis"><i class="fa fa-check"></i><b>3.2</b> Confirmatory data analysis</a></li>
 <li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#a-framework-for-eda"><i class="fa fa-check"></i><b>3.3</b> A framework for EDA</a></li>
 <li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#eda-tools"><i class="fa fa-check"></i><b>3.4</b> EDA tools</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling big data</a><ul>
-<li class="chapter" data-level="4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#what-is-data.table"><i class="fa fa-check"></i><b>4.1</b> What is <code>data.table</code>?</a><ul>
+<li class="chapter" data-level="4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html"><i class="fa fa-check"></i><b>4</b> Wrangling big data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#what-is-data.table"><i class="fa fa-check"></i><b>4.1</b> What is <code>data.table</code>?</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#why-use-data.table-over-tidyverse"><i class="fa fa-check"></i><b>4.1.1</b> Why use <code>data.table</code> over <code>tidyverse</code>?</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#readingwriting-data-with-data.table"><i class="fa fa-check"></i><b>4.2</b> Reading/writing data with <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.2" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#readingwriting-data-with-data.table"><i class="fa fa-check"></i><b>4.2</b> Reading/writing data with <code>data.table</code></a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-i-in-data.table"><i class="fa fa-check"></i><b>4.3</b> Using the i in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.3" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-i-in-data.table"><i class="fa fa-check"></i><b>4.3</b> Using the i in <code>data.table</code></a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-1"><i class="fa fa-check"></i><b>4.3.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-j-in-data.table"><i class="fa fa-check"></i><b>4.4</b> Using the j in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.4" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#using-the-j-in-data.table"><i class="fa fa-check"></i><b>4.4</b> Using the j in <code>data.table</code></a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-2"><i class="fa fa-check"></i><b>4.4.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#summarizing-using-the-by-in-data.table"><i class="fa fa-check"></i><b>4.5</b> Summarizing using the by in <code>data.table</code></a><ul>
+<li class="chapter" data-level="4.5" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#summarizing-using-the-by-in-data.table"><i class="fa fa-check"></i><b>4.5</b> Summarizing using the by in <code>data.table</code></a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#exercises-3"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#reshaping-data"><i class="fa fa-check"></i><b>4.6</b> Reshaping data</a></li>
 <li class="chapter" data-level="4.7" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#the-sparklyr-package"><i class="fa fa-check"></i><b>4.7</b> The <code>sparklyr</code> package</a></li>
 <li class="chapter" data-level="4.8" data-path="wrangling-big-data.html"><a href="wrangling-big-data.html#lab"><i class="fa fa-check"></i><b>4.8</b> Lab</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html"><i class="fa fa-check"></i><b>5</b> Visualizing big data</a><ul>
+<li class="chapter" data-level="5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html"><i class="fa fa-check"></i><b>5</b> Visualizing big data</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#introduction-to-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Introduction to <code>ggplot2</code></a></li>
-<li class="chapter" data-level="5.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#marginal-plots"><i class="fa fa-check"></i><b>5.2</b> Marginal plots</a><ul>
+<li class="chapter" data-level="5.2" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#marginal-plots"><i class="fa fa-check"></i><b>5.2</b> Marginal plots</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise"><i class="fa fa-check"></i><b>5.2.1</b> Exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#conditional-plots"><i class="fa fa-check"></i><b>5.3</b> Conditional plots</a><ul>
+<li class="chapter" data-level="5.3" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#conditional-plots"><i class="fa fa-check"></i><b>5.3</b> Conditional plots</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-1"><i class="fa fa-check"></i><b>5.3.1</b> Exercise</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-correlations"><i class="fa fa-check"></i><b>5.4</b> Plots for examining correlations</a></li>
 <li class="chapter" data-level="5.5" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-examining-means-by-group"><i class="fa fa-check"></i><b>5.5</b> Plots for examining means by group</a></li>
-<li class="chapter" data-level="5.6" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-ordinalcategorical-variables"><i class="fa fa-check"></i><b>5.6</b> Plots for ordinal/categorical variables</a><ul>
+<li class="chapter" data-level="5.6" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#plots-for-ordinalcategorical-variables"><i class="fa fa-check"></i><b>5.6</b> Plots for ordinal/categorical variables</a>
+<ul>
 <li class="chapter" data-level="5.6.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-2"><i class="fa fa-check"></i><b>5.6.1</b> Exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>5.7</b> Interactive plots with <code>plotly</code></a><ul>
+<li class="chapter" data-level="5.7" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#interactive-plots-with-plotly"><i class="fa fa-check"></i><b>5.7</b> Interactive plots with <code>plotly</code></a>
+<ul>
 <li class="chapter" data-level="5.7.1" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#exercise-3"><i class="fa fa-check"></i><b>5.7.1</b> Exercise</a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#customizing-visualizations"><i class="fa fa-check"></i><b>5.8</b> Customizing visualizations</a></li>
 <li class="chapter" data-level="5.9" data-path="visualizing-big-data.html"><a href="visualizing-big-data.html#lab-1"><i class="fa fa-check"></i><b>5.9</b> Lab</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="modeling-big-data.html"><a href="modeling-big-data.html"><i class="fa fa-check"></i><b>6</b> Modeling big data</a><ul>
-<li class="chapter" data-level="6.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#introduction-to-machine-learning"><i class="fa fa-check"></i><b>6.1</b> Introduction to machine learning</a><ul>
+<li class="chapter" data-level="6" data-path="modeling-big-data.html"><a href="modeling-big-data.html"><i class="fa fa-check"></i><b>6</b> Modeling big data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#introduction-to-machine-learning"><i class="fa fa-check"></i><b>6.1</b> Introduction to machine learning</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="modeling-big-data.html"><a href="modeling-big-data.html#focus-of-machine-learning"><i class="fa fa-check"></i><b>6.1.1</b> Focus of machine learning</a></li>
 <li class="chapter" data-level="6.1.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#some-concepts-underlying-machine-learning"><i class="fa fa-check"></i><b>6.1.2</b> Some concepts underlying machine learning</a></li>
 <li class="chapter" data-level="6.1.3" data-path="modeling-big-data.html"><a href="modeling-big-data.html#model-development"><i class="fa fa-check"></i><b>6.1.3</b> Model development</a></li>
@@ -204,34 +223,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="modeling-big-data.html"><a href="modeling-big-data.html#types-of-machine-learning"><i class="fa fa-check"></i><b>6.2</b> Types of machine learning</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html"><i class="fa fa-check"></i><b>7</b> Supervised Machine Learning - Part I</a><ul>
-<li class="chapter" data-level="7.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a><ul>
+<li class="chapter" data-level="7" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html"><i class="fa fa-check"></i><b>7</b> Supervised Machine Learning - Part I</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#regression-trees"><i class="fa fa-check"></i><b>7.1.1</b> Regression trees</a></li>
 <li class="chapter" data-level="7.1.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#classification-trees"><i class="fa fa-check"></i><b>7.1.2</b> Classification trees</a></li>
 <li class="chapter" data-level="7.1.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#pruning-decision-trees"><i class="fa fa-check"></i><b>7.1.3</b> Pruning decision trees</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees-in-r"><i class="fa fa-check"></i><b>7.2</b> Decision trees in R</a><ul>
+<li class="chapter" data-level="7.2" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#decision-trees-in-r"><i class="fa fa-check"></i><b>7.2</b> Decision trees in R</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#cross-validation"><i class="fa fa-check"></i><b>7.2.1</b> Cross-validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests"><i class="fa fa-check"></i><b>7.3</b> Random Forests</a></li>
 <li class="chapter" data-level="7.4" data-path="supervised-machine-learning-part-i.html"><a href="supervised-machine-learning-part-i.html#random-forests-in-r"><i class="fa fa-check"></i><b>7.4</b> Random forests in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html"><i class="fa fa-check"></i><b>8</b> Supervised Machine Learning - Part II</a><ul>
-<li class="chapter" data-level="8.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machines"><i class="fa fa-check"></i><b>8.1</b> Support Vector Machines</a><ul>
+<li class="chapter" data-level="8" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html"><i class="fa fa-check"></i><b>8</b> Supervised Machine Learning - Part II</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machines"><i class="fa fa-check"></i><b>8.1</b> Support Vector Machines</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#maximal-margin-classifier"><i class="fa fa-check"></i><b>8.1.1</b> Maximal Margin Classifier</a></li>
 <li class="chapter" data-level="8.1.2" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-classifier"><i class="fa fa-check"></i><b>8.1.2</b> Support Vector Classifier</a></li>
 <li class="chapter" data-level="8.1.3" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#support-vector-machine"><i class="fa fa-check"></i><b>8.1.3</b> Support Vector Machine</a></li>
 <li class="chapter" data-level="8.1.4" data-path="supervised-machine-learning-part-ii.html"><a href="supervised-machine-learning-part-ii.html#lab-2"><i class="fa fa-check"></i><b>8.1.4</b> Lab</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="9" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Unsupervised machine learning</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#clustering"><i class="fa fa-check"></i><b>9.1</b> Clustering</a></li>
 <li class="chapter" data-level="9.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#distance-measures"><i class="fa fa-check"></i><b>9.2</b> Distance Measures</a></li>
 <li class="chapter" data-level="9.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering"><i class="fa fa-check"></i><b>9.3</b> K-means clustering</a></li>
 <li class="chapter" data-level="9.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means-clustering-in-r"><i class="fa fa-check"></i><b>9.4</b> K-means clustering in R</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>10</b> Summary</a><ul>
-<li class="chapter" data-level="10.1" data-path="summary-1.html"><a href="summary-1.html#topics-covered"><i class="fa fa-check"></i><b>10.1</b> Topics covered</a><ul>
+<li class="chapter" data-level="10" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>10</b> Summary</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="summary-1.html"><a href="summary-1.html#topics-covered"><i class="fa fa-check"></i><b>10.1</b> Topics covered</a>
+<ul>
 <li class="chapter" data-level="10.1.1" data-path="summary-1.html"><a href="summary-1.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>10.1.1</b> Exploratory data analysis</a></li>
 <li class="chapter" data-level="10.1.2" data-path="summary-1.html"><a href="summary-1.html#supervised-learning"><i class="fa fa-check"></i><b>10.1.2</b> Supervised learning</a></li>
 </ul></li>
@@ -258,9 +285,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="supervised-machine-learning---part-i" class="section level1">
+<div id="supervised-machine-learning---part-i" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Supervised Machine Learning - Part I</h1>
-<div id="decision-trees" class="section level2">
+<div id="decision-trees" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Decision Trees</h2>
 <p>Decision trees (also known as classification and regression trees – CART) are an important type of algorithm for predictive modeling and machine learning. In general, the CART approach relies on <em>stratifying</em> or <em>segmenting</em> the prediction space into a number of simple regions. In order to make regression-based or classification-based predictions, we use the mean or the mode of the training observations in the region to which they belong.</p>
 <p>A typical layout of a decision tree model looks like a binary tree. The tree has a root node that represents the starting point of the prediction. There are also decision nodes where we split the data into a smaller subset and leaf nodes where we make a decision. Each node represents a single input variable (i.e., predictor) and a split point on that variable. The leaf nodes of the tree contain an output variable (i.e., dependent variable) for which we make a prediction. Predictions are made by walking the splits of the tree until arriving at a leaf node and output the class value at that leaf node. Figure <a href="supervised-machine-learning-part-i.html#fig:fig6-1">7.1</a> shows an example of a decision tree model in the context of a binary dependent variable (accepting or not accepting a new job offer).</p>
@@ -282,7 +309,7 @@ Figure 7.1: An example of decision tree approach
 <li>can be displayed graphically, and thus are easily interpreted even by a non-expert.</li>
 </ul>
 <p>In a decision tree model, either categorical and continuous variables can be used as the outcome variable depending on whether we want classification trees (categorical outcomes) or regression trees (continuous outcomes). Decision trees are particularly useful when predictors interact well with the outcome variable (and with each other).</p>
-<div id="regression-trees" class="section level3">
+<div id="regression-trees" class="section level3" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> Regression trees</h3>
 <p>In regression trees, the following two steps will allow us to create a decision tree model:</p>
 <ol style="list-style-type: decimal">
@@ -296,7 +323,7 @@ RSS=\sum_{i: x_i \in R_1(j,s)}(y_i-\hat{y}_{R_1})^2 + \sum_{i: x_i \in R_2(j,s)}
 <li>Once all the regions <span class="math inline">\(R_1, \dots, R_J\)</span> have been created, we predict the response for a given observation using the mean of the observations in the region of the training data to which that observation belongs.</li>
 </ol>
 </div>
-<div id="classification-trees" class="section level3">
+<div id="classification-trees" class="section level3" number="7.1.2">
 <h3><span class="header-section-number">7.1.2</span> Classification trees</h3>
 <p>A classification tree is very similar to a regression tree, except that the decision tree predicts a qualitative (i.e., categorical) variable rather than a quantitative (i.e., continuous and numerical) variable. The procedure for splitting the data in multiple branches is the same as the one we described for the regression tree above. The only difference is that instead of using the mean of the observations in the region of the training data, we assume that each observation belongs to the <em>mode</em> class (i.e., most commonly occurring class) of the observations in the region of the training data. Also, rather than minimizing <span class="math inline">\(RSS\)</span>, we try to minimize the <em>classification error rate</em>, which is the fraction of the training observations in a given region that do not belong to the most common class:</p>
 <p><span class="math display">\[
@@ -319,16 +346,16 @@ Entropy = -\sum_{k=1}^{K}\hat{p}_{mk}\text{log}\hat{p}_{mk}
 <p>Like the Gini index, the entropy will also take on a small value if the <span class="math inline">\(m^{th}\)</span> node is pure.</p>
 <p>When building a classification tree, either the Gini index or the entropy is typically used to evaluate the quality of a particular split, as they are more sensitive to the changes in the splits than the classification error rate. Typically, the Gini index is better for minimizing misclassification, while the Entropy is better for exploratory analysis.</p>
 </div>
-<div id="pruning-decision-trees" class="section level3">
+<div id="pruning-decision-trees" class="section level3" number="7.1.3">
 <h3><span class="header-section-number">7.1.3</span> Pruning decision trees</h3>
 <p>Sometimes decision trees end up having many branches and nodes, yielding a model that overfits the training data and poorly fits the validation or test data. To eliminate this overfitting problem, we may prefer to have a smaller and more interpretable tree with fewer splits at the cost of a little bias. One strategy to achieve this is to grow a very large tree and then prune it back in order to obtain a <em>subtree</em>.</p>
 <p>Given a subtree, we can estimate its error in the test or validation data. However, estimating the error for every possible subtree would be computationally too expensive. A more feasible way is to use <em>cost complexity pruning</em> by getting a sequence of trees indexed by a nonnegative tuning parameter <span class="math inline">\(\alpha\)</span> – which also known as the complexity parameter (cp). The cp parameter controls a trade-off between the subtree’s complexity and its fit to the training data. As the cp parameter increases from zero, branches in the decision tree get pruned in a nested and predictable fashion. To determine the ideal value for the cp parameter, we can try different values of cp in a validation set or use cross-validation (e.g., <em>K</em>-fold approach). By checking the error (using either RSS, or Gini index, or Entropy depending on the prediction problem) for different sizes of decision trees, we can determine the ideal point to prune the tree.</p>
 </div>
 </div>
-<div id="decision-trees-in-r" class="section level2">
+<div id="decision-trees-in-r" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Decision trees in R</h2>
 <p>In the following example, we will build a classification tree model, using the science scores from PISA 2015. Using a set of predictors in the <strong>pisa</strong> dataset, we will predict whether students are above or below the mean scale score for science. The average science score in PISA 2015 was 493 across all participating countries (see <a href="https://www.oecd.org/pisa/pisa-2015-results-in-focus.pdf">PISA 2015 Results in Focus</a> for more details). Using this score as a cut-off value, we will first create a binary variable called <code>science_perf</code> where <code>science_perf</code>= High if a student’s science score is equal or larger than 493; otherwise <code>science_perf</code>= Low.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pisa &lt;-<span class="st"> </span>pisa[, science_perf <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(science <span class="op">&gt;=</span><span class="st"> </span><span class="dv">493</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))]</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="supervised-machine-learning-part-i.html#cb120-1" aria-hidden="true" tabindex="-1"></a>pisa <span class="ot">&lt;-</span> pisa[, science_perf <span class="sc">:</span><span class="er">=</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(science <span class="sc">&gt;=</span> <span class="dv">493</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))]</span></code></pre></div>
 <p>In addition, we will subset the students from the United States and Canada and choose some variables (rather than the entire set of variables) to make our example relatively simple and manageable in terms of time. We will use the following variables in our model:</p>
 <table>
 <thead>
@@ -377,80 +404,80 @@ Entropy = -\sum_{k=1}^{K}\hat{p}_{mk}\text{log}\hat{p}_{mk}
 </tbody>
 </table>
 <p>We call this new dataset <code>pisa_small</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pisa_small &lt;-<span class="st"> </span><span class="kw">subset</span>(pisa, CNT <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;United States&quot;</span>), 
-                     <span class="dt">select =</span> <span class="kw">c</span>(science_perf, WEALTH, HEDRES, ENVAWARE, ICTRES, 
-                                EPIST, HOMEPOS, ESCS, reading, math))</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="supervised-machine-learning-part-i.html#cb121-1" aria-hidden="true" tabindex="-1"></a>pisa_small <span class="ot">&lt;-</span> <span class="fu">subset</span>(pisa, CNT <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;United States&quot;</span>), </span>
+<span id="cb121-2"><a href="supervised-machine-learning-part-i.html#cb121-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">select =</span> <span class="fu">c</span>(science_perf, WEALTH, HEDRES, ENVAWARE, ICTRES, </span>
+<span id="cb121-3"><a href="supervised-machine-learning-part-i.html#cb121-3" aria-hidden="true" tabindex="-1"></a>                                EPIST, HOMEPOS, ESCS, reading, math))</span></code></pre></div>
 <p>Before we begin the analysis, we need to install and load all the required packages.</p>
-<pre class="sourceCode r"><code class="sourceCode r">decision_packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;caret&quot;</span>, <span class="st">&quot;rpart&quot;</span>, <span class="st">&quot;rpart.plot&quot;</span>, <span class="st">&quot;randomForest&quot;</span>, <span class="st">&quot;modelr&quot;</span>)
-<span class="kw">install.packages</span>(decision_packages)
-
-<span class="kw">library</span>(<span class="st">&quot;caret&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;rpart&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;rpart.plot&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;randomForest&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)
-
-<span class="co"># Already installed packages that we will use</span>
-<span class="kw">library</span>(<span class="st">&quot;data.table&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="supervised-machine-learning-part-i.html#cb122-1" aria-hidden="true" tabindex="-1"></a>decision_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;caret&quot;</span>, <span class="st">&quot;rpart&quot;</span>, <span class="st">&quot;rpart.plot&quot;</span>, <span class="st">&quot;randomForest&quot;</span>, <span class="st">&quot;modelr&quot;</span>)</span>
+<span id="cb122-2"><a href="supervised-machine-learning-part-i.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(decision_packages)</span>
+<span id="cb122-3"><a href="supervised-machine-learning-part-i.html#cb122-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="supervised-machine-learning-part-i.html#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;caret&quot;</span>)</span>
+<span id="cb122-5"><a href="supervised-machine-learning-part-i.html#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;rpart&quot;</span>)</span>
+<span id="cb122-6"><a href="supervised-machine-learning-part-i.html#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;rpart.plot&quot;</span>)</span>
+<span id="cb122-7"><a href="supervised-machine-learning-part-i.html#cb122-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;randomForest&quot;</span>)</span>
+<span id="cb122-8"><a href="supervised-machine-learning-part-i.html#cb122-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;modelr&quot;</span>)</span>
+<span id="cb122-9"><a href="supervised-machine-learning-part-i.html#cb122-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-10"><a href="supervised-machine-learning-part-i.html#cb122-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Already installed packages that we will use</span></span>
+<span id="cb122-11"><a href="supervised-machine-learning-part-i.html#cb122-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;data.table&quot;</span>)</span>
+<span id="cb122-12"><a href="supervised-machine-learning-part-i.html#cb122-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb122-13"><a href="supervised-machine-learning-part-i.html#cb122-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 <p>Next, we will split our dataset into a training dataset and a test dataset. We will train the decision tree on the training data and check its accuracy using the test data. In order to replicate the results later on, we need to set the seed – which will allow us to fix the randomization. Next, we remove the missing cases, save it as a new dataset, and then use <code>createDataPartition()</code> from the <code>caret</code> package to create an index to split the dataset as 70% to 30% using p = 0.7.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set the seed before splitting the data</span>
-<span class="kw">set.seed</span>(<span class="dv">442019</span>)
-
-<span class="co"># We need to remove missing cases</span>
-pisa_nm &lt;-<span class="st"> </span><span class="kw">na.omit</span>(pisa_small)
-
-<span class="co"># Split the data into training and test</span>
-index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(pisa_nm<span class="op">$</span>science_perf, <span class="dt">p =</span> <span class="fl">0.7</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
-train_dat &lt;-<span class="st"> </span>pisa_nm[index, ]
-test_dat  &lt;-<span class="st"> </span>pisa_nm[<span class="op">-</span>index, ]
-
-<span class="kw">nrow</span>(train_dat)</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="supervised-machine-learning-part-i.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed before splitting the data</span></span>
+<span id="cb123-2"><a href="supervised-machine-learning-part-i.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">442019</span>)</span>
+<span id="cb123-3"><a href="supervised-machine-learning-part-i.html#cb123-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-4"><a href="supervised-machine-learning-part-i.html#cb123-4" aria-hidden="true" tabindex="-1"></a><span class="co"># We need to remove missing cases</span></span>
+<span id="cb123-5"><a href="supervised-machine-learning-part-i.html#cb123-5" aria-hidden="true" tabindex="-1"></a>pisa_nm <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(pisa_small)</span>
+<span id="cb123-6"><a href="supervised-machine-learning-part-i.html#cb123-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-7"><a href="supervised-machine-learning-part-i.html#cb123-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and test</span></span>
+<span id="cb123-8"><a href="supervised-machine-learning-part-i.html#cb123-8" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(pisa_nm<span class="sc">$</span>science_perf, <span class="at">p =</span> <span class="fl">0.7</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb123-9"><a href="supervised-machine-learning-part-i.html#cb123-9" aria-hidden="true" tabindex="-1"></a>train_dat <span class="ot">&lt;-</span> pisa_nm[index, ]</span>
+<span id="cb123-10"><a href="supervised-machine-learning-part-i.html#cb123-10" aria-hidden="true" tabindex="-1"></a>test_dat  <span class="ot">&lt;-</span> pisa_nm[<span class="sc">-</span>index, ]</span>
+<span id="cb123-11"><a href="supervised-machine-learning-part-i.html#cb123-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-12"><a href="supervised-machine-learning-part-i.html#cb123-12" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(train_dat)</span></code></pre></div>
 <pre><code>## [1] 16561</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(test_dat)</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="supervised-machine-learning-part-i.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(test_dat)</span></code></pre></div>
 <pre><code>## [1] 7097</code></pre>
 <p>Alternatively, we could simply create the index using random number generation with <code>sample.int()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(pisa_nm)
-index &lt;-<span class="st"> </span><span class="kw">sample.int</span>(n, <span class="dt">size =</span> <span class="kw">round</span>(<span class="fl">0.7</span> <span class="op">*</span><span class="st"> </span>n))</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="supervised-machine-learning-part-i.html#cb127-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(pisa_nm)</span>
+<span id="cb127-2"><a href="supervised-machine-learning-part-i.html#cb127-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(n, <span class="at">size =</span> <span class="fu">round</span>(<span class="fl">0.7</span> <span class="sc">*</span> n))</span></code></pre></div>
 <p>To build a decision tree model, we will use the <code>rpart</code> function from the <code>rpart</code> package. In the function, there are several elements:</p>
 <ul>
 <li><code>formula = science_perf ~ .</code> defines the dependent variable (i.e., science_perf) and the predictors (and <code>~</code> is the separator). Because we use <code>science_perf ~ .</code>, we use all variables in the dataset (except for science_perf) as our predictors. We could also write the same formula as <code>science_perf ~ math + reading + ESCS + ... + WEALTH</code> by specifying each variable individually.</li>
 <li><code>data = train_dat</code> defines the dataset we are using for the analysis.</li>
-<li><code>method = &quot;class&quot;</code> defines what type of decision tree we are building. <code>method = &quot;class&quot;</code> defines a classification tree and <code>method = &quot;anova&quot;</code> defines a regression tree.</li>
+<li><code>method = "class"</code> defines what type of decision tree we are building. <code>method = "class"</code> defines a classification tree and <code>method = "anova"</code> defines a regression tree.</li>
 <li><code>control</code> is a list of control (i.e., tuning) elements for the decision tree algorithm. <code>minsplit</code> defines the minimum number of observations that must exist in a node (default = 20); <code>cp</code> is the complexity parameter to prune the subtrees that don’t improve the model fit (default = 0.01, if <code>cp</code> = 0, then no pruning); <code>xval</code> is the number of cross-validations (default = 10, if <code>xval</code> = 0, then no cross validation).</li>
-<li><code>parms</code> is a list of optional parameters for the splitting function.<code>anova</code> splitting (i.e., regression trees) has no parameters. For <code>class</code> splitting (i.e., classification tree), the most important option is the split index – which is either <code>&quot;gini&quot;</code> for the Gini index or <code>&quot;information&quot;</code> for the Entropy index. Splitting based on <code>information</code> can be slightly slower compared to the Gini index (see the <a href="https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf">vignette</a> for more information).</li>
+<li><code>parms</code> is a list of optional parameters for the splitting function.<code>anova</code> splitting (i.e., regression trees) has no parameters. For <code>class</code> splitting (i.e., classification tree), the most important option is the split index – which is either <code>"gini"</code> for the Gini index or <code>"information"</code> for the Entropy index. Splitting based on <code>information</code> can be slightly slower compared to the Gini index (see the <a href="https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf">vignette</a> for more information).</li>
 </ul>
 <p>We will start building our decision tree model <code>df_fit1</code> (standing for decision tree fit for model 1) with no pruning (i.e., <code>cp = 0</code>) and no cross-validation as we have a test dataset already (i.e., <code>xval = 0</code>). We will use the Gini index for the splitting.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_fit1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
-                                         <span class="dt">cp =</span> <span class="dv">0</span>, 
-                                         <span class="dt">xval =</span> <span class="dv">0</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="supervised-machine-learning-part-i.html#cb128-1" aria-hidden="true" tabindex="-1"></a>dt_fit1 <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> .,</span>
+<span id="cb128-2"><a href="supervised-machine-learning-part-i.html#cb128-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb128-3"><a href="supervised-machine-learning-part-i.html#cb128-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb128-4"><a href="supervised-machine-learning-part-i.html#cb128-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, </span>
+<span id="cb128-5"><a href="supervised-machine-learning-part-i.html#cb128-5" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="dv">0</span>, </span>
+<span id="cb128-6"><a href="supervised-machine-learning-part-i.html#cb128-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">0</span>),</span>
+<span id="cb128-7"><a href="supervised-machine-learning-part-i.html#cb128-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span></code></pre></div>
 <p>The estimated model is very likely to have too many nodes because we set <code>cp = 0</code>. Due to having many nodes, first we will examine the results graphically, before we attempt to print the output. Although the <code>rpart</code> package can draw decision tree plots, they are very basic. Therefore, we will use the <code>rpart.plot</code> function from the <code>rpart.plot</code> package to draw a nicer decision tree plot. Let’s see the results graphically using the default settings of the <code>rpart.plot</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(dt_fit1)</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="supervised-machine-learning-part-i.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(dt_fit1)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-6-1.png" width="100%" /></p>
 <p>How does the model look like? It is <strong>NOT</strong> very interpretable, isn’t it? We definitely need to prune the trees; otherwise the model yields a very complex model with many nodes – which is very likely to overfit the data. In the following model, we use <code>cp = 0.005</code>. Remember that as we increase <code>cp</code>, the pruning for the model will also increase. The higher the cp value, the shorter the trees with possibly fewer predictors.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_fit2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
-                                         <span class="dt">cp =</span> <span class="fl">0.005</span>, 
-                                         <span class="dt">xval =</span> <span class="dv">0</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
-
-<span class="kw">rpart.plot</span>(dt_fit2)</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="supervised-machine-learning-part-i.html#cb130-1" aria-hidden="true" tabindex="-1"></a>dt_fit2 <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> .,</span>
+<span id="cb130-2"><a href="supervised-machine-learning-part-i.html#cb130-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb130-3"><a href="supervised-machine-learning-part-i.html#cb130-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb130-4"><a href="supervised-machine-learning-part-i.html#cb130-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, </span>
+<span id="cb130-5"><a href="supervised-machine-learning-part-i.html#cb130-5" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="fl">0.005</span>, </span>
+<span id="cb130-6"><a href="supervised-machine-learning-part-i.html#cb130-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">0</span>),</span>
+<span id="cb130-7"><a href="supervised-machine-learning-part-i.html#cb130-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span>
+<span id="cb130-8"><a href="supervised-machine-learning-part-i.html#cb130-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-9"><a href="supervised-machine-learning-part-i.html#cb130-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(dt_fit2)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-7a-1.png" width="100%" /></p>
-<p>We could also estimate the same model with the Entropy as the split criterion, <code>split = &quot;information&quot;</code>, and the results would be similar (not necessarily the tree itself, but its classification performance).</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_fit2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
-                                         <span class="dt">cp =</span> <span class="fl">0.005</span>, 
-                                         <span class="dt">xval =</span> <span class="dv">0</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;information&quot;</span>))</code></pre>
+<p>We could also estimate the same model with the Entropy as the split criterion, <code>split = "information"</code>, and the results would be similar (not necessarily the tree itself, but its classification performance).</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="supervised-machine-learning-part-i.html#cb131-1" aria-hidden="true" tabindex="-1"></a>dt_fit2 <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> .,</span>
+<span id="cb131-2"><a href="supervised-machine-learning-part-i.html#cb131-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb131-3"><a href="supervised-machine-learning-part-i.html#cb131-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb131-4"><a href="supervised-machine-learning-part-i.html#cb131-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, </span>
+<span id="cb131-5"><a href="supervised-machine-learning-part-i.html#cb131-5" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="fl">0.005</span>, </span>
+<span id="cb131-6"><a href="supervised-machine-learning-part-i.html#cb131-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">0</span>),</span>
+<span id="cb131-7"><a href="supervised-machine-learning-part-i.html#cb131-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;information&quot;</span>))</span></code></pre></div>
 <p>Now our model is less complex compared compared to the previous model. In the above decision tree plot, each node shows:</p>
 <ul>
 <li>the predicted class (High or low)</li>
@@ -462,13 +489,13 @@ index &lt;-<span class="st"> </span><span class="kw">sample.int</span>(n, <span 
 <li>the predicted class (High or low)</li>
 <li>the predicted probability of the fitted class</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(dt_fit2, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="supervised-machine-learning-part-i.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(dt_fit2, <span class="at">extra =</span> <span class="dv">8</span>, <span class="at">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="at">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-8-1.png" width="100%" /></p>
 <p>An alternative way to prune the model is to use the <code>prune()</code> function from the <code>rpart</code> package. In the following example, we will use our initial complex model <code>dt_fit1</code> and prune it.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_fit1_prune &lt;-<span class="st"> </span><span class="kw">prune</span>(dt_fit1, <span class="dt">cp =</span> <span class="fl">0.005</span>)
-<span class="kw">rpart.plot</span>(dt_fit1_prune, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="supervised-machine-learning-part-i.html#cb133-1" aria-hidden="true" tabindex="-1"></a>dt_fit1_prune <span class="ot">&lt;-</span> <span class="fu">prune</span>(dt_fit1, <span class="at">cp =</span> <span class="fl">0.005</span>)</span>
+<span id="cb133-2"><a href="supervised-machine-learning-part-i.html#cb133-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(dt_fit1_prune, <span class="at">extra =</span> <span class="dv">8</span>, <span class="at">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="at">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
 <p>which would yield the same model that we estimated. Now let’s print the output of our model using <code>printcp()</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">printcp</span>(dt_fit2)</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="supervised-machine-learning-part-i.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printcp</span>(dt_fit2)</span></code></pre></div>
 <pre><code>## 
 ## Classification tree:
 ## rpart(formula = science_perf ~ ., data = train_dat, method = &quot;class&quot;, 
@@ -478,38 +505,38 @@ index &lt;-<span class="st"> </span><span class="kw">sample.int</span>(n, <span 
 ## Variables actually used in tree construction:
 ## [1] math    reading
 ## 
-## Root node error: 6461/16561 = 0.39013
+## Root node error: 6461/16561 = 0.39
 ## 
 ## n= 16561 
 ## 
-##          CP nsplit rel error
-## 1 0.7461693      0   1.00000
-## 2 0.0153227      1   0.25383
-## 3 0.0147036      3   0.22319
-## 4 0.0080483      4   0.20848
-## 5 0.0050000      6   0.19239</code></pre>
+##      CP nsplit rel error
+## 1 0.746      0      1.00
+## 2 0.015      1      0.25
+## 3 0.015      3      0.22
+## 4 0.008      4      0.21
+## 5 0.005      6      0.19</code></pre>
 <p>In the output, <code>CP</code> refers to the complexity parameter, <code>nsplit</code> is the number of splits in the decision tree based on the complexity parameter, and <code>rel error</code> is the relative error (i.e., <span class="math inline">\(1 - R^2\)</span>) of the solution. This is the error for predictions of the data that were used to estimate the model. The section of <code>Variables actually used in tree construction</code> shows which variables have been used in the final model. In our example, only math and reading have been used. What happened to the other variables?</p>
 <p>In addition to <code>printcp()</code>, we can use <code>summary()</code> to print out more detailed results with all splits.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(dt_fit2)</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="supervised-machine-learning-part-i.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dt_fit2)</span></code></pre></div>
 <p>We don’t print the entire summary output here. Instead, we want to focus on a specific section in the output:</p>
-<pre class="sourceCode r"><code class="sourceCode r">Variable importance
-    math  reading ENVAWARE     ESCS    EPIST  HOMEPOS 
-      <span class="dv">46</span>       <span class="dv">37</span>        <span class="dv">5</span>        <span class="dv">4</span>        <span class="dv">4</span>        <span class="dv">4</span>  </code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="supervised-machine-learning-part-i.html#cb137-1" aria-hidden="true" tabindex="-1"></a>Variable importance</span>
+<span id="cb137-2"><a href="supervised-machine-learning-part-i.html#cb137-2" aria-hidden="true" tabindex="-1"></a>    math  reading ENVAWARE     ESCS    EPIST  HOMEPOS </span>
+<span id="cb137-3"><a href="supervised-machine-learning-part-i.html#cb137-3" aria-hidden="true" tabindex="-1"></a>      <span class="dv">46</span>       <span class="dv">37</span>        <span class="dv">5</span>        <span class="dv">4</span>        <span class="dv">4</span>        <span class="dv">4</span>  </span></code></pre></div>
 <p>Similarly, <code>varImp()</code> from the <code>caret</code> package also gives us a similar output:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImp</span>(dt_fit2)</code></pre>
-<pre><code>##              Overall
-## ENVAWARE  582.079065
-## EPIST     791.498637
-## ESCS      427.818610
-## HEDRES      5.287639
-## HOMEPOS    17.914110
-## math     5529.901785
-## reading  5752.549285
-## WEALTH      7.572725
-## ICTRES      0.000000</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="supervised-machine-learning-part-i.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImp</span>(dt_fit2)</span></code></pre></div>
+<pre><code>##           Overall
+## ENVAWARE  582.079
+## EPIST     791.499
+## ESCS      427.819
+## HEDRES      5.288
+## HOMEPOS    17.914
+## math     5529.902
+## reading  5752.549
+## WEALTH      7.573
+## ICTRES      0.000</code></pre>
 <p>Both of these show the importance of the variables for our estimated decision tree model. The larger the values are, the more crucial they are for the model. In our example, math and reading seem to be highly important for the decision tree model, whereas ICTRES is the least important variable. The variables that were not very important for the model are those that were not included in the final model. These variables are possibly have very low correlations with our outcome variable, <code>science_perf</code>.</p>
 <p>We can use <code>rpart.rules</code> to print out the decision rules from the trees. By default, the output from this function shows the probability of the <strong>second</strong> class for each decision/split being made (i.e., the category “low” in our example) and what percent of the observations fall into this category.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.rules</span>(dt_fit2, <span class="dt">cover =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="supervised-machine-learning-part-i.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.rules</span>(dt_fit2, <span class="at">cover =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##  science_perf                                                   cover
 ##          0.03 when math &gt;=        478 &amp; reading &gt;=        499     53%
 ##          0.21 when math &lt;  478        &amp; reading &gt;=        539      1%
@@ -519,111 +546,112 @@ index &lt;-<span class="st"> </span><span class="kw">sample.int</span>(n, <span 
 ##          0.70 when math &gt;=        478 &amp; reading &lt;  468             3%
 ##          0.95 when math &lt;  478        &amp; reading &lt;  507            33%</code></pre>
 <p>Furthermore, we need to check the classification accuracy of the estimated decision tree with the <strong>test</strong> data. Otherwise, it is hard to justify whether or not the estimated decision tree would work accurately for prediction. Below we estimate the predicted classes (either high or low) from the test data by applying the estimated model.First we obtain model predictions using <code>predict()</code> and then turn the results into a data frame called <code>dt_pred</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(dt_fit2, test_dat) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">as.data.frame</span>()
-
-<span class="kw">head</span>(dt_pred)</code></pre>
-<pre><code>##         High        Low
-## 1 0.97465045 0.02534955
-## 2 0.05406386 0.94593614
-## 3 0.05406386 0.94593614
-## 4 0.66243386 0.33756614
-## 5 0.97465045 0.02534955
-## 6 0.05406386 0.94593614</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="supervised-machine-learning-part-i.html#cb142-1" aria-hidden="true" tabindex="-1"></a>dt_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(dt_fit2, test_dat) <span class="sc">%&gt;%</span></span>
+<span id="cb142-2"><a href="supervised-machine-learning-part-i.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb142-3"><a href="supervised-machine-learning-part-i.html#cb142-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-4"><a href="supervised-machine-learning-part-i.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dt_pred)</span></code></pre></div>
+<pre><code>##      High     Low
+## 1 0.97465 0.02535
+## 2 0.05406 0.94594
+## 3 0.05406 0.94594
+## 4 0.66243 0.33757
+## 5 0.97465 0.02535
+## 6 0.05406 0.94594</code></pre>
 <p>This dataset shows each observation’s (i.e., students from the test data) probability of falling into either <em>high</em> or <em>low</em> categories based on the decision rules that we estimated. We will turn these probabilities into binary classifications, depending on whether or not they are &gt;= <span class="math inline">\(50\%\)</span>. Then, we will compare these estimates with the actual classes in the test data (i.e., <code>test_dat$science_perf</code>) in order to create a confusion matrix.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_pred &lt;-<span class="st"> </span><span class="kw">mutate</span>(dt_pred,
-  <span class="dt">science_perf =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(High <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))
-  ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(science_perf)
-  
-<span class="kw">confusionMatrix</span>(dt_pred<span class="op">$</span>science_perf, test_dat<span class="op">$</span>science_perf)</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="supervised-machine-learning-part-i.html#cb144-1" aria-hidden="true" tabindex="-1"></a>dt_pred <span class="ot">&lt;-</span> <span class="fu">mutate</span>(dt_pred,</span>
+<span id="cb144-2"><a href="supervised-machine-learning-part-i.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">science_perf =</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(High <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))</span>
+<span id="cb144-3"><a href="supervised-machine-learning-part-i.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb144-4"><a href="supervised-machine-learning-part-i.html#cb144-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(science_perf)</span>
+<span id="cb144-5"><a href="supervised-machine-learning-part-i.html#cb144-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb144-6"><a href="supervised-machine-learning-part-i.html#cb144-6" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(dt_pred<span class="sc">$</span>science_perf, test_dat<span class="sc">$</span>science_perf)</span></code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction High  Low
 ##       High 4076  316
 ##       Low   252 2453
-##                                           
-##                Accuracy : 0.92            
-##                  95% CI : (0.9134, 0.9262)
-##     No Information Rate : 0.6098          
-##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
-##                                           
-##                   Kappa : 0.8311          
-##  Mcnemar&#39;s Test P-Value : 0.008207        
-##                                           
-##             Sensitivity : 0.9418          
-##             Specificity : 0.8859          
-##          Pos Pred Value : 0.9281          
-##          Neg Pred Value : 0.9068          
-##              Prevalence : 0.6098          
-##          Detection Rate : 0.5743          
-##    Detection Prevalence : 0.6189          
-##       Balanced Accuracy : 0.9138          
-##                                           
-##        &#39;Positive&#39; Class : High            
+##                                         
+##                Accuracy : 0.92          
+##                  95% CI : (0.913, 0.926)
+##     No Information Rate : 0.61          
+##     P-Value [Acc &gt; NIR] : &lt; 2e-16       
+##                                         
+##                   Kappa : 0.831         
+##                                         
+##  Mcnemar&#39;s Test P-Value : 0.00821       
+##                                         
+##             Sensitivity : 0.942         
+##             Specificity : 0.886         
+##          Pos Pred Value : 0.928         
+##          Neg Pred Value : 0.907         
+##              Prevalence : 0.610         
+##          Detection Rate : 0.574         
+##    Detection Prevalence : 0.619         
+##       Balanced Accuracy : 0.914         
+##                                         
+##        &#39;Positive&#39; Class : High          
 ## </code></pre>
 <p>The output shows that the overall accuracy is around <span class="math inline">\(92\%\)</span>, sensitivit is <span class="math inline">\(94\%\)</span>, and specificity is <span class="math inline">\(89\%\)</span>. For only two variables, this is very good. However, sometimes we do not have predictors that are highly correlated with the outcome variables. In such cases, the model tuning might take much longer.</p>
 <p>Let’s assume that we did <strong>NOT</strong> have reading and math in our dataset. We still want to predict <code>science_perf</code> using the remaining variables.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_fit3a &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>
-<span class="st">                   </span>HOMEPOS <span class="op">+</span>ESCS,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
-                                         <span class="dt">cp =</span> <span class="fl">0.001</span>, 
-                                         <span class="dt">xval =</span> <span class="dv">0</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
-
-<span class="kw">rpart.plot</span>(dt_fit3a, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="supervised-machine-learning-part-i.html#cb146-1" aria-hidden="true" tabindex="-1"></a>dt_fit3a <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> WEALTH <span class="sc">+</span> HEDRES <span class="sc">+</span> ENVAWARE <span class="sc">+</span> ICTRES <span class="sc">+</span> EPIST <span class="sc">+</span> </span>
+<span id="cb146-2"><a href="supervised-machine-learning-part-i.html#cb146-2" aria-hidden="true" tabindex="-1"></a>                   HOMEPOS <span class="sc">+</span>ESCS,</span>
+<span id="cb146-3"><a href="supervised-machine-learning-part-i.html#cb146-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb146-4"><a href="supervised-machine-learning-part-i.html#cb146-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb146-5"><a href="supervised-machine-learning-part-i.html#cb146-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, </span>
+<span id="cb146-6"><a href="supervised-machine-learning-part-i.html#cb146-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="fl">0.001</span>, </span>
+<span id="cb146-7"><a href="supervised-machine-learning-part-i.html#cb146-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">0</span>),</span>
+<span id="cb146-8"><a href="supervised-machine-learning-part-i.html#cb146-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span>
+<span id="cb146-9"><a href="supervised-machine-learning-part-i.html#cb146-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-10"><a href="supervised-machine-learning-part-i.html#cb146-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(dt_fit3a, <span class="at">extra =</span> <span class="dv">8</span>, <span class="at">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="at">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-12a-1.png" width="100%" /></p>
 <p>Now, let’s change cp to 0.005.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_fit3b &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>
-<span class="st">                   </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
-                                         <span class="dt">cp =</span> <span class="fl">0.005</span>, 
-                                         <span class="dt">xval =</span> <span class="dv">0</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
-
-<span class="kw">rpart.plot</span>(dt_fit3b, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="supervised-machine-learning-part-i.html#cb147-1" aria-hidden="true" tabindex="-1"></a>dt_fit3b <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> WEALTH <span class="sc">+</span> HEDRES <span class="sc">+</span> ENVAWARE <span class="sc">+</span> ICTRES <span class="sc">+</span> EPIST <span class="sc">+</span> </span>
+<span id="cb147-2"><a href="supervised-machine-learning-part-i.html#cb147-2" aria-hidden="true" tabindex="-1"></a>                   HOMEPOS <span class="sc">+</span> ESCS,</span>
+<span id="cb147-3"><a href="supervised-machine-learning-part-i.html#cb147-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb147-4"><a href="supervised-machine-learning-part-i.html#cb147-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb147-5"><a href="supervised-machine-learning-part-i.html#cb147-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, </span>
+<span id="cb147-6"><a href="supervised-machine-learning-part-i.html#cb147-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="fl">0.005</span>, </span>
+<span id="cb147-7"><a href="supervised-machine-learning-part-i.html#cb147-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">0</span>),</span>
+<span id="cb147-8"><a href="supervised-machine-learning-part-i.html#cb147-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span>
+<span id="cb147-9"><a href="supervised-machine-learning-part-i.html#cb147-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb147-10"><a href="supervised-machine-learning-part-i.html#cb147-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(dt_fit3b, <span class="at">extra =</span> <span class="dv">8</span>, <span class="at">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="at">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-12b-1.png" width="100%" /></p>
 <p>Since we also care about the accuracy, sensitivity, and specificity of these models, we can turn this experiment into a small function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">decision_check &lt;-<span class="st"> </span><span class="cf">function</span>(cp) {
-  <span class="kw">require</span>(<span class="st">&quot;rpart&quot;</span>)
-  <span class="kw">require</span>(<span class="st">&quot;dplyr&quot;</span>)
-  
-  dt &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>
-<span class="st">                   </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
-              <span class="dt">data =</span> train_dat,
-              <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
-              <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
-                                           <span class="dt">cp =</span> cp, 
-                                           <span class="dt">xval =</span> <span class="dv">0</span>),
-              <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
-  
-  dt_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(dt, test_dat) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">science_perf =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(High <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">select</span>(science_perf)
-  
-  cm &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(dt_pred<span class="op">$</span>science_perf, test_dat<span class="op">$</span>science_perf)
-  
-  results &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">cp =</span> cp, 
-                        <span class="dt">Accuracy =</span> <span class="kw">round</span>(cm<span class="op">$</span>overall[<span class="dv">1</span>], <span class="dv">3</span>),
-                        <span class="dt">Sensitivity =</span> <span class="kw">round</span>(cm<span class="op">$</span>byClass[<span class="dv">1</span>], <span class="dv">3</span>),
-                        <span class="dt">Specificity =</span> <span class="kw">round</span>(cm<span class="op">$</span>byClass[<span class="dv">2</span>], <span class="dv">3</span>))
-  
-  <span class="kw">return</span>(results)
-}
-
-result &lt;-<span class="st"> </span><span class="ot">NULL</span>
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dt">from=</span><span class="fl">0.001</span>, <span class="dt">to=</span><span class="fl">0.08</span>, <span class="dt">by =</span> <span class="fl">0.005</span>)) {
-  result &lt;-<span class="st"> </span><span class="kw">rbind</span>(result, <span class="kw">decision_check</span>(<span class="dt">cp =</span> i))
-}
-
-result &lt;-<span class="st"> </span>result[<span class="kw">order</span>(result<span class="op">$</span>Accuracy, result<span class="op">$</span>Sensitivity, result<span class="op">$</span>Specificity),]
-result</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="supervised-machine-learning-part-i.html#cb148-1" aria-hidden="true" tabindex="-1"></a>decision_check <span class="ot">&lt;-</span> <span class="cf">function</span>(cp) {</span>
+<span id="cb148-2"><a href="supervised-machine-learning-part-i.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(<span class="st">&quot;rpart&quot;</span>)</span>
+<span id="cb148-3"><a href="supervised-machine-learning-part-i.html#cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb148-4"><a href="supervised-machine-learning-part-i.html#cb148-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb148-5"><a href="supervised-machine-learning-part-i.html#cb148-5" aria-hidden="true" tabindex="-1"></a>  dt <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> WEALTH <span class="sc">+</span> HEDRES <span class="sc">+</span> ENVAWARE <span class="sc">+</span> ICTRES <span class="sc">+</span> EPIST <span class="sc">+</span> </span>
+<span id="cb148-6"><a href="supervised-machine-learning-part-i.html#cb148-6" aria-hidden="true" tabindex="-1"></a>                   HOMEPOS <span class="sc">+</span> ESCS,</span>
+<span id="cb148-7"><a href="supervised-machine-learning-part-i.html#cb148-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> train_dat,</span>
+<span id="cb148-8"><a href="supervised-machine-learning-part-i.html#cb148-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb148-9"><a href="supervised-machine-learning-part-i.html#cb148-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, </span>
+<span id="cb148-10"><a href="supervised-machine-learning-part-i.html#cb148-10" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">cp =</span> cp, </span>
+<span id="cb148-11"><a href="supervised-machine-learning-part-i.html#cb148-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">xval =</span> <span class="dv">0</span>),</span>
+<span id="cb148-12"><a href="supervised-machine-learning-part-i.html#cb148-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span>
+<span id="cb148-13"><a href="supervised-machine-learning-part-i.html#cb148-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb148-14"><a href="supervised-machine-learning-part-i.html#cb148-14" aria-hidden="true" tabindex="-1"></a>  dt_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(dt, test_dat) <span class="sc">%&gt;%</span></span>
+<span id="cb148-15"><a href="supervised-machine-learning-part-i.html#cb148-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb148-16"><a href="supervised-machine-learning-part-i.html#cb148-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">science_perf =</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(High <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="st">&quot;High&quot;</span>, <span class="st">&quot;Low&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb148-17"><a href="supervised-machine-learning-part-i.html#cb148-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(science_perf)</span>
+<span id="cb148-18"><a href="supervised-machine-learning-part-i.html#cb148-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb148-19"><a href="supervised-machine-learning-part-i.html#cb148-19" aria-hidden="true" tabindex="-1"></a>  cm <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(dt_pred<span class="sc">$</span>science_perf, test_dat<span class="sc">$</span>science_perf)</span>
+<span id="cb148-20"><a href="supervised-machine-learning-part-i.html#cb148-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb148-21"><a href="supervised-machine-learning-part-i.html#cb148-21" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">cp =</span> cp, </span>
+<span id="cb148-22"><a href="supervised-machine-learning-part-i.html#cb148-22" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Accuracy =</span> <span class="fu">round</span>(cm<span class="sc">$</span>overall[<span class="dv">1</span>], <span class="dv">3</span>),</span>
+<span id="cb148-23"><a href="supervised-machine-learning-part-i.html#cb148-23" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Sensitivity =</span> <span class="fu">round</span>(cm<span class="sc">$</span>byClass[<span class="dv">1</span>], <span class="dv">3</span>),</span>
+<span id="cb148-24"><a href="supervised-machine-learning-part-i.html#cb148-24" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Specificity =</span> <span class="fu">round</span>(cm<span class="sc">$</span>byClass[<span class="dv">2</span>], <span class="dv">3</span>))</span>
+<span id="cb148-25"><a href="supervised-machine-learning-part-i.html#cb148-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb148-26"><a href="supervised-machine-learning-part-i.html#cb148-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
+<span id="cb148-27"><a href="supervised-machine-learning-part-i.html#cb148-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb148-28"><a href="supervised-machine-learning-part-i.html#cb148-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-29"><a href="supervised-machine-learning-part-i.html#cb148-29" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb148-30"><a href="supervised-machine-learning-part-i.html#cb148-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="fl">0.001</span>, <span class="at">to=</span><span class="fl">0.08</span>, <span class="at">by =</span> <span class="fl">0.005</span>)) {</span>
+<span id="cb148-31"><a href="supervised-machine-learning-part-i.html#cb148-31" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">rbind</span>(result, <span class="fu">decision_check</span>(<span class="at">cp =</span> i))</span>
+<span id="cb148-32"><a href="supervised-machine-learning-part-i.html#cb148-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb148-33"><a href="supervised-machine-learning-part-i.html#cb148-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-34"><a href="supervised-machine-learning-part-i.html#cb148-34" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> result[<span class="fu">order</span>(result<span class="sc">$</span>Accuracy, result<span class="sc">$</span>Sensitivity, result<span class="sc">$</span>Specificity),]</span>
+<span id="cb148-35"><a href="supervised-machine-learning-part-i.html#cb148-35" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div>
 <pre><code>##               cp Accuracy Sensitivity Specificity
 ## Accuracy9  0.046    0.675       0.947       0.250
 ## Accuracy10 0.051    0.675       0.947       0.250
@@ -642,32 +670,32 @@ result</code></pre>
 ## Accuracy2  0.011    0.694       0.850       0.449
 ## Accuracy   0.001    0.705       0.835       0.502</code></pre>
 <p>We can also visulize the results using <code>ggplot2</code>. First, we wil transform the <code>result</code> dataset into a long format and then use this new dataset (called <code>result_long</code>) in <code>ggplot()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">result_long &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.data.table</span>(result),
-                    <span class="dt">id.vars =</span> <span class="kw">c</span>(<span class="st">&quot;cp&quot;</span>),
-                    <span class="dt">measure =</span> <span class="kw">c</span>(<span class="st">&quot;Accuracy&quot;</span>, <span class="st">&quot;Sensitivity&quot;</span>, <span class="st">&quot;Specificity&quot;</span>),
-                    <span class="dt">variable.name =</span> <span class="st">&quot;Index&quot;</span>,
-                    <span class="dt">value.name =</span> <span class="st">&quot;Value&quot;</span>)
-
-<span class="kw">ggplot</span>(<span class="dt">data =</span> result_long,
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cp, <span class="dt">y =</span> Value)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Index), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Complexity Parameter&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Value&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="supervised-machine-learning-part-i.html#cb150-1" aria-hidden="true" tabindex="-1"></a>result_long <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(result),</span>
+<span id="cb150-2"><a href="supervised-machine-learning-part-i.html#cb150-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">&quot;cp&quot;</span>),</span>
+<span id="cb150-3"><a href="supervised-machine-learning-part-i.html#cb150-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">measure =</span> <span class="fu">c</span>(<span class="st">&quot;Accuracy&quot;</span>, <span class="st">&quot;Sensitivity&quot;</span>, <span class="st">&quot;Specificity&quot;</span>),</span>
+<span id="cb150-4"><a href="supervised-machine-learning-part-i.html#cb150-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">variable.name =</span> <span class="st">&quot;Index&quot;</span>,</span>
+<span id="cb150-5"><a href="supervised-machine-learning-part-i.html#cb150-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">value.name =</span> <span class="st">&quot;Value&quot;</span>)</span>
+<span id="cb150-6"><a href="supervised-machine-learning-part-i.html#cb150-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-7"><a href="supervised-machine-learning-part-i.html#cb150-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> result_long,</span>
+<span id="cb150-8"><a href="supervised-machine-learning-part-i.html#cb150-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cp, <span class="at">y =</span> Value)) <span class="sc">+</span></span>
+<span id="cb150-9"><a href="supervised-machine-learning-part-i.html#cb150-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Index), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb150-10"><a href="supervised-machine-learning-part-i.html#cb150-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Complexity Parameter&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Value&quot;</span>) <span class="sc">+</span></span>
+<span id="cb150-11"><a href="supervised-machine-learning-part-i.html#cb150-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-12d-1.png" width="100%" /></p>
 <p>In the plot, we see that there is a trade-off between sensitivity and specificity. Depending on the situation, we may prefer higher sensitivity (e.g., correctly identifying those who have “high” science scores) or higher specificity (e.g., correctly identifying those who have “low” science scores). For example, if we want to know who is performing poorly in science (so that we can design additional instructional materials), we may want the model to identify “low” performers more accurately.</p>
-<div id="cross-validation" class="section level3">
+<div id="cross-validation" class="section level3" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Cross-validation</h3>
 <p>As you may remember, we set <code>xval = 0</code> in our decision tree models because we did not want to run any cross-validation samples. However, cross-validations (e.g., <em>K</em>-fold approach) are highly useful when we do not have a test or validation dataset, or our dataset is to small to split into training and test data. A typical way to use cross-validation in decision trees is to not specify a cp (i.e., complexity parameter) and perform cross validation. In the following example, we will assume that our dataset is not too big and thus we want to run 10 cross-validation samples (i.e., splits) as we build our decision tree model. Note that we use <code>cp = 0</code> this time.</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_fit4 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>
-<span class="st">                   </span>EPIST <span class="op">+</span><span class="st"> </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>,
-                                         <span class="dt">cp =</span> <span class="dv">0</span>,
-                                         <span class="dt">xval =</span> <span class="dv">10</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="supervised-machine-learning-part-i.html#cb151-1" aria-hidden="true" tabindex="-1"></a>dt_fit4 <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> WEALTH <span class="sc">+</span> HEDRES <span class="sc">+</span> ENVAWARE <span class="sc">+</span> ICTRES <span class="sc">+</span> </span>
+<span id="cb151-2"><a href="supervised-machine-learning-part-i.html#cb151-2" aria-hidden="true" tabindex="-1"></a>                   EPIST <span class="sc">+</span> HOMEPOS <span class="sc">+</span> ESCS,</span>
+<span id="cb151-3"><a href="supervised-machine-learning-part-i.html#cb151-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb151-4"><a href="supervised-machine-learning-part-i.html#cb151-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb151-5"><a href="supervised-machine-learning-part-i.html#cb151-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>,</span>
+<span id="cb151-6"><a href="supervised-machine-learning-part-i.html#cb151-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="dv">0</span>,</span>
+<span id="cb151-7"><a href="supervised-machine-learning-part-i.html#cb151-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">10</span>),</span>
+<span id="cb151-8"><a href="supervised-machine-learning-part-i.html#cb151-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span></code></pre></div>
 <p>In the results, we can evaluate the cross-validated error (i.e., X-val Relative Error) and choose the complexity parameter that would give us an acceptable value. Then, we can use this cp value and prune the trees. We use <code>plotcp()</code> function to visualize the cross-validation results.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">printcp</span>(dt_fit4)</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="supervised-machine-learning-part-i.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printcp</span>(dt_fit4)</span></code></pre></div>
 <pre><code>## 
 ## Classification tree:
 ## rpart(formula = science_perf ~ WEALTH + HEDRES + ENVAWARE + ICTRES + 
@@ -678,80 +706,80 @@ result</code></pre>
 ## Variables actually used in tree construction:
 ## [1] ENVAWARE EPIST    ESCS     HEDRES   HOMEPOS  ICTRES   WEALTH  
 ## 
-## Root node error: 6461/16561 = 0.39013
+## Root node error: 6461/16561 = 0.39
 ## 
 ## n= 16561 
 ## 
-##            CP nsplit rel error  xerror      xstd
-## 1  7.7233e-02      0   1.00000 1.00000 0.0097156
-## 2  4.3646e-02      2   0.84553 0.84677 0.0093682
-## 3  1.1918e-02      3   0.80189 0.80406 0.0092417
-## 4  5.6493e-03      5   0.77805 0.78703 0.0091875
-## 5  2.6312e-03      7   0.76675 0.78270 0.0091733
-## 6  2.3216e-03      9   0.76149 0.78378 0.0091769
-## 7  1.9347e-03     11   0.75685 0.78270 0.0091733
-## 8  1.8573e-03     13   0.75298 0.78115 0.0091683
-## 9  1.7025e-03     16   0.74741 0.78130 0.0091688
-## 10 1.5477e-03     18   0.74400 0.78068 0.0091667
-## 11 1.5220e-03     24   0.73425 0.77743 0.0091560
-## 12 1.3930e-03     30   0.72512 0.77852 0.0091596
-## 13 1.2382e-03     34   0.71955 0.77356 0.0091430
-## 14 1.0834e-03     35   0.71831 0.77465 0.0091467
-## 15 1.0525e-03     47   0.70392 0.77387 0.0091441
-## 16 8.5126e-04     52   0.69865 0.77279 0.0091404
-## 17 8.2547e-04     54   0.69695 0.77790 0.0091575
-## 18 7.7387e-04     57   0.69447 0.77697 0.0091544
-## 19 7.2228e-04     69   0.68488 0.77914 0.0091616
-## 20 6.7069e-04     72   0.68271 0.77697 0.0091544
-## 21 6.1910e-04     84   0.67466 0.78099 0.0091677
-## 22 5.8041e-04    101   0.66398 0.78610 0.0091845
-## 23 5.6751e-04    106   0.66104 0.78718 0.0091880
-## 24 5.4171e-04    123   0.65036 0.79121 0.0092010
-## 25 5.1592e-04    148   0.63612 0.79121 0.0092010
-## 26 4.9012e-04    153   0.63287 0.79910 0.0092262
-## 27 4.6432e-04    159   0.62993 0.79957 0.0092277
-## 28 4.3337e-04    198   0.61059 0.80313 0.0092388
-## 29 4.1273e-04    211   0.60331 0.80607 0.0092480
-## 30 4.0241e-04    231   0.59403 0.80916 0.0092576
-## 31 3.8694e-04    254   0.58180 0.81009 0.0092604
-## 32 3.6114e-04    275   0.57282 0.81226 0.0092671
-## 33 3.3166e-04    298   0.56369 0.81272 0.0092685
-## 34 3.0955e-04    310   0.55905 0.82216 0.0092970
-## 35 2.7086e-04    360   0.54341 0.82479 0.0093048
-## 36 2.5796e-04    380   0.53707 0.83083 0.0093226
-## 37 2.4764e-04    399   0.53134 0.83965 0.0093481
-## 38 2.3216e-04    411   0.52825 0.84197 0.0093547
-## 39 2.2111e-04    456   0.51602 0.84492 0.0093630
-## 40 2.1668e-04    467   0.51323 0.84492 0.0093630
-## 41 2.0637e-04    495   0.50317 0.84909 0.0093747
-## 42 1.9347e-04    507   0.50070 0.85188 0.0093824
-## 43 1.8573e-04    521   0.49760 0.85234 0.0093837
-## 44 1.7197e-04    529   0.49574 0.85234 0.0093837
-## 45 1.5477e-04    538   0.49420 0.87339 0.0094403
-## 46 1.2898e-04    632   0.47810 0.87463 0.0094435
-## 47 1.1608e-04    638   0.47733 0.87773 0.0094515
-## 48 1.0318e-04    646   0.47640 0.88222 0.0094630
-## 49 9.2865e-05    667   0.47423 0.88345 0.0094662
-## 50 7.7387e-05    672   0.47377 0.89305 0.0094902
-## 51 6.8789e-05    716   0.47036 0.89305 0.0094902
-## 52 5.8041e-05    725   0.46974 0.89661 0.0094990
-## 53 5.1592e-05    740   0.46881 0.90094 0.0095095
-## 54 3.8694e-05    770   0.46727 0.90187 0.0095117
-## 55 2.2111e-05    782   0.46680 0.90497 0.0095192
-## 56 0.0000e+00    796   0.46618 0.90652 0.0095229</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotcp</span>(dt_fit4)</code></pre>
+##         CP nsplit rel error xerror   xstd
+## 1  7.7e-02      0      1.00   1.00 0.0097
+## 2  4.4e-02      2      0.85   0.85 0.0094
+## 3  1.2e-02      3      0.80   0.80 0.0092
+## 4  5.6e-03      5      0.78   0.79 0.0092
+## 5  2.6e-03      7      0.77   0.78 0.0092
+## 6  2.3e-03      9      0.76   0.78 0.0092
+## 7  1.9e-03     11      0.76   0.78 0.0092
+## 8  1.9e-03     13      0.75   0.78 0.0092
+## 9  1.7e-03     16      0.75   0.78 0.0092
+## 10 1.5e-03     18      0.74   0.78 0.0092
+## 11 1.5e-03     24      0.73   0.78 0.0092
+## 12 1.4e-03     30      0.73   0.78 0.0092
+## 13 1.2e-03     34      0.72   0.77 0.0091
+## 14 1.1e-03     35      0.72   0.77 0.0091
+## 15 1.1e-03     47      0.70   0.77 0.0091
+## 16 8.5e-04     52      0.70   0.77 0.0091
+## 17 8.3e-04     54      0.70   0.78 0.0092
+## 18 7.7e-04     57      0.69   0.78 0.0092
+## 19 7.2e-04     69      0.68   0.78 0.0092
+## 20 6.7e-04     72      0.68   0.78 0.0092
+## 21 6.2e-04     84      0.67   0.78 0.0092
+## 22 5.8e-04    101      0.66   0.79 0.0092
+## 23 5.7e-04    106      0.66   0.79 0.0092
+## 24 5.4e-04    123      0.65   0.79 0.0092
+## 25 5.2e-04    148      0.64   0.79 0.0092
+## 26 4.9e-04    153      0.63   0.80 0.0092
+## 27 4.6e-04    159      0.63   0.80 0.0092
+## 28 4.3e-04    198      0.61   0.80 0.0092
+## 29 4.1e-04    211      0.60   0.81 0.0092
+## 30 4.0e-04    231      0.59   0.81 0.0093
+## 31 3.9e-04    254      0.58   0.81 0.0093
+## 32 3.6e-04    275      0.57   0.81 0.0093
+## 33 3.3e-04    298      0.56   0.81 0.0093
+## 34 3.1e-04    310      0.56   0.82 0.0093
+## 35 2.7e-04    360      0.54   0.82 0.0093
+## 36 2.6e-04    380      0.54   0.83 0.0093
+## 37 2.5e-04    399      0.53   0.84 0.0093
+## 38 2.3e-04    411      0.53   0.84 0.0094
+## 39 2.2e-04    456      0.52   0.84 0.0094
+## 40 2.2e-04    467      0.51   0.84 0.0094
+## 41 2.1e-04    495      0.50   0.85 0.0094
+## 42 1.9e-04    507      0.50   0.85 0.0094
+## 43 1.9e-04    521      0.50   0.85 0.0094
+## 44 1.7e-04    529      0.50   0.85 0.0094
+## 45 1.5e-04    538      0.49   0.87 0.0094
+## 46 1.3e-04    632      0.48   0.87 0.0094
+## 47 1.2e-04    638      0.48   0.88 0.0095
+## 48 1.0e-04    646      0.48   0.88 0.0095
+## 49 9.3e-05    667      0.47   0.88 0.0095
+## 50 7.7e-05    672      0.47   0.89 0.0095
+## 51 6.9e-05    716      0.47   0.89 0.0095
+## 52 5.8e-05    725      0.47   0.90 0.0095
+## 53 5.2e-05    740      0.47   0.90 0.0095
+## 54 3.9e-05    770      0.47   0.90 0.0095
+## 55 2.2e-05    782      0.47   0.90 0.0095
+## 56 0.0e+00    796      0.47   0.91 0.0095</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="supervised-machine-learning-part-i.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotcp</span>(dt_fit4)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-14-1.png" width="100%" /></p>
 <p>Next, we can modify our model as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r">dt_fit5 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>ICTRES <span class="op">+</span><span class="st"> </span>
-<span class="st">                   </span>EPIST <span class="op">+</span><span class="st"> </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
-                                         <span class="dt">cp =</span> <span class="fl">0.0039</span>,
-                                         <span class="dt">xval =</span> <span class="dv">0</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
-
-<span class="kw">printcp</span>(dt_fit5)</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="supervised-machine-learning-part-i.html#cb155-1" aria-hidden="true" tabindex="-1"></a>dt_fit5 <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> WEALTH <span class="sc">+</span> HEDRES <span class="sc">+</span> ENVAWARE <span class="sc">+</span> ICTRES <span class="sc">+</span> </span>
+<span id="cb155-2"><a href="supervised-machine-learning-part-i.html#cb155-2" aria-hidden="true" tabindex="-1"></a>                   EPIST <span class="sc">+</span> HOMEPOS <span class="sc">+</span> ESCS,</span>
+<span id="cb155-3"><a href="supervised-machine-learning-part-i.html#cb155-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb155-4"><a href="supervised-machine-learning-part-i.html#cb155-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb155-5"><a href="supervised-machine-learning-part-i.html#cb155-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, </span>
+<span id="cb155-6"><a href="supervised-machine-learning-part-i.html#cb155-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="fl">0.0039</span>,</span>
+<span id="cb155-7"><a href="supervised-machine-learning-part-i.html#cb155-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">0</span>),</span>
+<span id="cb155-8"><a href="supervised-machine-learning-part-i.html#cb155-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span>
+<span id="cb155-9"><a href="supervised-machine-learning-part-i.html#cb155-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-10"><a href="supervised-machine-learning-part-i.html#cb155-10" aria-hidden="true" tabindex="-1"></a><span class="fu">printcp</span>(dt_fit5)</span></code></pre></div>
 <pre><code>## 
 ## Classification tree:
 ## rpart(formula = science_perf ~ WEALTH + HEDRES + ENVAWARE + ICTRES + 
@@ -762,30 +790,30 @@ result</code></pre>
 ## Variables actually used in tree construction:
 ## [1] ENVAWARE EPIST    ESCS     HOMEPOS 
 ## 
-## Root node error: 6461/16561 = 0.39013
+## Root node error: 6461/16561 = 0.39
 ## 
 ## n= 16561 
 ## 
-##          CP nsplit rel error
-## 1 0.0772326      0   1.00000
-## 2 0.0436465      2   0.84553
-## 3 0.0119177      3   0.80189
-## 4 0.0056493      5   0.77805
-## 5 0.0039000      7   0.76675</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(dt_fit5, <span class="dt">extra =</span> <span class="dv">8</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+##       CP nsplit rel error
+## 1 0.0772      0      1.00
+## 2 0.0436      2      0.85
+## 3 0.0119      3      0.80
+## 4 0.0056      5      0.78
+## 5 0.0039      7      0.77</code></pre>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="supervised-machine-learning-part-i.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(dt_fit5, <span class="at">extra =</span> <span class="dv">8</span>, <span class="at">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="at">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-15-1.png" width="100%" /></p>
-<p>Lastly, for the sake of brevity, we demonstrate a short regression tree example below where we predict math scores (a continuous variable) using the same set of variables. This time we use <code>method = &quot;anova&quot;</code> in the <code>rpart()</code> function to estimate a regression tree.</p>
+<p>Lastly, for the sake of brevity, we demonstrate a short regression tree example below where we predict math scores (a continuous variable) using the same set of variables. This time we use <code>method = "anova"</code> in the <code>rpart()</code> function to estimate a regression tree.</p>
 <p>Let’s begin with cross-validation and check how <span class="math inline">\(R^2\)</span> changes depending on the number of splits.</p>
-<pre class="sourceCode r"><code class="sourceCode r">rt_fit1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> math <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>
-<span class="st">                  </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;anova&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>,
-                                         <span class="dt">cp =</span> <span class="fl">0.001</span>,
-                                         <span class="dt">xval =</span> <span class="dv">10</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
-
-<span class="kw">printcp</span>(rt_fit1)</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="supervised-machine-learning-part-i.html#cb158-1" aria-hidden="true" tabindex="-1"></a>rt_fit1 <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> math <span class="sc">~</span> WEALTH <span class="sc">+</span> HEDRES <span class="sc">+</span> ENVAWARE <span class="sc">+</span> </span>
+<span id="cb158-2"><a href="supervised-machine-learning-part-i.html#cb158-2" aria-hidden="true" tabindex="-1"></a>                  ICTRES <span class="sc">+</span> EPIST <span class="sc">+</span> HOMEPOS <span class="sc">+</span> ESCS,</span>
+<span id="cb158-3"><a href="supervised-machine-learning-part-i.html#cb158-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb158-4"><a href="supervised-machine-learning-part-i.html#cb158-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;anova&quot;</span>, </span>
+<span id="cb158-5"><a href="supervised-machine-learning-part-i.html#cb158-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>,</span>
+<span id="cb158-6"><a href="supervised-machine-learning-part-i.html#cb158-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="fl">0.001</span>,</span>
+<span id="cb158-7"><a href="supervised-machine-learning-part-i.html#cb158-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">10</span>),</span>
+<span id="cb158-8"><a href="supervised-machine-learning-part-i.html#cb158-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span>
+<span id="cb158-9"><a href="supervised-machine-learning-part-i.html#cb158-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-10"><a href="supervised-machine-learning-part-i.html#cb158-10" aria-hidden="true" tabindex="-1"></a><span class="fu">printcp</span>(rt_fit1)</span></code></pre></div>
 <pre><code>## 
 ## Regression tree:
 ## rpart(formula = math ~ WEALTH + HEDRES + ENVAWARE + ICTRES + 
@@ -796,52 +824,52 @@ result</code></pre>
 ## Variables actually used in tree construction:
 ## [1] ENVAWARE EPIST    ESCS     HEDRES   WEALTH  
 ## 
-## Root node error: 104625310/16561 = 6317.6
+## Root node error: 1e+08/16561 = 6318
 ## 
 ## n= 16561 
 ## 
-##           CP nsplit rel error  xerror      xstd
-## 1  0.1121549      0   1.00000 1.00014 0.0100818
-## 2  0.0382061      1   0.88785 0.88819 0.0091919
-## 3  0.0353050      2   0.84964 0.85964 0.0089652
-## 4  0.0166934      3   0.81433 0.81758 0.0085677
-## 5  0.0078301      4   0.79764 0.80105 0.0084293
-## 6  0.0070306      5   0.78981 0.79455 0.0083594
-## 7  0.0063780      6   0.78278 0.78877 0.0083343
-## 8  0.0040553      7   0.77640 0.78437 0.0083043
-## 9  0.0033408      8   0.77235 0.78091 0.0082947
-## 10 0.0030034      9   0.76901 0.77942 0.0082741
-## 11 0.0028744     10   0.76600 0.77759 0.0082582
-## 12 0.0024670     11   0.76313 0.77469 0.0082327
-## 13 0.0021466     12   0.76066 0.77141 0.0082005
-## 14 0.0021460     13   0.75851 0.77185 0.0082082
-## 15 0.0019919     14   0.75637 0.77166 0.0082192
-## 16 0.0018103     15   0.75438 0.76997 0.0082037
-## 17 0.0017435     17   0.75076 0.76856 0.0081993
-## 18 0.0017275     18   0.74901 0.76836 0.0081954
-## 19 0.0016846     19   0.74728 0.76787 0.0081916
-## 20 0.0016463     20   0.74560 0.76770 0.0081872
-## 21 0.0015453     21   0.74395 0.76759 0.0081813
-## 22 0.0013210     22   0.74241 0.76538 0.0081718
-## 23 0.0012386     23   0.74109 0.76290 0.0081676
-## 24 0.0012244     25   0.73861 0.76170 0.0081598
-## 25 0.0011261     27   0.73616 0.75927 0.0081399
-## 26 0.0011075     28   0.73504 0.75895 0.0081377
-## 27 0.0011003     29   0.73393 0.75948 0.0081432
-## 28 0.0010564     30   0.73283 0.75924 0.0081413
-## 29 0.0010195     31   0.73177 0.75704 0.0081125
-## 30 0.0010000     32   0.73075 0.75675 0.0081169</code></pre>
+##        CP nsplit rel error xerror   xstd
+## 1  0.1122      0      1.00   1.00 0.0101
+## 2  0.0382      1      0.89   0.89 0.0092
+## 3  0.0353      2      0.85   0.86 0.0090
+## 4  0.0167      3      0.81   0.82 0.0086
+## 5  0.0078      4      0.80   0.80 0.0084
+## 6  0.0070      5      0.79   0.79 0.0084
+## 7  0.0064      6      0.78   0.79 0.0083
+## 8  0.0041      7      0.78   0.78 0.0083
+## 9  0.0033      8      0.77   0.78 0.0083
+## 10 0.0030      9      0.77   0.78 0.0083
+## 11 0.0029     10      0.77   0.78 0.0083
+## 12 0.0025     11      0.76   0.77 0.0082
+## 13 0.0021     12      0.76   0.77 0.0082
+## 14 0.0021     13      0.76   0.77 0.0082
+## 15 0.0020     14      0.76   0.77 0.0082
+## 16 0.0018     15      0.75   0.77 0.0082
+## 17 0.0017     17      0.75   0.77 0.0082
+## 18 0.0017     18      0.75   0.77 0.0082
+## 19 0.0017     19      0.75   0.77 0.0082
+## 20 0.0016     20      0.75   0.77 0.0082
+## 21 0.0015     21      0.74   0.77 0.0082
+## 22 0.0013     22      0.74   0.77 0.0082
+## 23 0.0012     23      0.74   0.76 0.0082
+## 24 0.0012     25      0.74   0.76 0.0082
+## 25 0.0011     27      0.74   0.76 0.0081
+## 26 0.0011     28      0.74   0.76 0.0081
+## 27 0.0011     29      0.73   0.76 0.0081
+## 28 0.0011     30      0.73   0.76 0.0081
+## 29 0.0010     31      0.73   0.76 0.0081
+## 30 0.0010     32      0.73   0.76 0.0081</code></pre>
 <p>Then, we can adjust our model based on the suggestions from the previous plot. Note that we use <code>extra = 100</code> in the <code>rpart.plot()</code> function to show percentages (<em>Note</em>: <code>rpart.plot</code> has different <em>extra</em> options depending on whether it is a classification or regression tree).</p>
-<pre class="sourceCode r"><code class="sourceCode r">rt_fit2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> math <span class="op">~</span><span class="st"> </span>WEALTH <span class="op">+</span><span class="st"> </span>HEDRES <span class="op">+</span><span class="st"> </span>ENVAWARE <span class="op">+</span><span class="st"> </span>
-<span class="st">                  </span>ICTRES <span class="op">+</span><span class="st"> </span>EPIST <span class="op">+</span><span class="st"> </span>HOMEPOS <span class="op">+</span><span class="st"> </span>ESCS,
-                 <span class="dt">data =</span> train_dat,
-                 <span class="dt">method =</span> <span class="st">&quot;anova&quot;</span>, 
-                 <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">minsplit =</span> <span class="dv">20</span>, 
-                                         <span class="dt">cp =</span> <span class="fl">0.007</span>,
-                                         <span class="dt">xval =</span> <span class="dv">0</span>),
-                <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">split =</span> <span class="st">&quot;gini&quot;</span>))
-
-<span class="kw">printcp</span>(rt_fit2)</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="supervised-machine-learning-part-i.html#cb160-1" aria-hidden="true" tabindex="-1"></a>rt_fit2 <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> math <span class="sc">~</span> WEALTH <span class="sc">+</span> HEDRES <span class="sc">+</span> ENVAWARE <span class="sc">+</span> </span>
+<span id="cb160-2"><a href="supervised-machine-learning-part-i.html#cb160-2" aria-hidden="true" tabindex="-1"></a>                  ICTRES <span class="sc">+</span> EPIST <span class="sc">+</span> HOMEPOS <span class="sc">+</span> ESCS,</span>
+<span id="cb160-3"><a href="supervised-machine-learning-part-i.html#cb160-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> train_dat,</span>
+<span id="cb160-4"><a href="supervised-machine-learning-part-i.html#cb160-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&quot;anova&quot;</span>, </span>
+<span id="cb160-5"><a href="supervised-machine-learning-part-i.html#cb160-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control =</span> <span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, </span>
+<span id="cb160-6"><a href="supervised-machine-learning-part-i.html#cb160-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">cp =</span> <span class="fl">0.007</span>,</span>
+<span id="cb160-7"><a href="supervised-machine-learning-part-i.html#cb160-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">xval =</span> <span class="dv">0</span>),</span>
+<span id="cb160-8"><a href="supervised-machine-learning-part-i.html#cb160-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">split =</span> <span class="st">&quot;gini&quot;</span>))</span>
+<span id="cb160-9"><a href="supervised-machine-learning-part-i.html#cb160-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-10"><a href="supervised-machine-learning-part-i.html#cb160-10" aria-hidden="true" tabindex="-1"></a><span class="fu">printcp</span>(rt_fit2)</span></code></pre></div>
 <pre><code>## 
 ## Regression tree:
 ## rpart(formula = math ~ WEALTH + HEDRES + ENVAWARE + ICTRES + 
@@ -852,36 +880,36 @@ result</code></pre>
 ## Variables actually used in tree construction:
 ## [1] ENVAWARE EPIST    ESCS    
 ## 
-## Root node error: 104625310/16561 = 6317.6
+## Root node error: 1e+08/16561 = 6318
 ## 
 ## n= 16561 
 ## 
-##          CP nsplit rel error
-## 1 0.1121549      0   1.00000
-## 2 0.0382061      1   0.88785
-## 3 0.0353050      2   0.84964
-## 4 0.0166934      3   0.81433
-## 5 0.0078301      4   0.79764
-## 6 0.0070306      5   0.78981
-## 7 0.0070000      6   0.78278</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(rt_fit2, <span class="dt">extra =</span> <span class="dv">100</span>, <span class="dt">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</code></pre>
+##       CP nsplit rel error
+## 1 0.1122      0      1.00
+## 2 0.0382      1      0.89
+## 3 0.0353      2      0.85
+## 4 0.0167      3      0.81
+## 5 0.0078      4      0.80
+## 6 0.0070      5      0.79
+## 7 0.0070      6      0.78</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="supervised-machine-learning-part-i.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(rt_fit2, <span class="at">extra =</span> <span class="dv">100</span>, <span class="at">box.palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="at">shadow.col =</span> <span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-17a-1.png" width="100%" /></p>
 <p>To evaluate the model accuracy, we cannot use the classification-based indices anymore because we built a regression tree, not a classification tree. Two useful measures that we can for evaluating regression trees are the mean absolute error (mae) and the root mean square error (rmse). The <code>modelr</code> package has several functions – such as <code>mae()</code> and <code>rmse()</code> – to evaluate regression-based models. Using the training and (more importantly) test data, we can evaluate the accuracy of the decision tree model that we estimated above.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Training data</span>
-<span class="kw">mae</span>(<span class="dt">model =</span> rt_fit2, <span class="dt">data =</span> train_dat)</code></pre>
-<pre><code>## [1] 56.48637</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rmse</span>(<span class="dt">model =</span> rt_fit2, <span class="dt">data =</span> train_dat)</code></pre>
-<pre><code>## [1] 70.3226</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test data</span>
-<span class="kw">mae</span>(<span class="dt">model =</span> rt_fit2, <span class="dt">data =</span> test_dat)</code></pre>
-<pre><code>## [1] 56.65823</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rmse</span>(<span class="dt">model =</span> rt_fit2, <span class="dt">data =</span> test_dat)</code></pre>
-<pre><code>## [1] 70.41532</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="supervised-machine-learning-part-i.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training data</span></span>
+<span id="cb163-2"><a href="supervised-machine-learning-part-i.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mae</span>(<span class="at">model =</span> rt_fit2, <span class="at">data =</span> train_dat)</span></code></pre></div>
+<pre><code>## [1] 56.49</code></pre>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="supervised-machine-learning-part-i.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rmse</span>(<span class="at">model =</span> rt_fit2, <span class="at">data =</span> train_dat)</span></code></pre></div>
+<pre><code>## [1] 70.32</code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="supervised-machine-learning-part-i.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test data</span></span>
+<span id="cb167-2"><a href="supervised-machine-learning-part-i.html#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mae</span>(<span class="at">model =</span> rt_fit2, <span class="at">data =</span> test_dat)</span></code></pre></div>
+<pre><code>## [1] 56.66</code></pre>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="supervised-machine-learning-part-i.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rmse</span>(<span class="at">model =</span> rt_fit2, <span class="at">data =</span> test_dat)</span></code></pre></div>
+<pre><code>## [1] 70.42</code></pre>
 <p>We seem to have slightly less error with the training data than the test data. Is this finding suprising to you?</p>
 <hr />
 </div>
 </div>
-<div id="random-forests" class="section level2">
+<div id="random-forests" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Random Forests</h2>
 <p>Decision trees can sometimes be non-robust because a small change in the data may cause a significant change in the final estimated tree. Therefore, whenever a decision tree approach is not completely stable, an alternative method – such as <strong>random forests</strong> – can be more suitable for supervised ML applications. Unlike the decision tree approach where there is a single solution from the same sample, random forest builds multiple decision trees by splitting the data into multiple sub-samples and merges them together to get a more accurate and stable prediction.</p>
 <p>The underlying mechanism of random forests is very similar to that of decision trees. However, random forests first build lots of bushy trees and then average them to reduce the overall variance. Figure <a href="supervised-machine-learning-part-i.html#fig:fig6-2">7.2</a> shows how a random forest would look like with three trees.</p>
@@ -897,7 +925,7 @@ Figure 7.2: An example of random forests approach
 <p>Random forest has nearly the same tuning parameters as a decision tree. Also, like decision trees, random forests can be used for both classification and regression problems. However, there are some differences between the two approaches. Unlike in decision trees, it is easier to control and prevent overfitting in random forests. This is because random forests create random subsets of the features and build much smaller trees using these subsets. Afterwards, it combines the subtrees. It should be noted that this procedure makes random forests computationally slower, depending on how many trees random forest builds. Therefore, it may not be effective for <em>real-time</em> predictions.</p>
 <p>The random forest algorithm is used in a lot of different fields, like banking, stock market, medicine, and e-commerce. For example, random forests can be used to detect customers who will use the bank’s services more frequently than others and repay their debt in time. It can also used to detect fraud customers who want to scam the bank. In educational testing, we can use random forests to analyze a student’s assessment history (e.g., test scores, response times, demographic variables, grade level, and so on) to identify whether the student has any learning difficulties. Similarly, we can use examinee-related variables, test scores, and test administration date to identify whether an examinee is likely to re-take the test (e.g., TOEFL or GRE) in the future.</p>
 </div>
-<div id="random-forests-in-r" class="section level2">
+<div id="random-forests-in-r" class="section level2" number="7.4">
 <h2><span class="header-section-number">7.4</span> Random forests in R</h2>
 <p>In R, <code>randomForest</code> and <code>caret</code> packages can be used to apply the random forest algorithm to classification and regression problems. The use of the <code>randomForest()</code> function is similar to that of <code>rpart()</code>. The main elements that we need to define are:</p>
 <ul>
@@ -907,14 +935,14 @@ Figure 7.2: An example of random forests approach
 <li><strong>ntree</strong>: Number of trees to grow in the model; we often start with a large number and then reduce it as we adjust the model based on the results. A large number for <strong>ntree</strong> can significantly increase the estimation time for the model.</li>
 </ul>
 <p>There are also other elements that we can change depending on whether it is a classification or regression model (see <code>?randomForest</code> for more details). In the following example, we will focus on the same classification problem that we used before for decision trees. We initially set <code>ntree = 1000</code> to get 1000 trees in total but we will evaluate whether we need all of these trees to have an accurate model.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;randomForest&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;caret&quot;</span>)
-
-rf_fit1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
-                        <span class="dt">data =</span> train_dat,
-                        <span class="dt">importance =</span> <span class="ot">TRUE</span>, <span class="dt">ntree =</span> <span class="dv">1000</span>)
-
-<span class="kw">print</span>(rf_fit1)</code></pre>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="supervised-machine-learning-part-i.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;randomForest&quot;</span>)</span>
+<span id="cb171-2"><a href="supervised-machine-learning-part-i.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;caret&quot;</span>)</span>
+<span id="cb171-3"><a href="supervised-machine-learning-part-i.html#cb171-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-4"><a href="supervised-machine-learning-part-i.html#cb171-4" aria-hidden="true" tabindex="-1"></a>rf_fit1 <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> .,</span>
+<span id="cb171-5"><a href="supervised-machine-learning-part-i.html#cb171-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> train_dat,</span>
+<span id="cb171-6"><a href="supervised-machine-learning-part-i.html#cb171-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">importance =</span> <span class="cn">TRUE</span>, <span class="at">ntree =</span> <span class="dv">1000</span>)</span>
+<span id="cb171-7"><a href="supervised-machine-learning-part-i.html#cb171-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-8"><a href="supervised-machine-learning-part-i.html#cb171-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rf_fit1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ##  randomForest(formula = science_perf ~ ., data = train_dat, importance = TRUE,      ntree = 1000) 
@@ -925,18 +953,18 @@ rf_fit1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span
 ##         OOB estimate of  error rate: 7.58%
 ## Confusion matrix:
 ##      High  Low class.error
-## High 9464  636   0.0629703
-## Low   619 5842   0.0958056</code></pre>
+## High 9464  636     0.06297
+## Low   619 5842     0.09581</code></pre>
 <p>In the output, we see the confusion matrix along with classification error and out-of-bag (OOB) error. OBB is a method of measuring the prediction error of random forests, finding the mean prediction error on each training sample, using only the trees that did not have in their bootstrap sample. The results show that the overall OBB error is around <span class="math inline">\(7.6\%\)</span>, while the classification error is <span class="math inline">\(6\%\)</span> for the <em>high</em> category and around <span class="math inline">\(10\%\)</span> for the <em>low</em> category.</p>
 <p>Next, by checking the level error across the number of trees, we can determine the ideal number of trees for our model.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rf_fit1)</code></pre>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="supervised-machine-learning-part-i.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rf_fit1)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-19-1.png" width="100%" /></p>
 <p>The plot shows that the error level does not go down any further after roughly 50 trees. So, we can run our model again by using <code>ntree = 50</code> this time.</p>
-<pre class="sourceCode r"><code class="sourceCode r">rf_fit2 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">formula =</span> science_perf <span class="op">~</span><span class="st"> </span>.,
-                        <span class="dt">data =</span> train_dat,
-                        <span class="dt">importance =</span> <span class="ot">TRUE</span>, <span class="dt">ntree =</span> <span class="dv">50</span>)
-
-<span class="kw">print</span>(rf_fit2)</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="supervised-machine-learning-part-i.html#cb174-1" aria-hidden="true" tabindex="-1"></a>rf_fit2 <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(<span class="at">formula =</span> science_perf <span class="sc">~</span> .,</span>
+<span id="cb174-2"><a href="supervised-machine-learning-part-i.html#cb174-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> train_dat,</span>
+<span id="cb174-3"><a href="supervised-machine-learning-part-i.html#cb174-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">importance =</span> <span class="cn">TRUE</span>, <span class="at">ntree =</span> <span class="dv">50</span>)</span>
+<span id="cb174-4"><a href="supervised-machine-learning-part-i.html#cb174-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-5"><a href="supervised-machine-learning-part-i.html#cb174-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rf_fit2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ##  randomForest(formula = science_perf ~ ., data = train_dat, importance = TRUE,      ntree = 50) 
@@ -947,107 +975,108 @@ rf_fit1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(<span
 ##         OOB estimate of  error rate: 7.95%
 ## Confusion matrix:
 ##      High  Low class.error
-## High 9459  641  0.06346535
-## Low   675 5786  0.10447299</code></pre>
+## High 9459  641     0.06347
+## Low   675 5786     0.10447</code></pre>
 <p>We can see the overall accuracy of model (<span class="math inline">\(92.12\%\)</span>) as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">diag</span>(rf_fit2<span class="op">$</span>confusion)) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(train_dat)</code></pre>
-<pre><code>## [1] 0.9205362</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="supervised-machine-learning-part-i.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(rf_fit2<span class="sc">$</span>confusion)) <span class="sc">/</span> <span class="fu">nrow</span>(train_dat)</span></code></pre></div>
+<pre><code>## [1] 0.9205</code></pre>
 <p>As we did for the decision trees, we can check the importance of the predictors in the model, using <code>importance()</code> and <code>varImpPlot()</code>. With <code>importance()</code>, we will first import the importance measures, turn it into a data.frame, save the row names as predictor names, and finally sort the data by MeanDecreaseGini (or, you can also see the basic output using only <code>importance(rf_fit2)</code>)</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">importance</span>(rf_fit2) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Predictors =</span> <span class="kw">row.names</span>(.)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(MeanDecreaseGini))</code></pre>
-<pre><code>##        High       Low MeanDecreaseAccuracy MeanDecreaseGini Predictors
-## 1 28.659419 33.636045            39.132181        3483.8309       math
-## 2 36.009283 34.864208            47.182695        2747.9847    reading
-## 3  1.737624  1.235376             1.906881         362.2179      EPIST
-## 4  4.234494  6.218419             7.870379         292.6858   ENVAWARE
-## 5  5.395840  3.214590             6.759172         281.1615       ESCS
-## 6  6.820185  6.218776            11.009217         218.7035    HOMEPOS
-## 7  6.795979  9.105067            10.887967         197.7090     WEALTH
-## 8  5.246056  3.811507             6.574882         161.3102     ICTRES
-## 9  7.454470  1.509708             5.713732         133.4999     HEDRES</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(rf_fit2, 
-           <span class="dt">main =</span> <span class="st">&quot;Importance of Variables for Science Performance&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="supervised-machine-learning-part-i.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(rf_fit2) <span class="sc">%&gt;%</span></span>
+<span id="cb178-2"><a href="supervised-machine-learning-part-i.html#cb178-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb178-3"><a href="supervised-machine-learning-part-i.html#cb178-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Predictors =</span> <span class="fu">row.names</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb178-4"><a href="supervised-machine-learning-part-i.html#cb178-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(MeanDecreaseGini))</span></code></pre></div>
+<pre><code>##            High    Low MeanDecreaseAccuracy MeanDecreaseGini Predictors
+## math     28.659 33.636               39.132           3483.8       math
+## reading  36.009 34.864               47.183           2748.0    reading
+## EPIST     1.738  1.235                1.907            362.2      EPIST
+## ENVAWARE  4.234  6.218                7.870            292.7   ENVAWARE
+## ESCS      5.396  3.215                6.759            281.2       ESCS
+## HOMEPOS   6.820  6.219               11.009            218.7    HOMEPOS
+## WEALTH    6.796  9.105               10.888            197.7     WEALTH
+## ICTRES    5.246  3.812                6.575            161.3     ICTRES
+## HEDRES    7.454  1.510                5.714            133.5     HEDRES</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="supervised-machine-learning-part-i.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf_fit2, </span>
+<span id="cb180-2"><a href="supervised-machine-learning-part-i.html#cb180-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">main =</span> <span class="st">&quot;Importance of Variables for Science Performance&quot;</span>)</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-21-1.png" width="100%" /></p>
 <p>The output shows different importance measures for the predictors that we used in the model. <code>MeanDecreaseAccuracy</code> and <code>MeanDecreaseGini</code> represent the overall classification error rate (or, mean squared error for regression) and the total decrease in node impurities from splitting on the variable, averaged over all trees. In the output, math and reading are the two predictors that seem to influence the model performance substantially, whereas EPIST and HEDRES are the least important variables. <code>varImpPlot()</code> presents the same information visually.</p>
 <p>Next, we check the confusion matrix to see the accuracy, sensitivity, and specificity of our model.</p>
-<pre class="sourceCode r"><code class="sourceCode r">rf_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(rf_fit2, test_dat) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">science_perf =</span> <span class="kw">as.factor</span>(<span class="st">`</span><span class="dt">.</span><span class="st">`</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(science_perf)
-  
-<span class="kw">confusionMatrix</span>(rf_pred<span class="op">$</span>science_perf, test_dat<span class="op">$</span>science_perf)</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="supervised-machine-learning-part-i.html#cb181-1" aria-hidden="true" tabindex="-1"></a>rf_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_fit2, test_dat) <span class="sc">%&gt;%</span></span>
+<span id="cb181-2"><a href="supervised-machine-learning-part-i.html#cb181-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb181-3"><a href="supervised-machine-learning-part-i.html#cb181-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">science_perf =</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">.</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb181-4"><a href="supervised-machine-learning-part-i.html#cb181-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(science_perf)</span>
+<span id="cb181-5"><a href="supervised-machine-learning-part-i.html#cb181-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb181-6"><a href="supervised-machine-learning-part-i.html#cb181-6" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(rf_pred<span class="sc">$</span>science_perf, test_dat<span class="sc">$</span>science_perf)</span></code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction High  Low
 ##       High 4058  274
 ##       Low   270 2495
-##                                           
-##                Accuracy : 0.9233          
-##                  95% CI : (0.9169, 0.9294)
-##     No Information Rate : 0.6098          
-##     P-Value [Acc &gt; NIR] : &lt;2e-16          
-##                                           
-##                   Kappa : 0.8389          
-##  Mcnemar&#39;s Test P-Value : 0.8977          
-##                                           
-##             Sensitivity : 0.9376          
-##             Specificity : 0.9010          
-##          Pos Pred Value : 0.9367          
-##          Neg Pred Value : 0.9024          
-##              Prevalence : 0.6098          
-##          Detection Rate : 0.5718          
-##    Detection Prevalence : 0.6104          
-##       Balanced Accuracy : 0.9193          
-##                                           
-##        &#39;Positive&#39; Class : High            
+##                                         
+##                Accuracy : 0.923         
+##                  95% CI : (0.917, 0.929)
+##     No Information Rate : 0.61          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16        
+##                                         
+##                   Kappa : 0.839         
+##                                         
+##  Mcnemar&#39;s Test P-Value : 0.898         
+##                                         
+##             Sensitivity : 0.938         
+##             Specificity : 0.901         
+##          Pos Pred Value : 0.937         
+##          Neg Pred Value : 0.902         
+##              Prevalence : 0.610         
+##          Detection Rate : 0.572         
+##    Detection Prevalence : 0.610         
+##       Balanced Accuracy : 0.919         
+##                                         
+##        &#39;Positive&#39; Class : High          
 ## </code></pre>
 <p>The results show that the accuracy is quite high (<span class="math inline">\(92\%\)</span>). Similarly, sensitivity and specificity are also very high. This is not necessarily surprising because we already knew that the math and reading scores are highly correlated with the science performance. Also, our decision tree model yielded very similar results.</p>
 <p>Finally, let’s visualize the classification results using <code>ggplot2</code>. First, we will create a new dataset called <code>rf_class</code> with the predicted and actual classifications (from the test data) based on the random forest model. Then, we will visualize the correct and incorrect classifications using a bar chart and a point plot with jittering.</p>
-<pre class="sourceCode r"><code class="sourceCode r">rf_class &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">actual =</span> test_dat<span class="op">$</span>science_perf,
-                      <span class="dt">predicted =</span> rf_pred<span class="op">$</span>science_perf) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Status =</span> <span class="kw">ifelse</span>(actual <span class="op">==</span><span class="st"> </span>predicted, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>))
-
-<span class="kw">ggplot</span>(<span class="dt">data =</span> rf_class, 
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> predicted, <span class="dt">fill =</span> Status)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Predicted Science Performance&quot;</span>,
-       <span class="dt">y =</span> <span class="st">&quot;Actual Science Performance&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="supervised-machine-learning-part-i.html#cb183-1" aria-hidden="true" tabindex="-1"></a>rf_class <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">actual =</span> test_dat<span class="sc">$</span>science_perf,</span>
+<span id="cb183-2"><a href="supervised-machine-learning-part-i.html#cb183-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">predicted =</span> rf_pred<span class="sc">$</span>science_perf) <span class="sc">%&gt;%</span></span>
+<span id="cb183-3"><a href="supervised-machine-learning-part-i.html#cb183-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Status =</span> <span class="fu">ifelse</span>(actual <span class="sc">==</span> predicted, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span>
+<span id="cb183-4"><a href="supervised-machine-learning-part-i.html#cb183-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb183-5"><a href="supervised-machine-learning-part-i.html#cb183-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> rf_class, </span>
+<span id="cb183-6"><a href="supervised-machine-learning-part-i.html#cb183-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> predicted, <span class="at">fill =</span> Status)) <span class="sc">+</span></span>
+<span id="cb183-7"><a href="supervised-machine-learning-part-i.html#cb183-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb183-8"><a href="supervised-machine-learning-part-i.html#cb183-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Predicted Science Performance&quot;</span>,</span>
+<span id="cb183-9"><a href="supervised-machine-learning-part-i.html#cb183-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Actual Science Performance&quot;</span>) <span class="sc">+</span></span>
+<span id="cb183-10"><a href="supervised-machine-learning-part-i.html#cb183-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-23-1.png" width="100%" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> rf_class, 
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> predicted, <span class="dt">y =</span> actual, 
-                     <span class="dt">color =</span> Status, <span class="dt">shape =</span> Status)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Predicted Science Performance&quot;</span>,
-       <span class="dt">y =</span> <span class="st">&quot;Actual Science Performance&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="supervised-machine-learning-part-i.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> rf_class, </span>
+<span id="cb184-2"><a href="supervised-machine-learning-part-i.html#cb184-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> predicted, <span class="at">y =</span> actual, </span>
+<span id="cb184-3"><a href="supervised-machine-learning-part-i.html#cb184-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> Status, <span class="at">shape =</span> Status)) <span class="sc">+</span></span>
+<span id="cb184-4"><a href="supervised-machine-learning-part-i.html#cb184-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb184-5"><a href="supervised-machine-learning-part-i.html#cb184-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Predicted Science Performance&quot;</span>,</span>
+<span id="cb184-6"><a href="supervised-machine-learning-part-i.html#cb184-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Actual Science Performance&quot;</span>) <span class="sc">+</span></span>
+<span id="cb184-7"><a href="supervised-machine-learning-part-i.html#cb184-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="big-data-in-r_files/figure-html/ch6-24-1.png" width="100%" /></p>
 <p>Like decision trees, random forests can also be used for cross-validation, using the package <code>rfUtilities</code> that utilizes the objects returned from the <code>randomForest()</code> function. Below we show how cross-validation would work for random forests (output is not shown). Using the <code>randomForest</code> object that we estimated earlier (i.e.,, <code>rf_fit2</code>), we can run cross validations as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;rfUtilities&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;rfUtilities&quot;</span>)
-
-rf_fit2_cv &lt;-<span class="st"> </span><span class="kw">rf.crossValidation</span>(
-  <span class="dt">x =</span> rf_fit2, 
-  <span class="dt">xdata =</span> train_dat,
-  <span class="dt">p=</span><span class="fl">0.10</span>, <span class="co"># Proportion of data to test (the rest is training)</span>
-  <span class="dt">n=</span><span class="dv">10</span>,   <span class="co"># Number of cross validation samples</span>
-  <span class="dt">ntree =</span> <span class="dv">50</span>)   
-
-
-<span class="co"># Plot cross validation verses model producers accuracy</span>
-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) 
-<span class="kw">plot</span>(rf_fit2_cv, <span class="dt">type =</span> <span class="st">&quot;cv&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;CV producers accuracy&quot;</span>)
-<span class="kw">plot</span>(rf_fit2_cv, <span class="dt">type =</span> <span class="st">&quot;model&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Model producers accuracy&quot;</span>)
-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) 
-
-<span class="co"># Plot cross validation verses model oob</span>
-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) 
-<span class="kw">plot</span>(rf_fit2_cv, <span class="dt">type =</span> <span class="st">&quot;cv&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;oob&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;CV oob error&quot;</span>)
-<span class="kw">plot</span>(rf_fit2_cv, <span class="dt">type =</span> <span class="st">&quot;model&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;oob&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Model oob error&quot;</span>)    
-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) </code></pre>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="supervised-machine-learning-part-i.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rfUtilities&quot;</span>)</span>
+<span id="cb185-2"><a href="supervised-machine-learning-part-i.html#cb185-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;rfUtilities&quot;</span>)</span>
+<span id="cb185-3"><a href="supervised-machine-learning-part-i.html#cb185-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-4"><a href="supervised-machine-learning-part-i.html#cb185-4" aria-hidden="true" tabindex="-1"></a>rf_fit2_cv <span class="ot">&lt;-</span> <span class="fu">rf.crossValidation</span>(</span>
+<span id="cb185-5"><a href="supervised-machine-learning-part-i.html#cb185-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> rf_fit2, </span>
+<span id="cb185-6"><a href="supervised-machine-learning-part-i.html#cb185-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xdata =</span> train_dat,</span>
+<span id="cb185-7"><a href="supervised-machine-learning-part-i.html#cb185-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">p=</span><span class="fl">0.10</span>, <span class="co"># Proportion of data to test (the rest is training)</span></span>
+<span id="cb185-8"><a href="supervised-machine-learning-part-i.html#cb185-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="dv">10</span>,   <span class="co"># Number of cross validation samples</span></span>
+<span id="cb185-9"><a href="supervised-machine-learning-part-i.html#cb185-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ntree =</span> <span class="dv">50</span>)   </span>
+<span id="cb185-10"><a href="supervised-machine-learning-part-i.html#cb185-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-11"><a href="supervised-machine-learning-part-i.html#cb185-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-12"><a href="supervised-machine-learning-part-i.html#cb185-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cross validation verses model producers accuracy</span></span>
+<span id="cb185-13"><a href="supervised-machine-learning-part-i.html#cb185-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span>
+<span id="cb185-14"><a href="supervised-machine-learning-part-i.html#cb185-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rf_fit2_cv, <span class="at">type =</span> <span class="st">&quot;cv&quot;</span>, <span class="at">main =</span> <span class="st">&quot;CV producers accuracy&quot;</span>)</span>
+<span id="cb185-15"><a href="supervised-machine-learning-part-i.html#cb185-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rf_fit2_cv, <span class="at">type =</span> <span class="st">&quot;model&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Model producers accuracy&quot;</span>)</span>
+<span id="cb185-16"><a href="supervised-machine-learning-part-i.html#cb185-16" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) </span>
+<span id="cb185-17"><a href="supervised-machine-learning-part-i.html#cb185-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-18"><a href="supervised-machine-learning-part-i.html#cb185-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cross validation verses model oob</span></span>
+<span id="cb185-19"><a href="supervised-machine-learning-part-i.html#cb185-19" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span>
+<span id="cb185-20"><a href="supervised-machine-learning-part-i.html#cb185-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rf_fit2_cv, <span class="at">type =</span> <span class="st">&quot;cv&quot;</span>, <span class="at">stat =</span> <span class="st">&quot;oob&quot;</span>, <span class="at">main =</span> <span class="st">&quot;CV oob error&quot;</span>)</span>
+<span id="cb185-21"><a href="supervised-machine-learning-part-i.html#cb185-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rf_fit2_cv, <span class="at">type =</span> <span class="st">&quot;model&quot;</span>, <span class="at">stat =</span> <span class="st">&quot;oob&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Model oob error&quot;</span>)    </span>
+<span id="cb185-22"><a href="supervised-machine-learning-part-i.html#cb185-22" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) </span></code></pre></div>
 
 </div>
 </div>
@@ -1062,11 +1091,13 @@ rf_fit2_cv &lt;-<span class="st"> </span><span class="kw">rf.crossValidation</sp
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1074,12 +1105,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1091,6 +1121,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1109,8 +1143,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
